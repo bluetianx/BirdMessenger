@@ -1,0 +1,8 @@
+src/.idea
+src/BirdMessenger/obj
+src/BirdMessenger/bin
+samples/.idea
+samples/demo/.idea
+samples/demo/demo/bin
+samples/demo/demo/obj
+samples/demo/demo/test.dmg
