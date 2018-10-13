@@ -10,7 +10,7 @@ namespace BirdMessenger.Configuration
     /// </summary>
     public class UploadConfig
     {
-        public Uri CreateUrl {get;set;}
+        public Uri ServerUrl {get;set;}
 
         public Uri UploadUrl{get;set;}
 

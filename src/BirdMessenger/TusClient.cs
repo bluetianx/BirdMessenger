@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BirdMessenger.Configuration;
 using BirdMessenger.Core;
 
@@ -22,6 +23,10 @@ namespace BirdMessenger
             return _UploadConfig.UploadUrl;
         }
 
+        public Dictionary<string,string> GetServerInfo()
+        {
+            return _uploader.GetServerInfo();
+        }
         public void UploadFile()
         {
             _uploader.UploadFile();

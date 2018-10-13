@@ -15,10 +15,13 @@ namespace BirdMessenger.Core
 
         public Uploader(UploadConfig uploadConfig)=> _UploadConfig=uploadConfig;
 
+        /// <summary>
+        /// create 
+        /// </summary>
         public void Create()
         {
             Uri uRl =null;
-            HttpWebRequest request = WebRequest.Create(_UploadConfig.CreateUrl) as HttpWebRequest;
+            HttpWebRequest request = WebRequest.Create(_UploadConfig.ServerUrl) as HttpWebRequest;
             request.Method = "POST";
             request.Headers.Add("Tus-Resumable", "1.0.0");
             request.Headers.Add("Upload-Length",_UploadConfig.UploadFile.Length.ToString());
@@ -48,7 +51,7 @@ namespace BirdMessenger.Core
                 {
                     if(! uRl.IsAbsoluteUri)
                     {
-                        uRl=new Uri(_UploadConfig.CreateUrl,uRl);
+                        uRl=new Uri(_UploadConfig.ServerUrl,uRl);
                     }
                 }
                 else
@@ -137,6 +140,26 @@ namespace BirdMessenger.Core
 
                 }
             }
+        }
+
+        public Dictionary<string,string> GetServerInfo()
+        {
+            Dictionary<string,string> serverInfo=new Dictionary<string, string>();
+            HttpWebRequest request = WebRequest.Create(_UploadConfig.ServerUrl) as HttpWebRequest;
+            request.Method="OPTIONS";
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            if(response.StatusCode != HttpStatusCode.NoContent || response.StatusCode != HttpStatusCode.OK)
+            {
+                throw new Exception($"options request failed");
+            }
+
+            serverInfo["Tus-Resumable"]=response.Headers["Tus-Resumable"];
+            serverInfo["Tus-Version"] = response.Headers["Tus-Version"];
+            serverInfo["Tus-Max-Size"] = response.Headers["Tus-Max-Size"];
+            serverInfo["Tus-Extension"]= response.Headers["Tus-Extension"];
+            
+            return serverInfo;
         }
         private string CreateMeta()
         {

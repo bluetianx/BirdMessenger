@@ -12,7 +12,7 @@ namespace demo
         {
             FileInfo fileInfo = new FileInfo("test.dmg");
             UploadConfig uploadConfig =new UploadConfig();
-            uploadConfig.CreateUrl = new Uri(@"http://localhost:1080/uploads");
+            uploadConfig.ServerUrl = new Uri(@"http://localhost:1080/uploads");
             uploadConfig.UploadFile= fileInfo;
             uploadConfig.Uploading=printUploadProcess;
             uploadConfig.PreCreateRequest=preCreateFile;
