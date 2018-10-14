@@ -5,6 +5,24 @@
 BirdMessenger 中文名为：青鸟——相传为西王母的信使。
 BirdMessnger 是一个基于.NET Standard 的 Tus协议的实现客户端。
 
+## Features
+
+### 协议实现
+
+* Create
+* HEAD
+* PATCH
+
+## Install
+
+Package manager
+
+``PM> Install-Package BirdMessenger -Version 0.1.0``
+
+.NET CLI
+
+``> dotnet add package BirdMessenger --version 0.1.0``
+
 ## Getting Started
 
 ```C#
