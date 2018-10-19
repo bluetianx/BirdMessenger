@@ -25,7 +25,7 @@ namespace BirdMessenger.Core
             request.Method = "POST";
             request.Headers.Add("Tus-Resumable", "1.0.0");
             request.Headers.Add("Upload-Length",_UploadConfig.UploadFile.Length.ToString());
-            request.Headers.Add("Content-Length", "0");
+            request.ContentLength=0;
             request.Headers.Add("Upload-Metadata",this.CreateMeta());
 
             if(_UploadConfig.PreCreateRequest !=null)
@@ -158,7 +158,7 @@ namespace BirdMessenger.Core
             serverInfo["Tus-Version"] = response.Headers["Tus-Version"];
             serverInfo["Tus-Max-Size"] = response.Headers["Tus-Max-Size"];
             serverInfo["Tus-Extension"]= response.Headers["Tus-Extension"];
-            
+
             return serverInfo;
         }
         private string CreateMeta()
