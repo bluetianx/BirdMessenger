@@ -46,4 +46,4 @@ FileInfo fileInfo = new FileInfo("test.dmg");
 
 ## 谁在使用
 
-* [中国石油]('https://www.cnpc.com.cn/cnpc/index.shtml')
+* [中国石油](https://www.cnpc.com.cn/cnpc/index.shtml)
