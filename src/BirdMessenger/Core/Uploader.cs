@@ -38,7 +38,7 @@ namespace BirdMessenger.Core
             }
 
             HttpWebResponse response = (HttpWebResponse) request.GetResponse ();
-
+            request?.Abort();
             if (response.StatusCode == HttpStatusCode.Created)
             {
                 string responseUrl = response.Headers["Location"];
@@ -87,6 +87,7 @@ namespace BirdMessenger.Core
 
             HttpWebResponse response = (HttpWebResponse) request.GetResponse ();
             int offset = int.Parse (response.Headers["Upload-Offset"]);
+            request?.Abort();
             int uploadSize = _UploadConfig.MaxChunkSize;
             using (var fs = new FileStream (_UploadConfig.UploadFile.FullName, FileMode.Open, FileAccess.Read))
             {
@@ -100,6 +101,7 @@ namespace BirdMessenger.Core
                     request.ContentType = "application/offset+octet-stream";
                     request.KeepAlive = false;
                     request.AutomaticDecompression = DecompressionMethods.GZip;
+                    request.Timeout=10*1000;
 
                     if (fs.Length == offset)
                     {
@@ -133,6 +135,7 @@ namespace BirdMessenger.Core
 
                     response = (HttpWebResponse) request.GetResponse ();
                     offset = int.Parse (response.Headers["Upload-Offset"]);
+                    request?.Abort();
 
                     if (_UploadConfig.Uploading != null)
                     {
