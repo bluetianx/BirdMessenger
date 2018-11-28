@@ -12,6 +12,7 @@ BirdMessnger 是一个基于.NET Standard 的 Tus协议的实现客户端。
 * Create
 * HEAD
 * PATCH
+* OPTIONS
 
 ## Install
 
