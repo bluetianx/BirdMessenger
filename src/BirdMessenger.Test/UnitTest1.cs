@@ -13,7 +13,7 @@ namespace BirdMessenger.Test
 
         }
 
-        public static bool CompareFile(string sourceFile,string targetFile)
+        public static bool CompareFileByFilePath(string sourceFile,string targetFile)
         {
             byte[] sourceData = File.ReadAllBytes(sourceFile);
             byte[] targetData = File.ReadAllBytes(targetFile);
@@ -26,6 +26,16 @@ namespace BirdMessenger.Test
             return resultCompare;
         }
 
+        public static bool CompareFileByHash(string hash,string targetFile)
+        {
+            byte[] data = File.ReadAllBytes(targetFile);
+            bool resultCompare=false;
+            using(SHA256 sHA256=SHA256.Create())
+            {
+                resultCompare= VerifyHash(sHA256,hash,data);
+            }
+            return resultCompare;
+        }
         public static string GetHash(HashAlgorithm hashAlgorithm,byte[] data)
         {
             byte[] hashData = hashAlgorithm.ComputeHash(data);
