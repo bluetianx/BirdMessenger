@@ -8,16 +8,18 @@ namespace demo
 {
     class Program
     {
+        public static UploadConfig uploadConfig;
         static void Main(string[] args)
         {
             FileInfo fileInfo = new FileInfo("test.dmg");
-            UploadConfig uploadConfig =new UploadConfig();
+            uploadConfig =new UploadConfig();
             uploadConfig.ServerUrl = new Uri(@"http://localhost:1080/uploads");
             uploadConfig.UploadFile= fileInfo;
             uploadConfig.Uploading=printUploadProcess;
             uploadConfig.PreCreateRequest=preCreateFile;
             uploadConfig.PreUploadRequest= preUploadFile;
             uploadConfig.UploadFinish=UploadFinish;
+            uploadConfig.OnCancel=Cancel;
             TusClient  tusClient = new TusClient(uploadConfig);
 
             var url = tusClient.Create();
@@ -28,7 +30,9 @@ namespace demo
 
         public static void printUploadProcess(long offset,long total)
         {
+
             Console.WriteLine($"finished:{offset},total:{total} ");
+            uploadConfig.IsCancel=true;
         }
 
         public static void preCreateFile(HttpWebRequest httpWebRequest)
@@ -44,6 +48,11 @@ namespace demo
         public static void UploadFinish(Uri url)
         {
             Console.WriteLine($"uploadfinish :{url.ToString()}");
+        }
+
+        public static void Cancel(Uri url)
+        {
+            Console.WriteLine($"{url.ToString()} canceled...");
         }
     }
 }

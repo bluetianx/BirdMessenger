@@ -3,6 +3,7 @@ src/BirdMessenger/obj
 src/BirdMessenger/bin
 src/BirdMessenger.Test/obj
 src/BirdMessenger.Test/bin
+src/BirdMessenger.Test/TestFile
 samples/.idea
 samples/demo/.idea
 samples/demo/demo/bin
@@ -10,3 +11,4 @@ samples/demo/demo/obj
 samples/demo/demo/test.dmg
 samples/demo/demoByNuget
 samples/testSite/node_modules
+samples/testSite/files/*

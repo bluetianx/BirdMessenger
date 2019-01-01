@@ -37,6 +37,7 @@ namespace BirdMessenger.Core
                 if(_UploadConfig.OnCancel != null)
                 {
                     _UploadConfig.OnCancel(null);
+                    return;
                 }
             }
 
@@ -88,6 +89,7 @@ namespace BirdMessenger.Core
                 if(_UploadConfig.OnCancel != null)
                 {
                     _UploadConfig.OnCancel(_UploadConfig.UploadUrl);
+                    return;
                 }
             }
 
@@ -139,6 +141,7 @@ namespace BirdMessenger.Core
                         if(_UploadConfig.OnCancel!=null)
                         {
                             _UploadConfig.OnCancel(_UploadConfig.UploadUrl);
+                            return;
                         }
                     }
 

@@ -10,7 +10,7 @@ namespace BirdMessenger.Test
         [Fact]
         public void Test1()
         {
-
+            
         }
 
         public static bool CompareFileByFilePath(string sourceFile,string targetFile)
