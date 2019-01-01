@@ -34,7 +34,10 @@ namespace BirdMessenger.Core
             }
             if (_UploadConfig.IsCancel)
             {
-                throw new Exception ("create request has been canceled");
+                if(_UploadConfig.OnCancel != null)
+                {
+                    _UploadConfig.OnCancel(null);
+                }
             }
 
             HttpWebResponse response = (HttpWebResponse) request.GetResponse ();
@@ -82,7 +85,10 @@ namespace BirdMessenger.Core
             }
             if (_UploadConfig.IsCancel)
             {
-                throw new Exception ("upload operate has been canceled");
+                if(_UploadConfig.OnCancel != null)
+                {
+                    _UploadConfig.OnCancel(_UploadConfig.UploadUrl);
+                }
             }
 
             HttpWebResponse response = (HttpWebResponse) request.GetResponse ();
@@ -130,7 +136,10 @@ namespace BirdMessenger.Core
 
                     if (_UploadConfig.IsCancel)
                     {
-                        throw new Exception ("upload operate has been canceled");
+                        if(_UploadConfig.OnCancel!=null)
+                        {
+                            _UploadConfig.OnCancel(_UploadConfig.UploadUrl);
+                        }
                     }
 
                     response = (HttpWebResponse) request.GetResponse ();

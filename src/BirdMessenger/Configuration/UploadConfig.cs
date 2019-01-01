@@ -45,5 +45,7 @@ namespace BirdMessenger.Configuration
 
         public UploadFinishDel UploadFinish=null;
 
+        public Action<Uri> OnCancel=null;
+
     }
 }
