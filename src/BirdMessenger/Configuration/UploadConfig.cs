@@ -30,20 +30,20 @@ namespace BirdMessenger.Configuration
 
         public delegate void UploadingDel(long bytesFinished,long bytesTotal);
 
-        public UploadingDel Uploading=null;
+        public Action<long,long> Uploading=null;
 
 
         public delegate void PreCreateRequestDel(HttpWebRequest httpWebRequest);
 
-        public PreCreateRequestDel PreCreateRequest=null;
+        public Action<HttpWebRequest> PreCreateRequest=null;
 
         public delegate void PreUploadRequestDel(HttpWebRequest httpWebRequest);
 
-        public PreUploadRequestDel PreUploadRequest=null;
+        public Action<HttpWebRequest> PreUploadRequest=null;
 
         public delegate void UploadFinishDel(Uri uploadFileUrl);
 
-        public UploadFinishDel UploadFinish=null;
+        public Action<Uri> UploadFinish=null;
 
         public Action<Uri> OnCancel=null;
 
