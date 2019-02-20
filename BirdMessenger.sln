@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdMessenger", "src\BirdMessenger\BirdMessenger.csproj", "{2888E323-3669-4FC5-9D64-368324E73960}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdMessenger.Test", "src\BirdMessenger.Test\BirdMessenger.Test.csproj", "{99AE3DD1-F2C0-4A04-A3CD-FAB05C68F070}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demo", "samples\demo\demo\demo.csproj", "{5915C06E-A92E-42BA-8572-F06E2676F8F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demoByNuget", "samples\demo\demoByNuget\demoByNuget.csproj", "{59DEFC8B-8BD6-4CCE-B3EB-AE3D1C2DBDD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2888E323-3669-4FC5-9D64-368324E73960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2888E323-3669-4FC5-9D64-368324E73960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2888E323-3669-4FC5-9D64-368324E73960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2888E323-3669-4FC5-9D64-368324E73960}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99AE3DD1-F2C0-4A04-A3CD-FAB05C68F070}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99AE3DD1-F2C0-4A04-A3CD-FAB05C68F070}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99AE3DD1-F2C0-4A04-A3CD-FAB05C68F070}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99AE3DD1-F2C0-4A04-A3CD-FAB05C68F070}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5915C06E-A92E-42BA-8572-F06E2676F8F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5915C06E-A92E-42BA-8572-F06E2676F8F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5915C06E-A92E-42BA-8572-F06E2676F8F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5915C06E-A92E-42BA-8572-F06E2676F8F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59DEFC8B-8BD6-4CCE-B3EB-AE3D1C2DBDD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59DEFC8B-8BD6-4CCE-B3EB-AE3D1C2DBDD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59DEFC8B-8BD6-4CCE-B3EB-AE3D1C2DBDD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59DEFC8B-8BD6-4CCE-B3EB-AE3D1C2DBDD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

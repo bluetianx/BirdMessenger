@@ -2,12 +2,76 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="BirdMessenger.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="samples/demo/demo" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="demo.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.1" t="Include">
+              <e p="demo.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="test.dmg" t="Include" />
+      </e>
+      <e p="samples/demo/demoByNuget" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="demoByNuget.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.1" t="Include">
+              <e p="demoByNuget.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Program.cs" t="Include" />
+      </e>
       <e p="samples/testSite/node_modules" t="ExcludeRecursive">
         <e p="express" t="IncludeRecursive" />
         <e p="tus-node-server" t="IncludeRecursive" />
       </e>
+      <e p="src/BirdMessenger" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BirdMessenger.csproj" t="IncludeRecursive" />
+        <e p="Configuration" t="Include">
+          <e p="UploadConfig.cs" t="Include" />
+        </e>
+        <e p="Core" t="Include">
+          <e p="Uploader.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="BirdMessenger.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TusClient.cs" t="Include" />
+      </e>
+      <e p="src/BirdMessenger.Test" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="BirdMessenger.Test.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.2" t="Include">
+              <e p="BirdMessenger.Test.AssemblyInfo.cs" t="Include" />
+              <e p="BirdMessenger.Test.Program.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="TestFile" t="Include">
+          <e p="test.dmg" t="Include" />
+        </e>
+        <e p="UnitTest1.cs" t="Include" />
+      </e>
     </e>
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.0/build/netcoreapp1.0/xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.0/build/netcoreapp1.0/xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.0/build/netcoreapp1.0/xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
     <e p="$USER_HOME$/Library/Caches/Rider2018.3/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2018.3/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_BirdMessenger.-1210683429.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2018.3/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_BirdMessenger.-1909882227.00" t="ExcludeRecursive" />
   </component>
 </project>

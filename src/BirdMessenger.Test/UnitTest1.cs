@@ -1,7 +1,9 @@
 using System;
+using System.IO;
 using Xunit;
 using BirdMessenger;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace BirdMessenger.Test
 {
@@ -32,7 +34,7 @@ namespace BirdMessenger.Test
             bool resultCompare=false;
             using(SHA256 sHA256=SHA256.Create())
             {
-                resultCompare= VerifyHash(sHA256,hash,data);
+                resultCompare= VerifyHash(sHA256,data,hash);
             }
             return resultCompare;
         }
