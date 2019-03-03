@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd04d886-e136-4124-9376-3006d927d41f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BirdMessenger.Test/UnitTest1.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger.Test/UnitTest1.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +38,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/BirdMessenger.sln">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="50">
@@ -50,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/UnitTest1.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="36" column="58" selection-start-line="36" selection-start-column="58" selection-end-line="36" selection-end-column="58" />
+            <state relative-caret-position="73">
+              <caret line="25" column="28" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
               <folding>
                 <marker date="1550672092019" expanded="false" signature="6:119" ph="..." />
                 <marker date="1550672092019" expanded="true" signature="149:1849" ph="{...}" />
@@ -96,23 +93,30 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="1280" />
-    <option name="width" value="2048" />
-    <option name="height" value="1152" />
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="SolutionExplorer" proportions="" version="1">
-      <autoscrollFromSource FileSystemExplorer="true" />
+    <navigator currentView="FileSystemExplorer" proportions="" version="1">
+      <autoscrollFromSource SolutionExplorer="true" FileSystemExplorer="true" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AssemblyExplorer" />
       <pane id="SolutionExplorer">
         <subPane>
           <expand>
             <path>
               <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
               <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="src" type="9a108dff:SolutionExplorerFileNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="src" type="9a108dff:SolutionExplorerFileNode" />
+              <item name="BirdMessenger.Test" type="9a108dff:SolutionExplorerFileNode" />
             </path>
           </expand>
           <select />
@@ -126,10 +130,16 @@
               <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
               <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
             </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="samples" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="AssemblyExplorer" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -153,7 +163,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.Unnamed">
+  <component name="RunManager" selected=".NET Project.demo">
     <configuration name="demo" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="$PROJECT_DIR$/samples/demo/demo/bin/Debug/netcoreapp2.1/demo.dll" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -229,12 +239,21 @@
       <updated>1546777088987</updated>
       <workItem from="1546777090663" duration="1469000" />
       <workItem from="1546780905031" duration="133000" />
-      <workItem from="1550671833521" duration="253000" />
+      <workItem from="1550671833521" duration="1474000" />
+      <workItem from="1551619660752" duration="89000" />
     </task>
+    <task id="LOCAL-00001" summary="增加解决方案">
+      <created>1550672384390</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1550672384390</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1855000" />
+    <option name="totallyTimeSpent" value="3165000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -252,7 +271,7 @@
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.17043619" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.17124394" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3295562" />
@@ -280,6 +299,10 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="增加解决方案" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加解决方案" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -313,10 +336,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/BirdMessenger.sln">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/BirdMessenger.Test.csproj">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/UnitTest1.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="36" column="58" selection-start-line="36" selection-start-column="58" selection-end-line="36" selection-end-column="58" />
+        <state relative-caret-position="73">
+          <caret line="25" column="28" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
           <folding>
             <marker date="1550672092019" expanded="false" signature="6:119" ph="..." />
             <marker date="1550672092019" expanded="true" signature="149:1849" ph="{...}" />
@@ -330,16 +363,6 @@
             <marker date="1550672092019" expanded="true" signature="1396:1485" ph="{...}" />
             <marker date="1550672092019" expanded="true" signature="1629:1841" ph="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/BirdMessenger.Test.csproj">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/BirdMessenger.sln">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
         </state>
       </provider>
     </entry>
