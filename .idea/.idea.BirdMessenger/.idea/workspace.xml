@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cd04d886-e136-4124-9376-3006d927d41f" name="Default Changelist" comment="">
+    <list default="true" id="cd04d886-e136-4124-9376-3006d927d41f" name="Default Changelist" comment="添加接口">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BirdMessenger/BirdMessenger.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger/BirdMessenger.csproj" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,59 +13,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Configuration/UploadConfig.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
+            <state relative-caret-position="225">
+              <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
               <folding>
-                <marker date="1546778987539" expanded="false" signature="6:82" ph="..." />
-                <marker date="1546778987539" expanded="true" signature="121:1192" ph="{...}" />
-                <marker date="1546778987539" expanded="true" signature="128:169" ph="///  ... " />
-                <marker date="1546778987539" expanded="true" signature="199:1190" ph="{...}" />
-                <marker date="1546778987539" expanded="true" signature="295:361" ph="/// default size 1mb  ... " />
-                <marker date="1546778987539" expanded="true" signature="460:509" ph="///  ... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BirdMessenger.sln">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/BirdMessenger.sln">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/UnitTest1.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="25" column="28" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
-              <folding>
-                <marker date="1550672092019" expanded="false" signature="6:119" ph="..." />
-                <marker date="1550672092019" expanded="true" signature="149:1849" ph="{...}" />
-                <marker date="1550672092019" expanded="true" signature="178:1847" ph="{...}" />
-                <marker date="1550672092019" expanded="true" signature="227:260" ph="{...}" />
-                <marker date="1550672092019" expanded="true" signature="347:783" ph="{...}" />
-                <marker date="1550672092019" expanded="true" signature="570:739" ph="{...}" />
-                <marker date="1550672092019" expanded="true" signature="860:1147" ph="{...}" />
-                <marker date="1550672092019" expanded="true" signature="1014:1103" ph="{...}" />
-                <marker date="1550672092019" expanded="true" signature="1225:1536" ph="{...}" />
-                <marker date="1550672092019" expanded="true" signature="1396:1485" ph="{...}" />
-                <marker date="1550672092019" expanded="true" signature="1629:1841" ph="{...}" />
+                <marker date="1554730988811" expanded="false" signature="6:82" ph="..." />
+                <marker date="1554730988811" expanded="true" signature="121:1192" ph="{...}" />
+                <marker date="1554730988811" expanded="true" signature="128:169" ph="///  ... " />
+                <marker date="1554730988811" expanded="true" signature="199:1190" ph="{...}" />
+                <marker date="1554730988811" expanded="true" signature="295:361" ph="/// default size 1mb  ... " />
+                <marker date="1554730988811" expanded="true" signature="460:509" ph="///  ... " />
               </folding>
             </state>
           </provider>
@@ -71,17 +33,97 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/BirdMessenger.Test.csproj">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="250">
+              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Interfaces/ITusCore.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
+              <folding>
+                <marker date="1554732416473" expanded="true" signature="6:47" ph="..." />
+                <marker date="1554732416473" expanded="true" signature="83:452" ph="{...}" />
+                <marker date="1554732416473" expanded="true" signature="90:148" ph="/// Tus core Protocol ... " />
+                <marker date="1554732416473" expanded="true" signature="178:450" ph="{...}" />
+                <marker date="1554732416473" expanded="true" signature="193:375" ph="///  ... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="430">
+              <caret line="105" column="29" selection-start-line="105" selection-start-column="29" selection-end-line="105" selection-end-column="29" />
+              <folding>
+                <marker date="1554730988812" expanded="false" signature="6:117" ph="..." />
+                <marker date="1554730988812" expanded="true" signature="147:7485" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="154:195" ph="///  ... " />
+                <marker date="1554730988812" expanded="true" signature="221:7483" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="366:422" ph="/// create  ... " />
+                <marker date="1554730988812" expanded="true" signature="452:2293" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="952:1038" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="1078:1271" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="1143:1257" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="1446:2111" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="1583:1690" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="1777:1971" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="1839:1953" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="1992:2097" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="2128:2211" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="2328:5674" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="2592:2678" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="2718:2930" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="2783:2916" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="3283:5664" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="3327:5650" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="3911:4184" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="3997:4131" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="4632:4742" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="4819:4935" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="4984:5250" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="5063:5228" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="5496:5631" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="5734:6600" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="6162:6255" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="6637:7477" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="6854:6968" ph="{...}" />
+                <marker date="1554730988812" expanded="true" signature="7091:7363" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BirdMessenger/BirdMessenger.csproj">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger.Test/UnitTest1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Configuration/UploadConfig.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Interfaces/ITusCore.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Interfaces/ITusExtension.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -89,6 +131,7 @@
         <option value="$PROJECT_DIR$/src/BirdMessenger/Configuration/UploadConfig.cs" />
         <option value="$PROJECT_DIR$/src/BirdMessenger.Test/UnitTest1.cs" />
         <option value="$PROJECT_DIR$/BirdMessenger.sln" />
+        <option value="$PROJECT_DIR$/src/BirdMessenger/Interfaces/ITusCore.cs" />
       </list>
     </option>
   </component>
@@ -96,33 +139,15 @@
     <option name="width" value="1280" />
     <option name="height" value="800" />
   </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
-    <navigator currentView="FileSystemExplorer" proportions="" version="1">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
       <autoscrollFromSource SolutionExplorer="true" FileSystemExplorer="true" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="SolutionExplorer">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
-              <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
-            </path>
-            <path>
-              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
-              <item name="src" type="9a108dff:SolutionExplorerFileNode" />
-            </path>
-            <path>
-              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
-              <item name="src" type="9a108dff:SolutionExplorerFileNode" />
-              <item name="BirdMessenger.Test" type="9a108dff:SolutionExplorerFileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-        <option name="show-all-files" value="false" />
-      </pane>
       <pane id="FileSystemExplorer">
         <subPane>
           <expand>
@@ -135,11 +160,92 @@
               <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
               <item name="samples" type="34e6ba20:FileSystemExplorerNode" />
             </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="src" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="src" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="src" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="Configuration" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="src" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="Core" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="src" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="Interfaces" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="src" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="BirdMessenger.Test" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="AssemblyExplorer" />
+      <pane id="SolutionExplorer">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
+              <item name="Core" type="24d0babc:SolutionExplorerModelNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="src" type="9a108dff:SolutionExplorerFileNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="src" type="9a108dff:SolutionExplorerFileNode" />
+              <item name="BirdMessenger" type="9a108dff:SolutionExplorerFileNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="src" type="9a108dff:SolutionExplorerFileNode" />
+              <item name="BirdMessenger" type="9a108dff:SolutionExplorerFileNode" />
+              <item name="Interfaces" type="9a108dff:SolutionExplorerFileNode" />
+            </path>
+            <path>
+              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
+              <item name="src" type="9a108dff:SolutionExplorerFileNode" />
+              <item name="BirdMessenger.Test" type="9a108dff:SolutionExplorerFileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-all-files" value="false" />
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -249,11 +355,18 @@
       <option name="project" value="LOCAL" />
       <updated>1550672384390</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="添加接口">
+      <created>1554733369279</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1554733369279</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3165000" />
+    <option name="totallyTimeSpent" value="7812000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -265,13 +378,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
+    <frame x="1280" y="0" width="2048" height="1152" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.17124394" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.18444666" />
+      <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3295562" />
@@ -279,7 +394,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="NuGet" order="7" />
+      <window_info anchor="bottom" id="NuGet" order="7" weight="0.3295562" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
@@ -293,6 +408,33 @@
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="1" side_tool="true" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Capture Tool" order="3" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.18444666" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3295562" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="NuGet" order="7" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Unit Tests" order="11" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.6246261" visible="true" weight="0.18508026" />
+      <window_info anchor="bottom" id="Event Log" order="13" sideWeight="0.37537387" side_tool="true" weight="0.32938856" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Errors In Solution" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -301,7 +443,8 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <MESSAGE value="增加解决方案" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加解决方案" />
+    <MESSAGE value="添加接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加接口" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -314,28 +457,7 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Configuration/UploadConfig.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
-          <folding>
-            <marker date="1546778987539" expanded="false" signature="6:82" ph="..." />
-            <marker date="1546778987539" expanded="true" signature="121:1192" ph="{...}" />
-            <marker date="1546778987539" expanded="true" signature="128:169" ph="///  ... " />
-            <marker date="1546778987539" expanded="true" signature="199:1190" ph="{...}" />
-            <marker date="1546778987539" expanded="true" signature="295:361" ph="/// default size 1mb  ... " />
-            <marker date="1546778987539" expanded="true" signature="460:509" ph="///  ... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BirdMessenger.sln">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger.sln" />
     <entry file="file://$PROJECT_DIR$/BirdMessenger.sln">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
@@ -344,24 +466,104 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/BirdMessenger.Test.csproj">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/UnitTest1.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="25" column="28" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
+        <state relative-caret-position="217">
+          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Configuration/UploadConfig.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
           <folding>
-            <marker date="1550672092019" expanded="false" signature="6:119" ph="..." />
-            <marker date="1550672092019" expanded="true" signature="149:1849" ph="{...}" />
-            <marker date="1550672092019" expanded="true" signature="178:1847" ph="{...}" />
-            <marker date="1550672092019" expanded="true" signature="227:260" ph="{...}" />
-            <marker date="1550672092019" expanded="true" signature="347:783" ph="{...}" />
-            <marker date="1550672092019" expanded="true" signature="570:739" ph="{...}" />
-            <marker date="1550672092019" expanded="true" signature="860:1147" ph="{...}" />
-            <marker date="1550672092019" expanded="true" signature="1014:1103" ph="{...}" />
-            <marker date="1550672092019" expanded="true" signature="1225:1536" ph="{...}" />
-            <marker date="1550672092019" expanded="true" signature="1396:1485" ph="{...}" />
-            <marker date="1550672092019" expanded="true" signature="1629:1841" ph="{...}" />
+            <marker date="1554730988811" expanded="false" signature="6:82" ph="..." />
+            <marker date="1554730988811" expanded="true" signature="121:1192" ph="{...}" />
+            <marker date="1554730988811" expanded="true" signature="128:169" ph="///  ... " />
+            <marker date="1554730988811" expanded="true" signature="199:1190" ph="{...}" />
+            <marker date="1554730988811" expanded="true" signature="295:361" ph="/// default size 1mb  ... " />
+            <marker date="1554730988811" expanded="true" signature="460:509" ph="///  ... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Interfaces/ITusExtension.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="5" lean-forward="true" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
+          <folding>
+            <marker date="1554731258838" expanded="true" signature="34:94" ph="{...}" />
+            <marker date="1554731258838" expanded="true" signature="71:92" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/BirdMessenger.csproj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Interfaces/ITusCore.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="16" column="33" selection-start-line="16" selection-start-column="33" selection-end-line="16" selection-end-column="33" />
+          <folding>
+            <marker date="1554732416473" expanded="true" signature="6:47" ph="..." />
+            <marker date="1554732416473" expanded="true" signature="83:452" ph="{...}" />
+            <marker date="1554732416473" expanded="true" signature="90:148" ph="/// Tus core Protocol ... " />
+            <marker date="1554732416473" expanded="true" signature="178:450" ph="{...}" />
+            <marker date="1554732416473" expanded="true" signature="193:375" ph="///  ... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="105" column="29" selection-start-line="105" selection-start-column="29" selection-end-line="105" selection-end-column="29" />
+          <folding>
+            <marker date="1554730988812" expanded="false" signature="6:117" ph="..." />
+            <marker date="1554730988812" expanded="true" signature="147:7485" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="154:195" ph="///  ... " />
+            <marker date="1554730988812" expanded="true" signature="221:7483" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="366:422" ph="/// create  ... " />
+            <marker date="1554730988812" expanded="true" signature="452:2293" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="952:1038" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="1078:1271" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="1143:1257" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="1446:2111" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="1583:1690" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="1777:1971" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="1839:1953" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="1992:2097" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="2128:2211" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="2328:5674" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="2592:2678" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="2718:2930" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="2783:2916" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="3283:5664" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="3327:5650" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="3911:4184" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="3997:4131" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="4632:4742" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="4819:4935" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="4984:5250" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="5063:5228" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="5496:5631" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="5734:6600" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="6162:6255" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="6637:7477" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="6854:6968" ph="{...}" />
+            <marker date="1554730988812" expanded="true" signature="7091:7363" ph="{...}" />
           </folding>
         </state>
       </provider>

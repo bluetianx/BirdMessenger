@@ -42,6 +42,10 @@
         <e p="Core" t="Include">
           <e p="Uploader.cs" t="Include" />
         </e>
+        <e p="Interfaces" t="Include">
+          <e p="ITusCore.cs" t="Include" />
+          <e p="ITusExtension.cs" t="Include" />
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netstandard2.0" t="Include">
@@ -62,9 +66,7 @@
             </e>
           </e>
         </e>
-        <e p="TestFile" t="Include">
-          <e p="test.dmg" t="Include" />
-        </e>
+        <e p="TestFile" t="Include" />
         <e p="UnitTest1.cs" t="Include" />
       </e>
     </e>
