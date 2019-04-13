@@ -34,6 +34,10 @@
         <e p="tus-node-server" t="IncludeRecursive" />
       </e>
       <e p="src/BirdMessenger" t="IncludeRecursive">
+        <e p="Abstractions" t="Include">
+          <e p="ITusCore.cs" t="Include" />
+          <e p="ITusExtension.cs" t="Include" />
+        </e>
         <e p="bin" t="ExcludeRecursive" />
         <e p="BirdMessenger.csproj" t="IncludeRecursive" />
         <e p="Configuration" t="Include">
@@ -41,10 +45,6 @@
         </e>
         <e p="Core" t="Include">
           <e p="Uploader.cs" t="Include" />
-        </e>
-        <e p="Interfaces" t="Include">
-          <e p="ITusCore.cs" t="Include" />
-          <e p="ITusExtension.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
