@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cd04d886-e136-4124-9376-3006d927d41f" name="Default Changelist" comment="定义接口" />
+    <list default="true" id="cd04d886-e136-4124-9376-3006d927d41f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +20,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Configuration/UploadConfig.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
+            <state relative-caret-position="-30">
               <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
               <folding>
                 <marker date="1554730988811" expanded="false" signature="6:82" ph="..." />
@@ -30,25 +37,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/BirdMessenger.Test.csproj">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
+            <state>
               <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+            <state relative-caret-position="-75">
+              <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
               <folding>
-                <marker date="1555079732747" expanded="true" signature="6:47" ph="..." />
-                <marker date="1555079732747" expanded="true" signature="85:907" ph="{...}" />
-                <marker date="1555079732747" expanded="true" signature="92:150" ph="/// Tus core Protocol ... " />
-                <marker date="1555079732747" expanded="true" signature="180:905" ph="{...}" />
-                <marker date="1555079732747" expanded="true" signature="195:331" ph="/// tus head request ... " />
-                <marker date="1555079732747" expanded="true" signature="391:616" ph="///  ... " />
-                <marker date="1555079732747" expanded="true" signature="707:846" ph="///  ... " />
+                <marker date="1556030964738" expanded="false" signature="6:77" ph="..." />
+                <marker date="1556030964738" expanded="true" signature="115:943" ph="{...}" />
+                <marker date="1556030964738" expanded="true" signature="122:180" ph="/// Tus core Protocol ... " />
+                <marker date="1556030964738" expanded="true" signature="210:941" ph="{...}" />
+                <marker date="1556030964738" expanded="true" signature="225:361" ph="/// tus head request ... " />
+                <marker date="1556030964738" expanded="true" signature="427:652" ph="/// tus patch request ... " />
+                <marker date="1556030964738" expanded="true" signature="743:882" ph="/// tus options request ... " />
               </folding>
             </state>
           </provider>
@@ -57,14 +64,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusExtension.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="575">
-              <caret line="23" column="29" lean-forward="true" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
+            <state relative-caret-position="-75">
+              <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
               <folding>
                 <marker date="1555173196634" expanded="true" signature="51:657" ph="{...}" />
-                <marker date="1555173196634" expanded="true" signature="58:122" ph="///  ... " />
+                <marker date="1555173196634" expanded="true" signature="58:122" ph="/// tus protocol extensions ... " />
                 <marker date="1555173196634" expanded="true" signature="157:655" ph="{...}" />
-                <marker date="1555173196634" expanded="true" signature="172:399" ph="///  ... " />
-                <marker date="1555173196634" expanded="true" signature="481:619" ph="///  ... " />
+                <marker date="1555173196634" expanded="true" signature="172:399" ph="/// creation  ... " />
+                <marker date="1555173196634" expanded="true" signature="481:619" ph="/// Termination upload ... " />
               </folding>
             </state>
           </provider>
@@ -73,8 +80,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="45" column="53" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="53" />
+            <state relative-caret-position="462">
+              <caret line="96" column="71" lean-forward="true" selection-start-line="96" selection-start-column="71" selection-end-line="96" selection-end-column="71" />
               <folding>
                 <marker date="1554730988812" expanded="false" signature="6:117" ph="..." />
                 <marker date="1554730988812" expanded="true" signature="147:7485" ph="{...}" />
@@ -114,10 +121,74 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="362">
+              <caret line="67" column="48" lean-forward="true" selection-start-line="67" selection-start-column="48" selection-end-line="67" selection-end-column="48" />
+              <folding>
+                <marker date="1556349401103" expanded="true" signature="6:195" ph="..." />
+                <marker date="1556349401103" expanded="true" signature="261:2549" ph="{...}" />
+                <marker date="1556349401103" expanded="true" signature="273:338" ph="///  ... " />
+                <marker date="1556349401103" expanded="true" signature="382:2547" ph="{...}" />
+                <marker date="1556349401103" expanded="true" signature="653:725" ph="{...}" />
+                <marker date="1556349401103" expanded="true" signature="769:1008" ph="{...}" />
+                <marker date="1556349401103" expanded="true" signature="1019:1139" ph="///  ... " />
+                <marker date="1556349401103" expanded="true" signature="1207:2000" ph="{...}" />
+                <marker date="1556349401103" expanded="true" signature="1623:1761" ph="{...}" />
+                <marker date="1556349401103" expanded="true" signature="2089:2158" ph="{...}" />
+                <marker date="1556349401103" expanded="true" signature="2218:2287" ph="{...}" />
+                <marker date="1556349401103" expanded="true" signature="2366:2435" ph="{...}" />
+                <marker date="1556349401103" expanded="true" signature="2472:2541" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F7D62CA6-D0DA-4FC8-B654-35FFEF6896CF/40/681c408d/HttpStatusCode.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-264">
+              <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="19" column="76" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
+              <folding>
+                <marker date="1556348627561" expanded="true" signature="6:119" ph="..." />
+                <marker date="1556348627561" expanded="true" signature="159:623" ph="{...}" />
+                <marker date="1556348627561" expanded="true" signature="203:621" ph="{...}" />
+                <marker date="1556348627561" expanded="true" signature="302:615" ph="{...}" />
+                <marker date="1556348627561" expanded="true" signature="416:483" ph="{...}" />
+                <marker date="1556348627561" expanded="true" signature="500:605" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+              <folding>
+                <marker date="1556032750648" expanded="true" signature="53:200" ph="{...}" />
+                <marker date="1556032750648" expanded="true" signature="102:198" ph="{...}" />
+                <marker date="1556032750648" expanded="true" signature="159:192" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/BirdMessenger.csproj">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
+            <state>
               <caret line="18" selection-start-line="18" selection-end-line="18" />
             </state>
           </provider>
@@ -135,11 +206,17 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Configuration/UploadConfig.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F7D62CA6-D0DA-4FC8-B654-35FFEF6896CF/40/681c408d/HttpStatusCode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger.Test/UnitTest1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusExtension.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/102886C9-99A7-4352-8748-69B309C42662/b9/ae4eea79/HttpClientFactoryExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/4e/99b1a97b/HttpHeaders.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6DADD22E-0197-42CE-80AA-EFEF99855BE0/2f/4643b6b5/Enum.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -149,14 +226,17 @@
         <option value="$PROJECT_DIR$/BirdMessenger.sln" />
         <option value="$PROJECT_DIR$/src/BirdMessenger/Interfaces/ITusCore.cs" />
         <option value="$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusExtension.cs" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs" />
+        <option value="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs" />
+        <option value="$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
-    <option name="x" value="1443" />
-    <option name="y" value="202" />
-    <option name="width" value="1280" />
-    <option name="height" value="711" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="x" value="1280" />
+    <option name="width" value="2048" />
+    <option name="height" value="1152" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -167,6 +247,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AssemblyExplorer" />
       <pane id="FileSystemExplorer">
         <subPane>
           <expand>
@@ -190,44 +271,25 @@
               <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
               <item name="src" type="34e6ba20:FileSystemExplorerNode" />
               <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
-              <item name="Abstractions" type="34e6ba20:FileSystemExplorerNode" />
-            </path>
-            <path>
-              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
-              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
-              <item name="src" type="34e6ba20:FileSystemExplorerNode" />
-              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
-              <item name="Configuration" type="34e6ba20:FileSystemExplorerNode" />
-            </path>
-            <path>
-              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
-              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
-              <item name="src" type="34e6ba20:FileSystemExplorerNode" />
-              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
               <item name="Core" type="34e6ba20:FileSystemExplorerNode" />
+            </path>
+            <path>
+              <item name="Project" type="161ac34:FileSystemExplorerRootNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="src" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="BirdMessenger" type="34e6ba20:FileSystemExplorerNode" />
+              <item name="Infrastructure" type="34e6ba20:FileSystemExplorerNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="AssemblyExplorer" />
       <pane id="SolutionExplorer">
         <subPane>
           <expand>
             <path>
               <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
               <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
-            </path>
-            <path>
-              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
-              <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
-              <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
-            </path>
-            <path>
-              <item name="Project" type="784c90a0:SolutionExplorerRootNode" />
-              <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
-              <item name="BirdMessenger" type="24d0babc:SolutionExplorerModelNode" />
-              <item name="Core" type="24d0babc:SolutionExplorerModelNode" />
             </path>
           </expand>
           <select />
@@ -243,7 +305,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/samples/demo/demoByNuget/demoByNuget.csproj" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="CodeLensConfigurable" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -335,6 +397,8 @@
       <workItem from="1546780905031" duration="133000" />
       <workItem from="1550671833521" duration="1474000" />
       <workItem from="1551619660752" duration="89000" />
+      <workItem from="1555510268917" duration="1425000" />
+      <workItem from="1555517537979" duration="6441000" />
     </task>
     <task id="LOCAL-00001" summary="增加解决方案">
       <created>1550672384390</created>
@@ -364,11 +428,18 @@
       <option name="project" value="LOCAL" />
       <updated>1555173214715</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="修改ignore文件">
+      <created>1555173644398</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1555173644398</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13753000" />
+    <option name="totallyTimeSpent" value="23483000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -380,13 +451,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1280" y="0" width="2048" height="1152" extended-state="6" />
+    <frame x="1280" y="0" width="2048" height="1152" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.18444666" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.19142573" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3295562" />
@@ -396,7 +468,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="NuGet" order="7" weight="0.3295562" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3295562" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Unit Tests" order="11" />
       <window_info anchor="bottom" id="Terminal" order="12" />
@@ -447,7 +519,8 @@
     <MESSAGE value="添加接口" />
     <MESSAGE value="修改ignore" />
     <MESSAGE value="定义接口" />
-    <option name="LAST_COMMIT_MESSAGE" value="定义接口" />
+    <MESSAGE value="修改ignore文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改ignore文件" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -488,24 +561,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/BirdMessenger.Test.csproj">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6DADD22E-0197-42CE-80AA-EFEF99855BE0/2f/4643b6b5/Enum.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/BirdMessenger.csproj">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        <state relative-caret-position="225">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
+        <state relative-caret-position="225">
+          <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -518,7 +584,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Configuration/UploadConfig.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
+        <state relative-caret-position="-30">
           <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
           <folding>
             <marker date="1554730988811" expanded="false" signature="6:82" ph="..." />
@@ -531,17 +597,95 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6DADD22E-0197-42CE-80AA-EFEF99855BE0/2f/4643b6b5/Enum.cs">
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/BirdMessenger.Test.csproj">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+        <state>
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-75">
+          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+          <folding>
+            <marker date="1556030964738" expanded="false" signature="6:77" ph="..." />
+            <marker date="1556030964738" expanded="true" signature="115:943" ph="{...}" />
+            <marker date="1556030964738" expanded="true" signature="122:180" ph="/// Tus core Protocol ... " />
+            <marker date="1556030964738" expanded="true" signature="210:941" ph="{...}" />
+            <marker date="1556030964738" expanded="true" signature="225:361" ph="/// tus head request ... " />
+            <marker date="1556030964738" expanded="true" signature="427:652" ph="/// tus patch request ... " />
+            <marker date="1556030964738" expanded="true" signature="743:882" ph="/// tus options request ... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusExtension.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-75">
+          <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
+          <folding>
+            <marker date="1555173196634" expanded="true" signature="51:657" ph="{...}" />
+            <marker date="1555173196634" expanded="true" signature="58:122" ph="/// tus protocol extensions ... " />
+            <marker date="1555173196634" expanded="true" signature="157:655" ph="{...}" />
+            <marker date="1555173196634" expanded="true" signature="172:399" ph="/// creation  ... " />
+            <marker date="1555173196634" expanded="true" signature="481:619" ph="/// Termination upload ... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/BirdMessenger.csproj">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/102886C9-99A7-4352-8748-69B309C42662/b9/ae4eea79/HttpClientFactoryExtensions.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="22" column="82" selection-start-line="22" selection-start-column="71" selection-end-line="22" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+          <folding>
+            <marker date="1556032750648" expanded="true" signature="53:200" ph="{...}" />
+            <marker date="1556032750648" expanded="true" signature="102:198" ph="{...}" />
+            <marker date="1556032750648" expanded="true" signature="159:192" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/4e/99b1a97b/HttpHeaders.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="129" column="16" selection-start-line="129" selection-start-column="16" selection-end-line="129" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="19" column="76" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
+          <folding>
+            <marker date="1556348627561" expanded="true" signature="6:119" ph="..." />
+            <marker date="1556348627561" expanded="true" signature="159:623" ph="{...}" />
+            <marker date="1556348627561" expanded="true" signature="203:621" ph="{...}" />
+            <marker date="1556348627561" expanded="true" signature="302:615" ph="{...}" />
+            <marker date="1556348627561" expanded="true" signature="416:483" ph="{...}" />
+            <marker date="1556348627561" expanded="true" signature="500:605" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="45" column="53" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="53" />
+        <state relative-caret-position="462">
+          <caret line="96" column="71" lean-forward="true" selection-start-line="96" selection-start-column="71" selection-end-line="96" selection-end-column="71" />
           <folding>
             <marker date="1554730988812" expanded="false" signature="6:117" ph="..." />
             <marker date="1554730988812" expanded="true" signature="147:7485" ph="{...}" />
@@ -580,32 +724,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusExtension.cs">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F7D62CA6-D0DA-4FC8-B654-35FFEF6896CF/40/681c408d/HttpStatusCode.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="23" column="29" lean-forward="true" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
-          <folding>
-            <marker date="1555173196634" expanded="true" signature="51:657" ph="{...}" />
-            <marker date="1555173196634" expanded="true" signature="58:122" ph="///  ... " />
-            <marker date="1555173196634" expanded="true" signature="157:655" ph="{...}" />
-            <marker date="1555173196634" expanded="true" signature="172:399" ph="///  ... " />
-            <marker date="1555173196634" expanded="true" signature="481:619" ph="///  ... " />
-          </folding>
+        <state relative-caret-position="-264">
+          <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs">
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="27" column="15" selection-start-line="27" selection-start-column="15" selection-end-line="27" selection-end-column="15" />
+        <state relative-caret-position="362">
+          <caret line="67" column="48" lean-forward="true" selection-start-line="67" selection-start-column="48" selection-end-line="67" selection-end-column="48" />
           <folding>
-            <marker date="1555079732747" expanded="true" signature="6:47" ph="..." />
-            <marker date="1555079732747" expanded="true" signature="85:907" ph="{...}" />
-            <marker date="1555079732747" expanded="true" signature="92:150" ph="/// Tus core Protocol ... " />
-            <marker date="1555079732747" expanded="true" signature="180:905" ph="{...}" />
-            <marker date="1555079732747" expanded="true" signature="195:331" ph="/// tus head request ... " />
-            <marker date="1555079732747" expanded="true" signature="391:616" ph="///  ... " />
-            <marker date="1555079732747" expanded="true" signature="707:846" ph="///  ... " />
+            <marker date="1556349401103" expanded="true" signature="6:195" ph="..." />
+            <marker date="1556349401103" expanded="true" signature="261:2549" ph="{...}" />
+            <marker date="1556349401103" expanded="true" signature="273:338" ph="///  ... " />
+            <marker date="1556349401103" expanded="true" signature="382:2547" ph="{...}" />
+            <marker date="1556349401103" expanded="true" signature="653:725" ph="{...}" />
+            <marker date="1556349401103" expanded="true" signature="769:1008" ph="{...}" />
+            <marker date="1556349401103" expanded="true" signature="1019:1139" ph="///  ... " />
+            <marker date="1556349401103" expanded="true" signature="1207:2000" ph="{...}" />
+            <marker date="1556349401103" expanded="true" signature="1623:1761" ph="{...}" />
+            <marker date="1556349401103" expanded="true" signature="2089:2158" ph="{...}" />
+            <marker date="1556349401103" expanded="true" signature="2218:2287" ph="{...}" />
+            <marker date="1556349401103" expanded="true" signature="2366:2435" ph="{...}" />
+            <marker date="1556349401103" expanded="true" signature="2472:2541" ph="{...}" />
           </folding>
         </state>
       </provider>

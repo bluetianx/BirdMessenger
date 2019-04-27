@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BirdMessenger.Abstractions
 {
@@ -13,7 +14,7 @@ namespace BirdMessenger.Abstractions
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        Dictionary<string, string> Head(Uri url);
+        Task<Dictionary<string, string>> Head(Uri url);
 
         /// <summary>
         /// tus patch request

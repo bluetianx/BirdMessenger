@@ -44,7 +44,12 @@
           <e p="UploadConfig.cs" t="Include" />
         </e>
         <e p="Core" t="Include">
+          <e p="Tus.cs" t="Include" />
           <e p="Uploader.cs" t="Include" />
+        </e>
+        <e p="Infrastructure" t="Include">
+          <e p="ResponseExtension.cs" t="Include" />
+          <e p="TusRequestException.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
