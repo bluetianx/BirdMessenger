@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd04d886-e136-4124-9376-3006d927d41f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,44 +18,18 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Configuration/UploadConfig.cs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-30">
-              <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-              <folding>
-                <marker date="1554730988811" expanded="false" signature="6:82" ph="..." />
-                <marker date="1554730988811" expanded="true" signature="121:1192" ph="{...}" />
-                <marker date="1554730988811" expanded="true" signature="128:169" ph="///  ... " />
-                <marker date="1554730988811" expanded="true" signature="199:1190" ph="{...}" />
-                <marker date="1554730988811" expanded="true" signature="295:361" ph="/// default size 1mb  ... " />
-                <marker date="1554730988811" expanded="true" signature="460:509" ph="///  ... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BirdMessenger.Test/BirdMessenger.Test.csproj">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-75">
-              <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+            <state relative-caret-position="-150">
+              <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
               <folding>
-                <marker date="1556030964738" expanded="false" signature="6:77" ph="..." />
-                <marker date="1556030964738" expanded="true" signature="115:943" ph="{...}" />
-                <marker date="1556030964738" expanded="true" signature="122:180" ph="/// Tus core Protocol ... " />
-                <marker date="1556030964738" expanded="true" signature="210:941" ph="{...}" />
-                <marker date="1556030964738" expanded="true" signature="225:361" ph="/// tus head request ... " />
-                <marker date="1556030964738" expanded="true" signature="427:652" ph="/// tus patch request ... " />
-                <marker date="1556030964738" expanded="true" signature="743:882" ph="/// tus options request ... " />
+                <marker date="1556377494800" expanded="false" signature="6:77" ph="..." />
+                <marker date="1556377494800" expanded="true" signature="115:956" ph="{...}" />
+                <marker date="1556377494800" expanded="true" signature="122:180" ph="/// Tus core Protocol ... " />
+                <marker date="1556377494800" expanded="true" signature="210:954" ph="{...}" />
+                <marker date="1556377494800" expanded="true" signature="225:361" ph="/// tus head request ... " />
+                <marker date="1556377494800" expanded="true" signature="427:652" ph="/// tus patch request ... " />
+                <marker date="1556377494800" expanded="true" signature="750:889" ph="/// tus options request ... " />
               </folding>
             </state>
           </provider>
@@ -64,7 +38,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusExtension.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-75">
+            <state relative-caret-position="-125">
               <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
               <folding>
                 <marker date="1555173196634" expanded="true" signature="51:657" ph="{...}" />
@@ -80,42 +54,42 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="96" column="71" lean-forward="true" selection-start-line="96" selection-start-column="71" selection-end-line="96" selection-end-column="71" />
+            <state relative-caret-position="-270">
+              <caret line="109" column="46" lean-forward="true" selection-start-line="109" selection-start-column="46" selection-end-line="109" selection-end-column="46" />
               <folding>
-                <marker date="1554730988812" expanded="false" signature="6:117" ph="..." />
-                <marker date="1554730988812" expanded="true" signature="147:7485" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="154:195" ph="///  ... " />
-                <marker date="1554730988812" expanded="true" signature="221:7483" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="366:422" ph="/// create  ... " />
-                <marker date="1554730988812" expanded="true" signature="452:2293" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="952:1038" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="1078:1271" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="1143:1257" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="1446:2111" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="1583:1690" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="1777:1971" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="1839:1953" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="1992:2097" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="2128:2211" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="2328:5674" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="2592:2678" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="2718:2930" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="2783:2916" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="3283:5664" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="3327:5650" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="3911:4184" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="3997:4131" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="4632:4742" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="4819:4935" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="4984:5250" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="5063:5228" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="5496:5631" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="5734:6600" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="6162:6255" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="6637:7477" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="6854:6968" ph="{...}" />
-                <marker date="1554730988812" expanded="true" signature="7091:7363" ph="{...}" />
+                <marker date="1556355552269" expanded="false" signature="6:117" ph="..." />
+                <marker date="1556355552269" expanded="true" signature="147:7506" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="154:195" ph="///  ... " />
+                <marker date="1556355552269" expanded="true" signature="221:7504" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="366:422" ph="/// create  ... " />
+                <marker date="1556355552269" expanded="true" signature="452:2293" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="952:1038" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="1078:1271" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="1143:1257" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="1446:2111" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="1583:1690" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="1777:1971" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="1839:1953" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="1992:2097" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="2128:2211" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="2328:5695" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="2592:2678" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="2718:2930" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="2783:2916" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="3283:5685" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="3327:5671" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="3932:4205" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="4018:4152" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="4653:4763" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="4840:4956" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="5005:5271" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="5084:5249" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="5517:5652" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="5755:6621" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="6183:6276" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="6658:7498" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="6875:6989" ph="{...}" />
+                <marker date="1556355552269" expanded="true" signature="7112:7384" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -124,22 +98,70 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="67" column="48" lean-forward="true" selection-start-line="67" selection-start-column="48" selection-end-line="67" selection-end-column="48" />
+            <state relative-caret-position="453">
+              <caret line="103" column="81" selection-start-line="103" selection-start-column="81" selection-end-line="103" selection-end-column="81" />
               <folding>
-                <marker date="1556349401103" expanded="true" signature="6:195" ph="..." />
-                <marker date="1556349401103" expanded="true" signature="261:2549" ph="{...}" />
-                <marker date="1556349401103" expanded="true" signature="273:338" ph="///  ... " />
-                <marker date="1556349401103" expanded="true" signature="382:2547" ph="{...}" />
-                <marker date="1556349401103" expanded="true" signature="653:725" ph="{...}" />
-                <marker date="1556349401103" expanded="true" signature="769:1008" ph="{...}" />
-                <marker date="1556349401103" expanded="true" signature="1019:1139" ph="///  ... " />
-                <marker date="1556349401103" expanded="true" signature="1207:2000" ph="{...}" />
-                <marker date="1556349401103" expanded="true" signature="1623:1761" ph="{...}" />
-                <marker date="1556349401103" expanded="true" signature="2089:2158" ph="{...}" />
-                <marker date="1556349401103" expanded="true" signature="2218:2287" ph="{...}" />
-                <marker date="1556349401103" expanded="true" signature="2366:2435" ph="{...}" />
-                <marker date="1556349401103" expanded="true" signature="2472:2541" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="6:195" ph="..." />
+                <marker date="1556378139359" expanded="true" signature="261:4751" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="273:338" ph="///  ... " />
+                <marker date="1556378139359" expanded="true" signature="382:4749" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="653:725" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="769:1008" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="1019:1139" ph="///  ... " />
+                <marker date="1556378139359" expanded="true" signature="1207:2062" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="1623:1754" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="2163:3123" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="2694:2828" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="3195:4489" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="3415:3513" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="3712:3849" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="4163:4277" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="4338:4452" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="4568:4637" ph="{...}" />
+                <marker date="1556378139359" expanded="true" signature="4674:4743" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/57/0041cba3/HttpMethod.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="475">
+              <caret line="19" column="76" selection-start-line="19" selection-start-column="71" selection-end-line="19" selection-end-column="76" />
+              <folding>
+                <marker date="1556350784234" expanded="true" signature="0:318" ph="/* Decompiled with JetBrains decompiler ... */" />
+                <marker date="1556350784234" expanded="true" signature="380:4810" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="433:4808" ph="{...}" />
+                <marker date="1556350784234" expanded="false" signature="1282:2042" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2141:2218" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2157:2212" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2252:2329" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2268:2323" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2364:2442" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2380:2436" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2479:2559" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2495:2553" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2594:2672" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2610:2666" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2710:2791" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2726:2785" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2827:2906" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2843:2900" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2942:3021" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="2958:3015" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="3061:3142" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="3077:3136" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="3168:3235" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="3184:3229" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="3273:3584" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="3626:3867" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="3912:3969" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="4008:4165" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="4204:4243" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="4314:4466" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="4537:4580" ph="{...}" />
+                <marker date="1556350784234" expanded="true" signature="4641:4804" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -157,15 +179,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="19" column="76" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
+            <state relative-caret-position="525">
+              <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
               <folding>
-                <marker date="1556348627561" expanded="true" signature="6:119" ph="..." />
-                <marker date="1556348627561" expanded="true" signature="159:623" ph="{...}" />
-                <marker date="1556348627561" expanded="true" signature="203:621" ph="{...}" />
-                <marker date="1556348627561" expanded="true" signature="302:615" ph="{...}" />
-                <marker date="1556348627561" expanded="true" signature="416:483" ph="{...}" />
-                <marker date="1556348627561" expanded="true" signature="500:605" ph="{...}" />
+                <marker date="1556359597236" expanded="true" signature="6:119" ph="..." />
+                <marker date="1556359597236" expanded="true" signature="159:616" ph="{...}" />
+                <marker date="1556359597236" expanded="true" signature="203:614" ph="{...}" />
+                <marker date="1556359597236" expanded="true" signature="302:608" ph="{...}" />
+                <marker date="1556359597236" expanded="true" signature="416:483" ph="{...}" />
+                <marker date="1556359597236" expanded="true" signature="500:598" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -174,12 +196,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+            <state relative-caret-position="150">
+              <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
               <folding>
-                <marker date="1556032750648" expanded="true" signature="53:200" ph="{...}" />
-                <marker date="1556032750648" expanded="true" signature="102:198" ph="{...}" />
-                <marker date="1556032750648" expanded="true" signature="159:192" ph="{...}" />
+                <marker date="1556359597227" expanded="true" signature="53:186" ph="{...}" />
+                <marker date="1556359597227" expanded="true" signature="95:184" ph="{...}" />
+                <marker date="1556359597227" expanded="true" signature="145:178" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -205,18 +227,20 @@
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Configuration/UploadConfig.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F7D62CA6-D0DA-4FC8-B654-35FFEF6896CF/40/681c408d/HttpStatusCode.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger.Test/UnitTest1.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusExtension.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/102886C9-99A7-4352-8748-69B309C42662/b9/ae4eea79/HttpClientFactoryExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Configuration/UploadConfig.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F7D62CA6-D0DA-4FC8-B654-35FFEF6896CF/40/681c408d/HttpStatusCode.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/c4/8148c3b4/HttpRequestMessage.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/4e/99b1a97b/HttpHeaders.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6DADD22E-0197-42CE-80AA-EFEF99855BE0/2f/4643b6b5/Enum.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/57/0041cba3/HttpMethod.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -227,8 +251,9 @@
         <option value="$PROJECT_DIR$/src/BirdMessenger/Interfaces/ITusCore.cs" />
         <option value="$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusExtension.cs" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs" />
         <option value="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs" />
+        <option value="$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs" />
+        <option value="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs" />
         <option value="$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs" />
       </list>
     </option>
@@ -398,7 +423,7 @@
       <workItem from="1550671833521" duration="1474000" />
       <workItem from="1551619660752" duration="89000" />
       <workItem from="1555510268917" duration="1425000" />
-      <workItem from="1555517537979" duration="6441000" />
+      <workItem from="1555517537979" duration="13344000" />
     </task>
     <task id="LOCAL-00001" summary="增加解决方案">
       <created>1550672384390</created>
@@ -435,11 +460,18 @@
       <option name="project" value="LOCAL" />
       <updated>1555173644398</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="实现head请求">
+      <created>1556349489631</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1556349489632</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23483000" />
+    <option name="totallyTimeSpent" value="30386000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -458,7 +490,8 @@
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.19142573" />
+      <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.19142573" />
+      <window_info anchor="bottom" id="Build" weight="0.3295562" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3295562" />
@@ -520,7 +553,8 @@
     <MESSAGE value="修改ignore" />
     <MESSAGE value="定义接口" />
     <MESSAGE value="修改ignore文件" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改ignore文件" />
+    <MESSAGE value="实现head请求" />
+    <option name="LAST_COMMIT_MESSAGE" value="实现head请求" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -606,23 +640,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-75">
-          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+        <state relative-caret-position="-150">
+          <caret line="27" column="8" selection-start-line="27" selection-start-column="8" selection-end-line="27" selection-end-column="8" />
           <folding>
-            <marker date="1556030964738" expanded="false" signature="6:77" ph="..." />
-            <marker date="1556030964738" expanded="true" signature="115:943" ph="{...}" />
-            <marker date="1556030964738" expanded="true" signature="122:180" ph="/// Tus core Protocol ... " />
-            <marker date="1556030964738" expanded="true" signature="210:941" ph="{...}" />
-            <marker date="1556030964738" expanded="true" signature="225:361" ph="/// tus head request ... " />
-            <marker date="1556030964738" expanded="true" signature="427:652" ph="/// tus patch request ... " />
-            <marker date="1556030964738" expanded="true" signature="743:882" ph="/// tus options request ... " />
+            <marker date="1556377494800" expanded="false" signature="6:77" ph="..." />
+            <marker date="1556377494800" expanded="true" signature="115:956" ph="{...}" />
+            <marker date="1556377494800" expanded="true" signature="122:180" ph="/// Tus core Protocol ... " />
+            <marker date="1556377494800" expanded="true" signature="210:954" ph="{...}" />
+            <marker date="1556377494800" expanded="true" signature="225:361" ph="/// tus head request ... " />
+            <marker date="1556377494800" expanded="true" signature="427:652" ph="/// tus patch request ... " />
+            <marker date="1556377494800" expanded="true" signature="750:889" ph="/// tus options request ... " />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusExtension.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-75">
+        <state relative-caret-position="-125">
           <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
           <folding>
             <marker date="1555173196634" expanded="true" signature="51:657" ph="{...}" />
@@ -648,79 +682,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
-          <folding>
-            <marker date="1556032750648" expanded="true" signature="53:200" ph="{...}" />
-            <marker date="1556032750648" expanded="true" signature="102:198" ph="{...}" />
-            <marker date="1556032750648" expanded="true" signature="159:192" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/4e/99b1a97b/HttpHeaders.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
           <caret line="129" column="16" selection-start-line="129" selection-start-column="16" selection-end-line="129" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="19" column="76" selection-start-line="19" selection-start-column="76" selection-end-line="19" selection-end-column="76" />
-          <folding>
-            <marker date="1556348627561" expanded="true" signature="6:119" ph="..." />
-            <marker date="1556348627561" expanded="true" signature="159:623" ph="{...}" />
-            <marker date="1556348627561" expanded="true" signature="203:621" ph="{...}" />
-            <marker date="1556348627561" expanded="true" signature="302:615" ph="{...}" />
-            <marker date="1556348627561" expanded="true" signature="416:483" ph="{...}" />
-            <marker date="1556348627561" expanded="true" signature="500:605" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="96" column="71" lean-forward="true" selection-start-line="96" selection-start-column="71" selection-end-line="96" selection-end-column="71" />
-          <folding>
-            <marker date="1554730988812" expanded="false" signature="6:117" ph="..." />
-            <marker date="1554730988812" expanded="true" signature="147:7485" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="154:195" ph="///  ... " />
-            <marker date="1554730988812" expanded="true" signature="221:7483" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="366:422" ph="/// create  ... " />
-            <marker date="1554730988812" expanded="true" signature="452:2293" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="952:1038" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="1078:1271" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="1143:1257" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="1446:2111" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="1583:1690" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="1777:1971" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="1839:1953" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="1992:2097" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="2128:2211" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="2328:5674" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="2592:2678" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="2718:2930" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="2783:2916" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="3283:5664" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="3327:5650" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="3911:4184" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="3997:4131" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="4632:4742" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="4819:4935" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="4984:5250" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="5063:5228" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="5496:5631" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="5734:6600" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="6162:6255" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="6637:7477" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="6854:6968" ph="{...}" />
-            <marker date="1554730988812" expanded="true" signature="7091:7363" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -731,24 +696,146 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/c4/8148c3b4/HttpRequestMessage.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2975">
+          <caret line="122" column="11" selection-start-line="122" selection-start-column="11" selection-end-line="122" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/57/0041cba3/HttpMethod.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="475">
+          <caret line="19" column="76" selection-start-line="19" selection-start-column="71" selection-end-line="19" selection-end-column="76" />
+          <folding>
+            <marker date="1556350784234" expanded="true" signature="0:318" ph="/* Decompiled with JetBrains decompiler ... */" />
+            <marker date="1556350784234" expanded="true" signature="380:4810" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="433:4808" ph="{...}" />
+            <marker date="1556350784234" expanded="false" signature="1282:2042" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2141:2218" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2157:2212" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2252:2329" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2268:2323" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2364:2442" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2380:2436" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2479:2559" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2495:2553" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2594:2672" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2610:2666" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2710:2791" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2726:2785" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2827:2906" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2843:2900" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2942:3021" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="2958:3015" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="3061:3142" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="3077:3136" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="3168:3235" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="3184:3229" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="3273:3584" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="3626:3867" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="3912:3969" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="4008:4165" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="4204:4243" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="4314:4466" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="4537:4580" ph="{...}" />
+            <marker date="1556350784234" expanded="true" signature="4641:4804" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+          <folding>
+            <marker date="1556359597227" expanded="true" signature="53:186" ph="{...}" />
+            <marker date="1556359597227" expanded="true" signature="95:184" ph="{...}" />
+            <marker date="1556359597227" expanded="true" signature="145:178" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Uploader.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-270">
+          <caret line="109" column="46" lean-forward="true" selection-start-line="109" selection-start-column="46" selection-end-line="109" selection-end-column="46" />
+          <folding>
+            <marker date="1556355552269" expanded="false" signature="6:117" ph="..." />
+            <marker date="1556355552269" expanded="true" signature="147:7506" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="154:195" ph="///  ... " />
+            <marker date="1556355552269" expanded="true" signature="221:7504" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="366:422" ph="/// create  ... " />
+            <marker date="1556355552269" expanded="true" signature="452:2293" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="952:1038" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="1078:1271" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="1143:1257" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="1446:2111" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="1583:1690" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="1777:1971" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="1839:1953" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="1992:2097" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="2128:2211" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="2328:5695" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="2592:2678" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="2718:2930" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="2783:2916" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="3283:5685" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="3327:5671" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="3932:4205" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="4018:4152" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="4653:4763" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="4840:4956" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="5005:5271" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="5084:5249" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="5517:5652" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="5755:6621" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="6183:6276" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="6658:7498" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="6875:6989" ph="{...}" />
+            <marker date="1556355552269" expanded="true" signature="7112:7384" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="21" column="9" lean-forward="true" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+          <folding>
+            <marker date="1556359597236" expanded="true" signature="6:119" ph="..." />
+            <marker date="1556359597236" expanded="true" signature="159:616" ph="{...}" />
+            <marker date="1556359597236" expanded="true" signature="203:614" ph="{...}" />
+            <marker date="1556359597236" expanded="true" signature="302:608" ph="{...}" />
+            <marker date="1556359597236" expanded="true" signature="416:483" ph="{...}" />
+            <marker date="1556359597236" expanded="true" signature="500:598" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="67" column="48" lean-forward="true" selection-start-line="67" selection-start-column="48" selection-end-line="67" selection-end-column="48" />
+        <state relative-caret-position="453">
+          <caret line="103" column="81" selection-start-line="103" selection-start-column="81" selection-end-line="103" selection-end-column="81" />
           <folding>
-            <marker date="1556349401103" expanded="true" signature="6:195" ph="..." />
-            <marker date="1556349401103" expanded="true" signature="261:2549" ph="{...}" />
-            <marker date="1556349401103" expanded="true" signature="273:338" ph="///  ... " />
-            <marker date="1556349401103" expanded="true" signature="382:2547" ph="{...}" />
-            <marker date="1556349401103" expanded="true" signature="653:725" ph="{...}" />
-            <marker date="1556349401103" expanded="true" signature="769:1008" ph="{...}" />
-            <marker date="1556349401103" expanded="true" signature="1019:1139" ph="///  ... " />
-            <marker date="1556349401103" expanded="true" signature="1207:2000" ph="{...}" />
-            <marker date="1556349401103" expanded="true" signature="1623:1761" ph="{...}" />
-            <marker date="1556349401103" expanded="true" signature="2089:2158" ph="{...}" />
-            <marker date="1556349401103" expanded="true" signature="2218:2287" ph="{...}" />
-            <marker date="1556349401103" expanded="true" signature="2366:2435" ph="{...}" />
-            <marker date="1556349401103" expanded="true" signature="2472:2541" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="6:195" ph="..." />
+            <marker date="1556378139359" expanded="true" signature="261:4751" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="273:338" ph="///  ... " />
+            <marker date="1556378139359" expanded="true" signature="382:4749" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="653:725" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="769:1008" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="1019:1139" ph="///  ... " />
+            <marker date="1556378139359" expanded="true" signature="1207:2062" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="1623:1754" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="2163:3123" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="2694:2828" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="3195:4489" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="3415:3513" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="3712:3849" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="4163:4277" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="4338:4452" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="4568:4637" ph="{...}" />
+            <marker date="1556378139359" expanded="true" signature="4674:4743" ph="{...}" />
           </folding>
         </state>
       </provider>

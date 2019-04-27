@@ -23,13 +23,13 @@ namespace BirdMessenger.Abstractions
         /// <param name="uploadData"></param>
         /// <param name="offset"></param>
         /// <returns></returns>
-        Dictionary<string, string> Patch(Uri url, byte[] uploadData,int offset);
+        Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, int offset);
 
         /// <summary>
         /// tus options request
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        Dictionary<string, string> Options(Uri url);
+        Task<Dictionary<string, string>> Options(Uri url);
     }
 }

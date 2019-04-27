@@ -2,9 +2,9 @@ using System;
 
 namespace BirdMessenger.Infrastructure
 {
-    public class TusRequestException:Exception
+    public class TusException:Exception
     {
-        public TusRequestException(string message)
+        public TusException(string message)
         {
             
         }

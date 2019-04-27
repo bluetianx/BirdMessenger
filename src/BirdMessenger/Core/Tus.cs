@@ -53,24 +53,65 @@ namespace BirdMessenger.Core
                 || response.StatusCode == HttpStatusCode.Gone
                 || response.StatusCode == HttpStatusCode.Forbidden)
             {
-                throw  new TusRequestException($"response's statusCode is{response.StatusCode.ToString()} ");
+                throw  new TusException($"response's statusCode is{response.StatusCode.ToString()} ");
             }
             
             Dictionary<string,string> result = new Dictionary<string, string>();
             result["Upload-Offset"] = response.GetValueOfHeader("Upload-Offset");
-            
+            result["Tus-Resumable"] = response.GetValueOfHeader("Tus-Resumable");
             
             return result;
         }
 
-        public Dictionary<string, string> Patch(Uri url, byte[] uploadData, int offset)
+        public async Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, int offset)
         {
-            throw new NotImplementedException();
+            var httpReqMsg = new HttpRequestMessage(new HttpMethod("PATCH"), url);
+            httpReqMsg.Headers.Add("Upload-Offset",offset.ToString());
+            httpReqMsg.Headers.Add("Content-Type","application/offset+octet-stream");
+            httpReqMsg.Content = new ByteArrayContent(uploadData);
+            
+            var client = this.GetHttpClient();
+            var response = await client.SendAsync(httpReqMsg, RequestCancellationToken);
+            if (response.StatusCode != HttpStatusCode.NoContent)
+            {
+                throw new TusException($"patch response statusCode is {response.StatusCode.ToString()}");
+            }
+            Dictionary<string,string> result = new Dictionary<string, string>();
+            result["Upload-Offset"] = response.GetValueOfHeader("Upload-Offset");
+            result["Tus-Resumable"] = response.GetValueOfHeader("Tus-Resumable");
+            
+            return result;
         }
 
-        public Dictionary<string, string> Options(Uri url)
+        public async Task<Dictionary<string, string>> Options(Uri url)
         {
-            throw new NotImplementedException();
+            var httpReqMsg = new HttpRequestMessage(HttpMethod.Options, url);
+            
+            var client = this.GetHttpClient();
+            if (client.DefaultRequestHeaders.Contains("Tus-Resumable"))
+            {
+                client.DefaultRequestHeaders.Remove("Tus-Resumable");
+            }
+
+            var response = await client.SendAsync(httpReqMsg, RequestCancellationToken);
+            if (response.StatusCode != HttpStatusCode.OK || response.StatusCode != HttpStatusCode.NoContent)
+            {
+                throw  new TusException($"Options response statusCode is {response.StatusCode.ToString()}");
+            }
+            
+            Dictionary<string,string> result = new Dictionary<string, string>();
+            result["Tus-Version"] = response.GetValueOfHeader("Tus-Version");
+            result["Tus-Resumable"] = response.GetValueOfHeader("Tus-Resumable");
+            if (response.Headers.Contains("Tus-Extension"))
+            {
+                result["Tus-Extension"] = response.GetValueOfHeader("Tus-Extension");
+            }
+
+            if (response.Headers.Contains("Tus-Max-Size "))
+            {
+                result["Tus-Max-Size "] = response.GetValueOfHeader("Tus-Max-Size ");
+            }
+            return result;
         }
 
         public Uri Creation(Uri url, int uploadLength, string uploadMetadata)

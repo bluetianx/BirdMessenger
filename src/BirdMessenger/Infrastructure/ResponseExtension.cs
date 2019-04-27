@@ -17,7 +17,7 @@ namespace BirdMessenger.Infrastructure
             }
             else
             {
-                throw  new TusRequestException($"no found header of {key}");
+                throw  new TusException($"no found header of {key}");
             }
         }
     }

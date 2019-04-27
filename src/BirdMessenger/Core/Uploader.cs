@@ -110,6 +110,7 @@ namespace BirdMessenger.Core
                     request.KeepAlive = false;
                     request.AutomaticDecompression = DecompressionMethods.GZip;
                     request.Timeout=10*1000;
+                    
 
                     if (fs.Length == offset)
                     {
