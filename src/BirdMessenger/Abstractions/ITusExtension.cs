@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 
 namespace BirdMessenger.Abstractions
 {
@@ -14,13 +15,13 @@ namespace BirdMessenger.Abstractions
         /// <param name="uploadLength"></param>
         /// <param name="uploadMetadata"></param>
         /// <returns></returns>
-        Uri Creation(Uri url, int uploadLength, string uploadMetadata);
+        Task<Uri> Creation(Uri url, int uploadLength, string uploadMetadata);
 
         /// <summary>
         /// Termination upload
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        bool Delete(Uri url);
+        Task<bool> Delete(Uri url);
     }
 }

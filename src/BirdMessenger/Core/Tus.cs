@@ -114,14 +114,38 @@ namespace BirdMessenger.Core
             return result;
         }
 
-        public Uri Creation(Uri url, int uploadLength, string uploadMetadata)
+        public async Task<Uri> Creation(Uri url, int uploadLength, string uploadMetadata)
         {
-            throw new NotImplementedException();
+            var httpReqMsg = new HttpRequestMessage(HttpMethod.Post, url);
+            httpReqMsg.Headers.Add("Upload-Length",uploadLength.ToString());
+            if (!string.IsNullOrEmpty(uploadMetadata))
+            {
+                httpReqMsg.Headers.Add("Upload-Metadata",uploadMetadata);
+            }
+            var client = this.GetHttpClient();
+            var response = await client.SendAsync(httpReqMsg, RequestCancellationToken);
+            if (response.StatusCode != HttpStatusCode.Created)
+            {
+                throw  new TusException($"creation response statusCode is {response.StatusCode}");
+            }
+
+            string fileUrlStr = response.GetValueOfHeader("Location");
+            
+            return  new Uri(fileUrlStr);
         }
 
-        public bool Delete(Uri url)
+        public async Task<bool> Delete(Uri url)
         {
-            throw new NotImplementedException();
+            var httpReqMsg = new HttpRequestMessage(HttpMethod.Delete, url);
+            var client = this.GetHttpClient();
+            var response = await client.SendAsync(httpReqMsg, RequestCancellationToken);
+            if (response.StatusCode != HttpStatusCode.NoContent)
+            {
+                throw  new TusException($"delete response statusCode is {response.StatusCode}");
+            }
+
+
+            return true;
         }
     }
 }
