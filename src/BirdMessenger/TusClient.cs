@@ -34,6 +34,8 @@ namespace BirdMessenger
             this.ClientName = clientName;
             _tusCore = serviceProvider.GetRequiredService<ITusCore>();
             _tusExtension = serviceProvider.GetRequiredService<ITusExtension>();
+            _tusCore.HttpClientName = clientName;
+            _tusExtension.HttpClientName = clientName;
             _serverHost = serverHost;
 
         }

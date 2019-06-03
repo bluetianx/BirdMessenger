@@ -4,33 +4,57 @@
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="BirdMessenger.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
-      <e p="samples/demo/demo" t="IncludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
-        <e p="demo.csproj" t="IncludeRecursive" />
-        <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
-            <e p="netcoreapp2.1" t="Include">
-              <e p="demo.AssemblyInfo.cs" t="Include" />
+      <e p="samples" t="Include">
+        <e p="demo/demo" t="IncludeRecursive">
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="demo.csproj" t="IncludeRecursive" />
+          <e p="obj" t="ExcludeRecursive">
+            <e p="Debug" t="Include">
+              <e p="netcoreapp2.1" t="Include">
+                <e p="demo.AssemblyInfo.cs" t="Include" />
+              </e>
             </e>
           </e>
+          <e p="Program.cs" t="Include" />
+          <e p="test.dmg" t="Include" />
         </e>
-        <e p="Program.cs" t="Include" />
-        <e p="test.dmg" t="Include" />
-      </e>
-      <e p="samples/demo/demoByNuget" t="IncludeRecursive">
-        <e p="bin" t="ExcludeRecursive" />
-        <e p="demoByNuget.csproj" t="IncludeRecursive" />
-        <e p="obj" t="ExcludeRecursive">
-          <e p="Debug" t="Include">
-            <e p="netcoreapp2.1" t="Include">
-              <e p="demoByNuget.AssemblyInfo.cs" t="Include" />
+        <e p="demo/demoByNuget" t="IncludeRecursive">
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="demoByNuget.csproj" t="IncludeRecursive" />
+          <e p="obj" t="ExcludeRecursive">
+            <e p="Debug" t="Include">
+              <e p="netcoreapp2.1" t="Include">
+                <e p="demoByNuget.AssemblyInfo.cs" t="Include" />
+              </e>
             </e>
           </e>
+          <e p="Program.cs" t="Include" />
         </e>
-        <e p="Program.cs" t="Include" />
+        <e p="testDotNetSite" t="IncludeRecursive">
+          <e p="appsettings.Development.json" t="Include" />
+          <e p="appsettings.json" t="Include" />
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="files" t="Include" />
+          <e p="obj" t="ExcludeRecursive">
+            <e p="Debug" t="Include">
+              <e p="netcoreapp2.2" t="Include">
+                <e p="testDotNetSite.AssemblyInfo.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Program.cs" t="Include" />
+          <e p="Properties" t="Include">
+            <e p="launchSettings.json" t="Include" />
+          </e>
+          <e p="Services" t="Include">
+            <e p="ExpiredFilesCleanupService.cs" t="Include" />
+          </e>
+          <e p="Startup.cs" t="Include" />
+          <e p="testDotNetSite.csproj" t="IncludeRecursive" />
+        </e>
+        <e p="testSite/node_modules/express" t="IncludeRecursive" />
+        <e p="testSite/node_modules/tus-node-server" t="IncludeRecursive" />
       </e>
-      <e p="samples/testSite/node_modules/express" t="IncludeRecursive" />
-      <e p="samples/testSite/node_modules/tus-node-server" t="IncludeRecursive" />
       <e p="src/BirdMessenger" t="IncludeRecursive">
         <e p="Abstractions" t="Include">
           <e p="ITusCore.cs" t="Include" />
