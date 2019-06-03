@@ -56,6 +56,7 @@
             </e>
           </e>
         </e>
+        <e p="TusBuild.cs" t="Include" />
         <e p="TusClient.cs" t="Include" />
       </e>
       <e p="src/BirdMessenger.Test" t="IncludeRecursive">

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BirdMessenger.Abstractions
@@ -10,11 +11,17 @@ namespace BirdMessenger.Abstractions
     public interface ITusCore
     {
         /// <summary>
+        /// 
+        /// </summary>
+        string HttpClientName { get; set; }
+
+        /// <summary>
         /// tus head request
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="requestCancellationToken"></param>
         /// <returns></returns>
-        Task<Dictionary<string, string>> Head(Uri url);
+        Task<Dictionary<string, string>> Head(Uri url,CancellationToken requestCancellationToken);
 
         /// <summary>
         /// tus patch request
@@ -22,14 +29,16 @@ namespace BirdMessenger.Abstractions
         /// <param name="url"></param>
         /// <param name="uploadData"></param>
         /// <param name="offset"></param>
+        /// <param name="requestCancellationToken"></param>
         /// <returns></returns>
-        Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, int offset);
+        Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, int offset,CancellationToken requestCancellationToken);
 
         /// <summary>
         /// tus options request
         /// </summary>
         /// <param name="url"></param>
+        /// <param name="requestCancellationToken"></param>
         /// <returns></returns>
-        Task<Dictionary<string, string>> Options(Uri url);
+        Task<Dictionary<string, string>> Options(Uri url,CancellationToken requestCancellationToken);
     }
 }

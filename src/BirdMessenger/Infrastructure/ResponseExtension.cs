@@ -10,8 +10,7 @@ namespace BirdMessenger.Infrastructure
     {
         public static string GetValueOfHeader(this HttpResponseMessage response, string key)
         {
-            IEnumerable<string> values;
-            if (response.Headers.TryGetValues(key, out values))
+            if (response.Headers.TryGetValues(key, out var values))
             {
                 return values.First();
             }
