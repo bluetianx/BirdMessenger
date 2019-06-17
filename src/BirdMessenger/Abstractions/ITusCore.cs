@@ -31,7 +31,7 @@ namespace BirdMessenger.Abstractions
         /// <param name="offset"></param>
         /// <param name="requestCancellationToken"></param>
         /// <returns></returns>
-        Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, int offset,CancellationToken requestCancellationToken);
+        Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, long offset,CancellationToken requestCancellationToken);
 
         /// <summary>
         /// tus options request

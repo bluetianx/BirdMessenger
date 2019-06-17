@@ -64,7 +64,8 @@ namespace BirdMessenger.Core
             return result;
         }
 
-        public async Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, int offset,CancellationToken requestCancellationToken)
+        public async Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, long offset,
+            CancellationToken requestCancellationToken)
         {
             var httpReqMsg = new HttpRequestMessage(new HttpMethod("PATCH"), url);
             httpReqMsg.Headers.Add("Upload-Offset",offset.ToString());

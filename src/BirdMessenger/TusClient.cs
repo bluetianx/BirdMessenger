@@ -18,8 +18,13 @@ namespace BirdMessenger
 
         private Uri _serverHost;
 
+        private int _maxUploadSize = 1 * 1024 * 1024;
+
         public event Action<Uri> UploadFinish;
 
+        /// <summary>
+        /// uri  offset fileLength 
+        /// </summary>
         public event Action<Uri, long, long> Uploading; 
 
         private  string ClientName { get; set; }
@@ -38,6 +43,46 @@ namespace BirdMessenger
             _tusExtension.HttpClientName = clientName;
             _serverHost = serverHost;
 
+        }
+
+        /// <summary>
+        /// upload file
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="uploadFileInfo"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<bool> Upload(Uri url,FileInfo uploadFileInfo,CancellationToken ct)
+        {
+            var headResult = await _tusCore.Head(url, ct);
+            long offset = long.Parse(headResult["Upload-Offset"]);
+            
+            using (var fileStream = new FileStream(uploadFileInfo.FullName, FileMode.Open, FileAccess.Read))
+            {
+                while (!ct.IsCancellationRequested)
+                {
+                    if (offset == uploadFileInfo.Length)
+                    {
+                        UploadFinish?.Invoke(url);
+                        break;
+                    }
+                    
+                    //get buffer of file
+                    fileStream.Seek (offset, SeekOrigin.Begin);
+                    byte[] buffer = new byte[_maxUploadSize];
+                    var readCount = await fileStream.ReadAsync(buffer, 0, _maxUploadSize);
+                    if (readCount < _maxUploadSize)
+                    {
+                        Array.Resize (ref buffer, readCount);
+                    }
+
+                    var uploadResult=await _tusCore.Patch(url, buffer, offset, ct);
+                    offset = long.Parse(uploadResult["Upload-Offset"]);
+                    Uploading?.Invoke(url,offset,uploadFileInfo.Length);
+                }
+            }
+
+            return true;
         }
 
         public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> uploadMetaDic,CancellationToken requestCancellationToken=null)
