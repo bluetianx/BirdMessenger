@@ -85,12 +85,12 @@ namespace BirdMessenger
             return true;
         }
 
-        public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> uploadMetaDic,CancellationToken requestCancellationToken=null)
+        public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> uploadMetaDic,CancellationToken ct)
         {
             
 
             string uploadMeta = this.CreateMeta(fileInfo, uploadMetaDic);
-            var fileUrl = await _tusExtension.Creation(_serverHost, fileInfo.Length,uploadMeta, requestCancellationToken);
+            var fileUrl = await _tusExtension.Creation(_serverHost, fileInfo.Length,uploadMeta, ct);
 
             return fileUrl;
         }
