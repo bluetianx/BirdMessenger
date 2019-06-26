@@ -85,6 +85,13 @@ namespace BirdMessenger
             return true;
         }
 
+        /// <summary>
+        /// create a url for upload file
+        /// </summary>
+        /// <param name="fileInfo"></param>
+        /// <param name="uploadMetaDic"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
         public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> uploadMetaDic,CancellationToken ct)
         {
             
@@ -94,7 +101,25 @@ namespace BirdMessenger
 
             return fileUrl;
         }
-        
+
+        /// <summary>
+        /// delete file
+        /// </summary>
+        /// <param name="fileUrl"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteFile(Uri fileUrl, CancellationToken ct)
+        {
+            var deleteResult = await _tusExtension.Delete(fileUrl, ct);
+            return deleteResult;
+        }
+
+        public async Task<Dictionary<string, string>> ServerInfo(CancellationToken ct)
+        {
+            var serverInfoDic = await _tusCore.Options(_serverHost, ct);
+            return serverInfoDic;
+        }
+
         private string CreateMeta (FileInfo fileInfo,Dictionary<string, string> uploadMetaDic)
         {
             string uploadMeta = "";
