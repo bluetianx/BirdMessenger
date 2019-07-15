@@ -52,7 +52,7 @@ namespace BirdMessenger
         /// <param name="uploadFileInfo"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<bool> Upload(Uri url,FileInfo uploadFileInfo,CancellationToken ct)
+        public async Task<bool> Upload(Uri url,FileInfo uploadFileInfo,CancellationToken ct=default(CancellationToken))
         {
             var headResult = await _tusCore.Head(url, ct);
             long offset = long.Parse(headResult["Upload-Offset"]);
@@ -92,7 +92,7 @@ namespace BirdMessenger
         /// <param name="uploadMetaDic"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> uploadMetaDic,CancellationToken ct)
+        public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> uploadMetaDic,CancellationToken ct=default(CancellationToken))
         {
             
 
@@ -108,13 +108,13 @@ namespace BirdMessenger
         /// <param name="fileUrl"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteFile(Uri fileUrl, CancellationToken ct)
+        public async Task<bool> DeleteFile(Uri fileUrl, CancellationToken ct=default(CancellationToken))
         {
             var deleteResult = await _tusExtension.Delete(fileUrl, ct);
             return deleteResult;
         }
 
-        public async Task<Dictionary<string, string>> ServerInfo(CancellationToken ct)
+        public async Task<Dictionary<string, string>> ServerInfo(CancellationToken ct=default(CancellationToken))
         {
             var serverInfoDic = await _tusCore.Options(_serverHost, ct);
             return serverInfoDic;
