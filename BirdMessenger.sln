@@ -1,17 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdMessenger", "src\BirdMessenger\BirdMessenger.csproj", "{2888E323-3669-4FC5-9D64-368324E73960}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirdMessenger", "src\BirdMessenger\BirdMessenger.csproj", "{2888E323-3669-4FC5-9D64-368324E73960}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BirdMessenger.Test", "src\BirdMessenger.Test\BirdMessenger.Test.csproj", "{99AE3DD1-F2C0-4A04-A3CD-FAB05C68F070}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BirdMessenger.Test", "src\BirdMessenger.Test\BirdMessenger.Test.csproj", "{99AE3DD1-F2C0-4A04-A3CD-FAB05C68F070}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demo", "samples\demo\demo\demo.csproj", "{5915C06E-A92E-42BA-8572-F06E2676F8F8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "demoByNuget", "samples\demo\demoByNuget\demoByNuget.csproj", "{59DEFC8B-8BD6-4CCE-B3EB-AE3D1C2DBDD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "demo", "samples\demo\demo\demo.csproj", "{5915C06E-A92E-42BA-8572-F06E2676F8F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{6EEA0D4E-852D-4AF6-942D-79E1CC6D29CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testDotNetSite", "samples\testDotNetSite\testDotNetSite.csproj", "{12FDC8C4-8E73-40F7-8154-2DA1403FB8C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "testDotNetSite", "samples\testDotNetSite\testDotNetSite.csproj", "{12FDC8C4-8E73-40F7-8154-2DA1403FB8C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{5A709BCF-F000-4205-A73F-68A3E9B61739}"
+	ProjectSection(SolutionItems) = preProject
+		docs\READMEEN.md = docs\READMEEN.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5E0033D5-68AA-43ED-B1A0-D7EEF4D0ECB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,16 +38,21 @@ Global
 		{5915C06E-A92E-42BA-8572-F06E2676F8F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5915C06E-A92E-42BA-8572-F06E2676F8F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5915C06E-A92E-42BA-8572-F06E2676F8F8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{59DEFC8B-8BD6-4CCE-B3EB-AE3D1C2DBDD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{59DEFC8B-8BD6-4CCE-B3EB-AE3D1C2DBDD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{59DEFC8B-8BD6-4CCE-B3EB-AE3D1C2DBDD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{59DEFC8B-8BD6-4CCE-B3EB-AE3D1C2DBDD6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{12FDC8C4-8E73-40F7-8154-2DA1403FB8C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{12FDC8C4-8E73-40F7-8154-2DA1403FB8C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12FDC8C4-8E73-40F7-8154-2DA1403FB8C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12FDC8C4-8E73-40F7-8154-2DA1403FB8C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2888E323-3669-4FC5-9D64-368324E73960} = {5E0033D5-68AA-43ED-B1A0-D7EEF4D0ECB6}
+		{99AE3DD1-F2C0-4A04-A3CD-FAB05C68F070} = {5E0033D5-68AA-43ED-B1A0-D7EEF4D0ECB6}
+		{5915C06E-A92E-42BA-8572-F06E2676F8F8} = {6EEA0D4E-852D-4AF6-942D-79E1CC6D29CE}
 		{12FDC8C4-8E73-40F7-8154-2DA1403FB8C3} = {6EEA0D4E-852D-4AF6-942D-79E1CC6D29CE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F0D962A-0C3B-45F1-B92D-EB12D81B71B0}
 	EndGlobalSection
 EndGlobal
