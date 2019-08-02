@@ -4,7 +4,6 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using BirdMessenger.Abstractions;
-using BirdMessenger.Configuration;
 using BirdMessenger.Core;
 using Microsoft.Extensions.DependencyInjection;
 

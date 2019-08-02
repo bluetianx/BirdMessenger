@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\src\BirdMessenger\BirdMessenger.csproj" />
@@ -7,6 +7,7 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp2.1</TargetFramework>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
 </Project>

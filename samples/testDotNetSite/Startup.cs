@@ -82,7 +82,7 @@ namespace testDotNetSite
             {
                 UrlPath = "/files",
                 
-                Store = new TusDiskStore(@"tusfiles\"),
+                Store = new TusDiskStore(@"tusfiles"),
                 
                 // Set an expiration time where incomplete files can no longer be updated.
                 // This value can either be absolute or sliding.
