@@ -132,8 +132,19 @@ namespace BirdMessenger.Core
             }
 
             string fileUrlStr = response.GetValueOfHeader("Location");
-            
-            return  new Uri(fileUrlStr);
+            Uri fileUrl = null;
+            if (Uri.TryCreate(fileUrlStr, UriKind.RelativeOrAbsolute, out fileUrl))
+            {
+                if (!fileUrl.IsAbsoluteUri)
+                {
+                    fileUrl = new Uri(url, fileUrl);
+                }
+            }
+            else
+            {
+                throw new Exception("Invalid location header");
+            }
+            return fileUrl;
         }
 
         public async Task<bool> Delete(Uri url,CancellationToken requestCancellationToken)

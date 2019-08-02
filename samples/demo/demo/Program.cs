@@ -20,11 +20,11 @@ namespace demo
             uploadConfig.PreUploadRequest= preUploadFile;
             uploadConfig.UploadFinish=UploadFinish;
             uploadConfig.OnCancel=Cancel;
-            TusClient  tusClient = new TusClient(uploadConfig);
+            //TusClient  tusClient = new TusClient(uploadConfig);
 
-            var url = tusClient.Create();
+           // var url = tusClient.Create();
 
-            tusClient.UploadFile();
+            //tusClient.UploadFile();
 
         }
 

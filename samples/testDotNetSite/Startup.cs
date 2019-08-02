@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace testDotNetSite
         {
             services.AddCors();
             services.AddSingleton(CreateTusConfiguration);
-            services.AddHostedService<ExpiredFilesCleanupService>();
+            //services.AddHostedService<ExpiredFilesCleanupService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,10 +74,14 @@ namespace testDotNetSite
             // Change the value of EnableOnAuthorize in appsettings.json to enable or disable
             // the new authorization event.
             //var enableAuthorize = _configuration.GetValue<bool>("EnableOnAuthorize");
-
+            if (!Directory.Exists("tusfiles"))
+            {
+                Directory.CreateDirectory("tusfiles");
+            }
             return new DefaultTusConfiguration
             {
                 UrlPath = "/files",
+                
                 Store = new TusDiskStore(@"tusfiles\"),
                 
                 // Set an expiration time where incomplete files can no longer be updated.
