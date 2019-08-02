@@ -1,58 +1,44 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
-
+using System.Threading.Tasks;
 using BirdMessenger;
-using BirdMessenger.Configuration;
 namespace demo
 {
     class Program
     {
-        public static UploadConfig uploadConfig;
-        static void Main(string[] args)
+        
+        static async Task Main(string[] args)
         {
             FileInfo fileInfo = new FileInfo("test.dmg");
-            uploadConfig =new UploadConfig();
-            uploadConfig.ServerUrl = new Uri(@"http://localhost:1080/uploads");
-            uploadConfig.UploadFile= fileInfo;
-            uploadConfig.Uploading=printUploadProcess;
-            uploadConfig.PreCreateRequest=preCreateFile;
-            uploadConfig.PreUploadRequest= preUploadFile;
-            uploadConfig.UploadFinish=UploadFinish;
-            uploadConfig.OnCancel=Cancel;
-            TusClient  tusClient = new TusClient(uploadConfig);
+            
+            var hostUri = new Uri(@"http://localhost:5000/files");
+            var tusClient=TusBuild.DefaultTusClientBuild(hostUri)
+                .Build();
+            tusClient.Uploading += printUploadProcess;
+            tusClient.UploadFinish += UploadFinish;
+            Dictionary<string, string> dir = new Dictionary<string, string>();
+            dir["filename"] = fileInfo.FullName;
 
-            var url = tusClient.Create();
-
-            tusClient.UploadFile();
-
+            var fileUrl = await tusClient.Create(fileInfo, dir);
+            var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
+            Console.ReadLine();
         }
 
-        public static void printUploadProcess(long offset,long total)
+        public static void printUploadProcess(Uri fileUrl,long offset,long total)
         {
 
-            Console.WriteLine($"finished:{offset},total:{total} ");
-            uploadConfig.IsCancel=true;
+            Console.WriteLine($"finished:fileUri:{fileUrl}-{offset},total:{total} ");
         }
 
-        public static void preCreateFile(HttpWebRequest httpWebRequest)
-        {
-            Console.WriteLine("starting createFile...");
-        }
-
-        public static void preUploadFile(HttpWebRequest httpWebRequest)
-        {
-            Console.WriteLine("starting upLoadFile...");
-        }
+        
 
         public static void UploadFinish(Uri url)
         {
             Console.WriteLine($"uploadfinish :{url.ToString()}");
         }
 
-        public static void Cancel(Uri url)
-        {
-            Console.WriteLine($"{url.ToString()} canceled...");
-        }
+        
     }
 }

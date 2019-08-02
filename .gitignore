@@ -12,3 +12,9 @@ samples/demo/demo/test.dmg
 samples/demo/demoByNuget
 samples/testSite/node_modules
 samples/testSite/files/*
+samples/testDotNetSite/bin
+samples/testDotNetSite/obj
+samples/testDotNetSite/tusfiles
+/.idea/.idea.BirdMessenger
+/.vscode/*
+/.vs/BirdMessenger
