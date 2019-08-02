@@ -99,7 +99,7 @@ namespace BirdMessenger.Core
             }
 
             var response = await client.SendAsync(httpReqMsg, requestCancellationToken);
-            if (response.StatusCode != HttpStatusCode.OK || response.StatusCode != HttpStatusCode.NoContent)
+            if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
             {
                 throw  new TusException($"Options response statusCode is {response.StatusCode.ToString()}");
             }
@@ -112,7 +112,7 @@ namespace BirdMessenger.Core
                 result["Tus-Extension"] = response.GetValueOfHeader("Tus-Extension");
             }
 
-            if (response.Headers.Contains("Tus-Max-Size "))
+            if (response.Headers.Contains("Tus-Max-Size"))
             {
                 result["Tus-Max-Size "] = response.GetValueOfHeader("Tus-Max-Size ");
             }

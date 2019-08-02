@@ -18,7 +18,7 @@ namespace BirdMessenger.Test
         public async Task TestCreateFileAsync()
         {
 
-
+            
             var tusClient = this.BuildClient();
 
             var fileInfo = new FileInfo(@"TestFile/test.mp4");
@@ -39,6 +39,27 @@ namespace BirdMessenger.Test
             var fileUrl = await tusClient.Create(fileInfo, dir);
             var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
 
+        }
+
+        [Fact]
+        public async Task TestDeleteFileAsync()
+        {
+            var tusClient = this.BuildClient();
+            var fileInfo = new FileInfo(@"TestFile/test.mp4");
+            Dictionary<string, string> dir = new Dictionary<string, string>();
+
+            var fileUrl = await tusClient.Create(fileInfo, dir);
+
+            var deleteResult = await tusClient.DeleteFile(fileUrl);
+        }
+
+        [Fact]
+        public async Task TestServiceInfoAsync()
+        {
+            var tusClient = this.BuildClient();
+            
+
+            var serviceInfo = await tusClient.ServerInfo();
         }
 
         private TusClient BuildClient()
