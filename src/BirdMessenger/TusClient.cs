@@ -18,7 +18,13 @@ namespace BirdMessenger
 
         private Uri _serverHost;
 
-        private int _maxUploadSize = 1 * 1024 * 1024;
+        
+
+        /// <summary>
+        /// first parameter is uploadedSize,second parameter is totalSize
+        /// return size which will upload
+        /// </summary>
+        private Func< long, long,int> UploadSize;
 
         public event Action<Uri> UploadFinish;
 
@@ -33,7 +39,7 @@ namespace BirdMessenger
         private  ITusCore _tusCore;
         private ITusExtension _tusExtension;
 
-        public TusClient(IServiceProvider serviceProvider, string clientName,Uri serverHost)
+        public TusClient(IServiceProvider serviceProvider, string clientName,Uri serverHost, Func< long, long,int> uploadSize=null)
         {
             _serviceProvider = serviceProvider;
             this.ClientName = clientName;
@@ -42,7 +48,7 @@ namespace BirdMessenger
             _tusCore.HttpClientName = clientName;
             _tusExtension.HttpClientName = clientName;
             _serverHost = serverHost;
-
+            UploadSize = uploadSize == null ? (u, t) => 1 * 1024 * 1024 : uploadSize;
         }
 
         /// <summary>
@@ -69,9 +75,12 @@ namespace BirdMessenger
                     
                     //get buffer of file
                     fileStream.Seek (offset, SeekOrigin.Begin);
-                    byte[] buffer = new byte[_maxUploadSize];
-                    var readCount = await fileStream.ReadAsync(buffer, 0, _maxUploadSize);
-                    if (readCount < _maxUploadSize)
+
+                    int uploadSize = UploadSize(offset, uploadFileInfo.Length);
+
+                    byte[] buffer = new byte[uploadSize];
+                    var readCount = await fileStream.ReadAsync(buffer, 0, uploadSize);
+                    if (readCount < uploadSize)
                     {
                         Array.Resize (ref buffer, readCount);
                     }

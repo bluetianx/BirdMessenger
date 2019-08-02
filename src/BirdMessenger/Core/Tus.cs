@@ -69,10 +69,13 @@ namespace BirdMessenger.Core
         {
             var httpReqMsg = new HttpRequestMessage(new HttpMethod("PATCH"), url);
             httpReqMsg.Headers.Add("Upload-Offset",offset.ToString());
-            httpReqMsg.Headers.Add("Content-Type","application/offset+octet-stream");
-            httpReqMsg.Content = new ByteArrayContent(uploadData);
+            //httpReqMsg.Headers.Add("Content-Type","application/offset+octet-stream");
             
+            httpReqMsg.Content = new ByteArrayContent(uploadData);
+            httpReqMsg.Content.Headers.Add("Content-Type", "application/offset+octet-stream");
+
             var client = this.GetHttpClient();
+            
             var response = await client.SendAsync(httpReqMsg, requestCancellationToken);
             if (response.StatusCode != HttpStatusCode.NoContent)
             {

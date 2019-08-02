@@ -4,15 +4,45 @@ using Xunit;
 using BirdMessenger;
 using System.Security.Cryptography;
 using System.Text;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BirdMessenger.Test
 {
-    public class UnitTest1
+    public class TusBuildUnitTest
     {
+        public Uri tusHost = new Uri("http://localhost:5000/files");
+        
+
+
         [Fact]
-        public void Test1()
+        public async Task TestCreateTusClientAsync()
         {
-            
+
+            var tusClient=TusBuild.DefaultTusClientBuild(tusHost)
+                
+                .Build();
+            var fileInfo = new FileInfo(@"TestFile/test.mp4");
+            Dictionary<string, string> dir = new Dictionary<string, string>();
+            dir["filename"] = fileInfo.FullName;
+
+            var result = await tusClient.Create(fileInfo, dir);
+        }
+
+        [Fact]
+        public async Task TestConfigTusAsync()
+        {
+            var tusClient = TusBuild.DefaultTusClientBuild(tusHost)
+                .Configure(option =>
+                {
+                    option.UploadSize = (u, t) => 10 * 1024 * 1024;
+                })
+                .Build();
+            var fileInfo = new FileInfo(@"TestFile/test.mp4");
+            Dictionary<string, string> dir = new Dictionary<string, string>();
+            dir["filename"] = fileInfo.FullName;
+
+            var result = await tusClient.Create(fileInfo, dir);
         }
 
         public static bool CompareFileByFilePath(string sourceFile,string targetFile)
