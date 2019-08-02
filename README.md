@@ -7,48 +7,48 @@ BirdMessnger 是一个基于.NET Standard 的 Tus协议的实现客户端。
 
 ## Features
 
-### 协议实现
+### Protocol implementation
 
 * Create
 * HEAD
 * PATCH
 * OPTIONS
+* DELETE
 
 ## Install
 
 Package manager
 
-``PM> Install-Package BirdMessenger -Version 0.1.4``
+``Install-Package BirdMessenger -Version 1.0.0-beta1``
 
 .NET CLI
 
-``> dotnet add package BirdMessenger --version 0.1.4``
+``dotnet add package BirdMessenger --version 1.0.0-beta1``
 
 ## Getting Started
 
 ```C#
 
-FileInfo fileInfo = new FileInfo("test.dmg");
-            UploadConfig uploadConfig =new UploadConfig();
-            uploadConfig.ServerUrl = new Uri(@"http://localhost:1080/uploads");
-            uploadConfig.UploadFile= fileInfo;
-            uploadConfig.Uploading=printUploadProcess;
-            uploadConfig.PreCreateRequest=preCreateFile;
-            uploadConfig.PreUploadRequest= preUploadFile;
-            uploadConfig.UploadFinish=UploadFinish;
-            TusClient  tusClient = new TusClient(uploadConfig);
+            FileInfo fileInfo = new FileInfo("test");           
+            var hostUri = new Uri(@"http://localhost:5000/files");
+            var tusClient=TusBuild.DefaultTusClientBuild(hostUri)
+                .Build();
+            tusClient.Uploading += printUploadProcess;
+            tusClient.UploadFinish += UploadFinish;
+            Dictionary<string, string> dir = new Dictionary<string, string>();
+            dir["filename"] = fileInfo.FullName;
 
-            var url = tusClient.Create();
+            var fileUrl = await tusClient.Create(fileInfo, dir);
+            var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
 
-            tusClient.UploadFile();
 ```
 
-* 详细细节可以查看samples文件夹下的示例代码
+* You can see more examples in unit tests
 
-## 路线图
+## RoadMap
 
-最新开发进度在dev分支
+I will develop in branch of dev
 
-## 谁在使用
+## Who is using
 
-* [中国石油](https://www.cnpc.com.cn/cnpc/index.shtml)
+* [China National Petroleum Corporation](https://www.cnpc.com.cn/cnpc/index.shtml)

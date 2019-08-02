@@ -15,6 +15,7 @@ samples/testSite/files/*
 samples/testDotNetSite/bin
 samples/testDotNetSite/obj
 samples/testDotNetSite/tusfiles
-/.idea/.idea.BirdMessenger
+/.idea
 /.vscode/*
 /.vs/BirdMessenger
+.idea/.idea.BirdMessenger/.idea/workspace.xml
