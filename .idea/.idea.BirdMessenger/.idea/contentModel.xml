@@ -25,6 +25,8 @@
           <e p="appsettings.Development.json" t="Include" />
           <e p="appsettings.json" t="Include" />
           <e p="bin" t="ExcludeRecursive" />
+          <e p="build.ps" t="Include" />
+          <e p="Dockerfile" t="Include" />
           <e p="files" t="Include" />
           <e p="obj" t="ExcludeRecursive">
             <e p="Debug" t="Include">

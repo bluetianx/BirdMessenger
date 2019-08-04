@@ -25,6 +25,6 @@ namespace testDotNetSite
                     options.Limits.MaxRequestBodySize = null;
                     options.Limits.MaxRequestBufferSize = null;
                 })
-               .UseUrls("http://localhost:5000");
+               .UseUrls("http://*:5000");
     }
 }
