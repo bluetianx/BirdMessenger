@@ -8,7 +8,7 @@ using tusdotnet.Models.Expiration;
 
 namespace testDotNetSite.Services
 {
-    public class ExpiredFilesCleanupService : IHostedService
+    public class ExpiredFilesCleanupService : BackgroundServiceBase
     {
         private readonly ITusExpirationStore _expirationStore;
         private readonly ExpirationBase _expiration;
@@ -21,7 +21,7 @@ namespace testDotNetSite.Services
             _expiration = config.Expiration;
         }
 
-        public async Task StartAsync(CancellationToken cancellationToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             if (_expiration == null)
             {
@@ -29,16 +29,11 @@ namespace testDotNetSite.Services
                 return;
             }
 
-            while (!cancellationToken.IsCancellationRequested)
+            while (!stoppingToken.IsCancellationRequested)
             {
-                await RunCleanup(cancellationToken);
+                await RunCleanup(stoppingToken);
                 await Task.Delay(_expiration.Timeout);
             }
-        }
-
-        public Task StopAsync(CancellationToken cancellationToken)
-        {
-            return Task.CompletedTask;
         }
 
         private async Task RunCleanup(CancellationToken cancellationToken)

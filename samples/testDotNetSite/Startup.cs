@@ -36,7 +36,7 @@ namespace testDotNetSite
         {
             services.AddCors();
             services.AddSingleton(CreateTusConfiguration);
-            //services.AddHostedService<ExpiredFilesCleanupService>();
+            services.AddHostedService<ExpiredFilesCleanupService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
