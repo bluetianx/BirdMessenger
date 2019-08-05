@@ -11,9 +11,9 @@ namespace BirdMessenger.Test
 {
     public class TusBuildUnitTest
     {
-        public Uri tusHost = new Uri("http://localhost:5000/files");
+        public Uri tusHost = new Uri("http://11.10.107.108:10003/files");
         
-
+        
 
         [Fact]
         public async Task TestCreateTusClientAsync()
@@ -27,6 +27,32 @@ namespace BirdMessenger.Test
             dir["filename"] = fileInfo.FullName;
 
             var result = await tusClient.Create(fileInfo, dir);
+        }
+
+
+        [Fact]
+        public async Task TestUploadFilesAsync()
+        {
+
+            var tusClient = TusBuild.DefaultTusClientBuild(tusHost)
+
+                .Build();
+            var fileInfo = new FileInfo(@"TestFile/test.mp4");
+            Dictionary<string, string> dir = new Dictionary<string, string>();
+            dir["filename"] = fileInfo.FullName;
+            List<Uri> fileUrls = new List<Uri>();
+            for(int i = 0; i < 20; i++)
+            {
+                var fileUrl = await tusClient.Create(fileInfo, dir);
+                fileUrls.Add(fileUrl);
+            }
+            
+            foreach(var item in fileUrls)
+            {
+                var uploadResult = await tusClient.Upload(item, fileInfo);
+                Assert.True(uploadResult);
+            }
+
         }
 
         [Fact]
