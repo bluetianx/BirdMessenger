@@ -11,7 +11,7 @@ namespace BirdMessenger.Test
 {
     public class TusBuildUnitTest
     {
-        public Uri tusHost = new Uri("http://11.10.107.108:10003/files");
+        public Uri tusHost = new Uri("http://localhost:5000/files");
         
         
 
@@ -41,7 +41,7 @@ namespace BirdMessenger.Test
             Dictionary<string, string> dir = new Dictionary<string, string>();
             dir["filename"] = fileInfo.FullName;
             List<Uri> fileUrls = new List<Uri>();
-            for(int i = 0; i < 20; i++)
+            for(int i = 0; i < 30; i++)
             {
                 var fileUrl = await tusClient.Create(fileInfo, dir);
                 fileUrls.Add(fileUrl);
