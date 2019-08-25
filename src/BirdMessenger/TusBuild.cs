@@ -2,6 +2,7 @@ using BirdMessenger.Abstractions;
 using BirdMessenger.Core;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using BirdMessenger.Infrastructure;
 
 namespace BirdMessenger
 {
@@ -48,7 +49,7 @@ namespace BirdMessenger
         {
             var serviceProvider = _tusClientOptions.Servces.BuildServiceProvider();
             var tusClient = new TusClient(serviceProvider,_tusClientOptions.ClientName,
-                _tusClientOptions.TusHost,_tusClientOptions.UploadSize);
+                _tusClientOptions.TusHost,_tusClientOptions.GetUploadSize);
 
             return tusClient;
         }
@@ -73,6 +74,6 @@ namespace BirdMessenger
         /// first parameter is uploadedSize,second parameter is totalSize
         /// return size which will upload
         /// </summary>
-        public Func<long, long, int> UploadSize = (u, t) => 1 * 1024 * 1024;
+        public Func<TusUploadContext, int> GetUploadSize = (context) => 1 * 1024 * 1024;
     }
 }

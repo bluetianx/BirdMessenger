@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BirdMessenger.Abstractions;
 using BirdMessenger.Core;
+using BirdMessenger.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BirdMessenger
@@ -20,17 +21,17 @@ namespace BirdMessenger
         
 
         /// <summary>
-        /// first parameter is uploadedSize,second parameter is totalSize
+        /// 
         /// return size which will upload
         /// </summary>
-        private Func< long, long,int> UploadSize;
+        private Func< TusUploadContext,int> GetUploadSize;
 
-        public event Action<Uri> UploadFinish;
+        public event Action<TusUploadContext> UploadFinish;
 
         /// <summary>
         /// uri  offset fileLength 
         /// </summary>
-        public event Action<Uri, long, long> Uploading; 
+        public event Action<TusUploadContext> Uploading; 
 
         private  string ClientName { get; set; }
 
@@ -38,7 +39,7 @@ namespace BirdMessenger
         private  ITusCore _tusCore;
         private ITusExtension _tusExtension;
 
-        public TusClient(IServiceProvider serviceProvider, string clientName,Uri serverHost, Func< long, long,int> uploadSize=null)
+        public TusClient(IServiceProvider serviceProvider, string clientName,Uri serverHost, Func<TusUploadContext,int> getUploadSize=null)
         {
             _serviceProvider = serviceProvider;
             this.ClientName = clientName;
@@ -47,7 +48,7 @@ namespace BirdMessenger
             _tusCore.HttpClientName = clientName;
             _tusExtension.HttpClientName = clientName;
             _serverHost = serverHost;
-            UploadSize = uploadSize == null ? (u, t) => 1 * 1024 * 1024 : uploadSize;
+            GetUploadSize = getUploadSize == null ? (context) => 1 * 1024 * 1024 : getUploadSize;
         }
 
         /// <summary>
@@ -61,21 +62,24 @@ namespace BirdMessenger
         {
             var headResult = await _tusCore.Head(url, ct);
             long offset = long.Parse(headResult["Upload-Offset"]);
-            
+
+            var tusUploadFileContext = new TusUploadContext(totalSize:uploadFileInfo.Length,
+                uploadedSize:offset,uploadFileInfo:uploadFileInfo,uploadFileUrl:url);
+
             using (var fileStream = new FileStream(uploadFileInfo.FullName, FileMode.Open, FileAccess.Read))
             {
                 while (!ct.IsCancellationRequested)
                 {
                     if (offset == uploadFileInfo.Length)
                     {
-                        UploadFinish?.Invoke(url);
+                        UploadFinish?.Invoke(tusUploadFileContext);
                         break;
                     }
                     
                     //get buffer of file
                     fileStream.Seek (offset, SeekOrigin.Begin);
 
-                    int uploadSize = UploadSize(offset, uploadFileInfo.Length);
+                    int uploadSize = GetUploadSize(tusUploadFileContext);
 
                     byte[] buffer = new byte[uploadSize];
                     var readCount = await fileStream.ReadAsync(buffer, 0, uploadSize);
@@ -86,7 +90,8 @@ namespace BirdMessenger
 
                     var uploadResult=await _tusCore.Patch(url, buffer, offset, ct);
                     offset = long.Parse(uploadResult["Upload-Offset"]);
-                    Uploading?.Invoke(url,offset,uploadFileInfo.Length);
+                    tusUploadFileContext.UploadedSize = offset;
+                    Uploading?.Invoke(tusUploadFileContext);
                 }
             }
 

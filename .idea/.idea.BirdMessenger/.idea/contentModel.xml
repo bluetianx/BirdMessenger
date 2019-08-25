@@ -40,6 +40,7 @@
             <e p="launchSettings.json" t="Include" />
           </e>
           <e p="Services" t="Include">
+            <e p="BackgroundServiceBase.cs" t="Include" />
             <e p="ExpiredFilesCleanupService.cs" t="Include" />
           </e>
           <e p="Startup.cs" t="Include" />
@@ -71,6 +72,7 @@
           <e p="Infrastructure" t="Include">
             <e p="ResponseExtension.cs" t="Include" />
             <e p="TusRequestException.cs" t="Include" />
+            <e p="TusUploadContext.cs" t="Include" />
           </e>
           <e p="obj" t="ExcludeRecursive">
             <e p="Debug" t="Include">
@@ -104,7 +106,7 @@
     <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.0/build/netcoreapp1.0/xunit.runner.reporters.netcoreapp10.dll" t="Include" />
     <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.0/build/netcoreapp1.0/xunit.runner.utility.netcoreapp10.dll" t="Include" />
     <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.0/build/netcoreapp1.0/xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
-    <e p="$USER_HOME$/Library/Caches/Rider2019.1/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2019.1/resharper-host/local/Transient/ReSharperHost/v191/SolutionCaches/_BirdMessenger.-1909882227.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_BirdMessenger.-1909882227.00" t="ExcludeRecursive" />
   </component>
 </project>

@@ -61,7 +61,7 @@ namespace BirdMessenger.Test
             var tusClient = TusBuild.DefaultTusClientBuild(tusHost)
                 .Configure(option =>
                 {
-                    option.UploadSize = (u, t) => 10 * 1024 * 1024;
+                    option.GetUploadSize = (u, t) => 10 * 1024 * 1024;
                 })
                 .Build();
             var fileInfo = new FileInfo(@"TestFile/test.mp4");

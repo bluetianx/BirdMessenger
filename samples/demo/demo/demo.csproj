@@ -4,6 +4,12 @@
       <ProjectReference Include="..\..\..\src\BirdMessenger\BirdMessenger.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="test.dmg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <TargetFramework>netcoreapp2.1</TargetFramework>

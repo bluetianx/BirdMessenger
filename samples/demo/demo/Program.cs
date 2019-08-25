@@ -4,6 +4,8 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using BirdMessenger;
+using BirdMessenger.Infrastructure;
+
 namespace demo
 {
     class Program
@@ -26,17 +28,17 @@ namespace demo
             Console.ReadLine();
         }
 
-        public static void printUploadProcess(Uri fileUrl,long offset,long total)
+        public static void printUploadProcess(TusUploadContext context)
         {
 
-            Console.WriteLine($"finished:fileUri:{fileUrl}-{offset},total:{total} ");
+            Console.WriteLine($"finished:fileUri:{context.UploadFileUrl}-{context.UploadedSize},total:{context.TotalSize} ");
         }
 
         
 
-        public static void UploadFinish(Uri url)
+        public static void UploadFinish(TusUploadContext context)
         {
-            Console.WriteLine($"uploadfinish :{url.ToString()}");
+            Console.WriteLine($"uploadfinish :{context.UploadFileUrl.ToString()}");
         }
 
         

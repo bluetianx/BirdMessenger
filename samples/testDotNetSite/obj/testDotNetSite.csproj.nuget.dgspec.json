@@ -1,32 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "E:\\github\\BirdMessenger\\samples\\testDotNetSite\\testDotNetSite.csproj": {}
+    "/dotnet/BirdMessenger/samples/testDotNetSite/testDotNetSite.csproj": {}
   },
   "projects": {
-    "E:\\github\\BirdMessenger\\samples\\testDotNetSite\\testDotNetSite.csproj": {
+    "/dotnet/BirdMessenger/samples/testDotNetSite/testDotNetSite.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\github\\BirdMessenger\\samples\\testDotNetSite\\testDotNetSite.csproj",
+        "projectUniqueName": "/dotnet/BirdMessenger/samples/testDotNetSite/testDotNetSite.csproj",
         "projectName": "testDotNetSite",
-        "projectPath": "E:\\github\\BirdMessenger\\samples\\testDotNetSite\\testDotNetSite.csproj",
-        "packagesPath": "C:\\Users\\Tian\\.nuget\\packages\\",
-        "outputPath": "E:\\github\\BirdMessenger\\samples\\testDotNetSite\\obj\\",
+        "projectPath": "/dotnet/BirdMessenger/samples/testDotNetSite/testDotNetSite.csproj",
+        "packagesPath": "/Users/tian/.nuget/packages/",
+        "outputPath": "/dotnet/BirdMessenger/samples/testDotNetSite/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Tian\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 18.1.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/tian/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.2"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 18.1\\Components\\System\\Components\\Packages": {},
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
