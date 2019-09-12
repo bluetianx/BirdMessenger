@@ -45,6 +45,10 @@ Package manager
 
 * You can see more examples in unit tests
 
+## Document
+
+[Wiki](https://github.com/bluetianx/BirdMessenger/wiki)
+
 ## Roadmap
 
 I will develop in branch of dev
