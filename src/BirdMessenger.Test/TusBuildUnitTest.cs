@@ -70,7 +70,6 @@ namespace BirdMessenger.Test
 
             var result = await tusClient.Create(fileInfo, dir);
         }
-
         public static bool CompareFileByFilePath(string sourceFile,string targetFile)
         {
             byte[] sourceData = File.ReadAllBytes(sourceFile);

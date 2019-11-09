@@ -2,23 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd04d886-e136-4124-9376-3006d927d41f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusUploadContext.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BirdMessenger/riderModule.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/samples/demo/demo/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/samples/demo/demo/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/samples/demo/demo/demo.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/samples/demo/demo/demo.csproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/samples/testDotNetSite/obj/Debug/netcoreapp2.2/testDotNetSite.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/samples/testDotNetSite/obj/Debug/netcoreapp2.2/testDotNetSite.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/samples/testDotNetSite/obj/Debug/netcoreapp2.2/testDotNetSite.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/samples/testDotNetSite/obj/Debug/netcoreapp2.2/testDotNetSite.csprojAssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/samples/testDotNetSite/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/samples/testDotNetSite/obj/project.assets.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/samples/testDotNetSite/obj/testDotNetSite.csproj.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/samples/testDotNetSite/obj/testDotNetSite.csproj.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/samples/testDotNetSite/obj/testDotNetSite.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/samples/testDotNetSite/obj/testDotNetSite.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/samples/testDotNetSite/obj/testDotNetSite.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/samples/testDotNetSite/obj/testDotNetSite.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/samples/testDotNetSite/obj/testDotNetSite.csproj.nuget.g.targets" beforeDir="false" afterPath="$PROJECT_DIR$/samples/testDotNetSite/obj/testDotNetSite.csproj.nuget.g.targets" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/BirdMessenger.Test/TusBuildUnitTest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger.Test/TusBuildUnitTest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BirdMessenger/BirdMessenger.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger/BirdMessenger.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BirdMessenger/TusBuild.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger/TusBuild.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BirdMessenger/TusClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/BirdMessenger/TusClient.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -27,38 +20,41 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
-    <option name="PUSH_TAGS">
-      <GitPushTagMode />
-    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6DADD22E-0197-42CE-80AA-EFEF99855BE0/2f/4643b6b5/Enum.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusExtension.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/samples/demo/demo/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusUploadContext.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger.Test/TusClientUnitTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/299BB328-4FAD-4E61-874C-3DD1F93B7A0C/bf/eead25a2/IServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/102886C9-99A7-4352-8748-69B309C42662/b9/ae4eea79/HttpClientFactoryExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/TusBuild.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/samples/demo/demo/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/4e/99b1a97b/HttpHeaders.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/TusClient.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/samples/testDotNetSite/Services/ExpiredFilesCleanupService.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/c4/8148c3b4/HttpRequestMessage.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusExtension.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/57/0041cba3/HttpMethod.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/ResponseExtension.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/samples/testDotNetSite/Startup.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusRequestException.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusUploadContext.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/BirdMessenger.Test/TusBuildUnitTest.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/samples/testDotNetSite/Program.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/102886C9-99A7-4352-8748-69B309C42662/b9/ae4eea79/HttpClientFactoryExtensions.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/samples/testDotNetSite/Services/ExpiredFilesCleanupService.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/4e/99b1a97b/HttpHeaders.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/c4/8148c3b4/HttpRequestMessage.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/TusClient.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/samples/testDotNetSite/Startup.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/TusBuild.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/46579BA7-03B0-448E-B511-A6F325E89CB0/57/0041cba3/HttpMethod.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/F7D62CA6-D0DA-4FC8-B654-35FFEF6896CF/40/681c408d/HttpStatusCode.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/BirdMessenger/Core/Tus.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/BirdMessenger.Test/TusClientUnitTest.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -78,7 +74,6 @@
         <option value="$PROJECT_DIR$/samples/testDotNetSite/Services/ExpiredFilesCleanupService.cs" />
         <option value="$PROJECT_DIR$/src/BirdMessenger/Abstractions/ITusCore.cs" />
         <option value="$PROJECT_DIR$/samples/testDotNetSite/Startup.cs" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/samples/testDotNetSite/Dockerfile" />
         <option value="$PROJECT_DIR$/samples/testDotNetSite/Program.cs" />
         <option value="$PROJECT_DIR$/src/BirdMessenger/TusBuild.cs" />
@@ -86,16 +81,15 @@
         <option value="$PROJECT_DIR$/src/BirdMessenger/Infrastructure/TusUploadContext.cs" />
         <option value="$PROJECT_DIR$/src/BirdMessenger/TusClient.cs" />
         <option value="$PROJECT_DIR$/src/BirdMessenger/BirdMessenger.csproj" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/docs/doc_eng.md" />
+        <option value="$PROJECT_DIR$/docs/doc_zh.md" />
+        <option value="$PROJECT_DIR$/src/BirdMessenger.Test/TusBuildUnitTest.cs" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="1431" />
-    <option name="y" value="131" />
-    <option name="width" value="1280" />
-    <option name="height" value="711" />
-  </component>
+  <component name="ProjectId" id="1TN1LS4E1uvuCXbROkmWd6SDVKA" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -231,6 +225,7 @@
       <workItem from="1557579224592" duration="7834000" />
       <workItem from="1558605158557" duration="96000" />
       <workItem from="1558606982919" duration="14905000" />
+      <workItem from="1573285686619" duration="4265000" />
     </task>
     <task id="LOCAL-00001" summary="增加解决方案">
       <created>1550672384390</created>
@@ -330,7 +325,28 @@
       <option name="project" value="LOCAL" />
       <updated>1564764089701</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="修改单元测试的编译错误">
+      <created>1573286923217</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1573286923217</updated>
+    </task>
+    <task id="LOCAL-00016" summary="add doc">
+      <created>1573294088096</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1573294088096</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add sponsor   to readme">
+      <created>1573295879647</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1573295879647</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -338,7 +354,19 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
+    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
     <MESSAGE value="增加解决方案" />
     <MESSAGE value="添加接口" />
     <MESSAGE value="修改ignore" />
@@ -353,7 +381,10 @@
     <MESSAGE value="修复birdmessenger 的编译错误" />
     <MESSAGE value="tusclient 增加options delete 方法" />
     <MESSAGE value="create tag" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="修改单元测试的编译错误" />
+    <MESSAGE value="add doc" />
+    <MESSAGE value="add sponsor   to readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="add sponsor   to readme" />
   </component>
   <component name="WindowStateProjectService">
     <state width="2006" height="320" key="GridCell.Tab.0.bottom" />
