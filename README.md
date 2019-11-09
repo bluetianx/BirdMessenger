@@ -59,5 +59,5 @@ I will develop in branch of dev
 ## Support and Sponsorship
 
 <a href="https://www.jetbrains.com" target="_blank">
-    <img src="./docs/img/jetbrains_logo.png" title="JetBrains" style="width:100px;" />
+    <img src="./docs/img/jetbrains_logo.png" title="JetBrains" width="100" />
 </a>
