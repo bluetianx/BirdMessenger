@@ -1,4 +1,3 @@
-src/.idea
 src/BirdMessenger/obj
 src/BirdMessenger/bin
 src/BirdMessenger.Test/obj
@@ -12,10 +11,10 @@ samples/demo/demo/test.dmg
 samples/demo/demoByNuget
 samples/testSite/node_modules
 samples/testSite/files/*
-samples/testDotNetSite/bin
-samples/testDotNetSite/obj
 samples/testDotNetSite/tusfiles
-/.idea
 /.vscode/*
 /.vs/BirdMessenger
 .idea/.idea.BirdMessenger/.idea/workspace.xml
+/samples/testDotNetSite/obj/
+/.idea/
+/samples/testDotNetSite/bin/
