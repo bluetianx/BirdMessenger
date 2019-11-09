@@ -16,6 +16,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{5A709BCF-F000-4205-A73F-68A3E9B61739}"
 	ProjectSection(SolutionItems) = preProject
 		docs\READMEEN.md = docs\READMEEN.md
+		docs\doc_eng.md = docs\doc_eng.md
+		docs\doc_zh.md = docs\doc_zh.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5E0033D5-68AA-43ED-B1A0-D7EEF4D0ECB6}"
