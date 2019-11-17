@@ -7,3 +7,7 @@ samples/demo/demo/bin
 samples/demo/demo/obj
 samples/demo/demo/test.dmg
 samples/demo/demoByNuget
+/.idea/
+/.vscode/
+/samples/demo/.vscode/
+/samples/demo/demo/bin/
