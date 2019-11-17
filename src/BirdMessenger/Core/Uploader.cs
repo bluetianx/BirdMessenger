@@ -86,7 +86,7 @@ namespace BirdMessenger.Core
             }
 
             HttpWebResponse response = (HttpWebResponse) request.GetResponse ();
-            int offset = int.Parse (response.Headers["Upload-Offset"]);
+            long offset = long.Parse (response.Headers["Upload-Offset"]);
             request?.Abort();
             int uploadSize = _UploadConfig.MaxChunkSize;
             using (var fs = new FileStream (_UploadConfig.UploadFile.FullName, FileMode.Open, FileAccess.Read))
