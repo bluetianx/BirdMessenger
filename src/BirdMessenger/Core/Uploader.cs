@@ -134,7 +134,7 @@ namespace BirdMessenger.Core
                     }
 
                     response = (HttpWebResponse) request.GetResponse ();
-                    offset = int.Parse (response.Headers["Upload-Offset"]);
+                    offset = long.Parse (response.Headers["Upload-Offset"]);
                     request?.Abort();
 
                     if (_UploadConfig.Uploading != null)
