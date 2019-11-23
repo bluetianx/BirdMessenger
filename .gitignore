@@ -18,3 +18,4 @@ samples/testDotNetSite/tusfiles
 /samples/testDotNetSite/obj/
 /.idea/
 /samples/testDotNetSite/bin/
+/src/BirdMessenger/bin/
