@@ -19,3 +19,7 @@ samples/testDotNetSite/tusfiles
 /.idea/
 /samples/testDotNetSite/bin/
 /src/BirdMessenger/bin/
+/src/BirdMessenger.BenchMark/bin/
+/src/BirdMessenger.BenchMark/obj/
+/samples/testDotNetSite/bin/
+/samples/testDotNetSite/obj/
