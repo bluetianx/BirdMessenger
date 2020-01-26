@@ -13,6 +13,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.11.5" />
-    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.11.5" Condition="'$(OS)' == 'Windows_NT'"/>
+    <PackageReference Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.11.5" Condition="'$(OS)' == 'Windows_NT'" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BirdMessenger\BirdMessenger.csproj" />
   </ItemGroup>
 </Project>
