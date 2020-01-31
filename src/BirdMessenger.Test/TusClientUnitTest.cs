@@ -21,7 +21,7 @@ namespace BirdMessenger.Test
             
             var tusClient = this.BuildClient();
 
-            var fileInfo = new FileInfo(@"TestFile/test.mp4");
+            var fileInfo = new FileInfo(@"TestFile/testf");
             Dictionary<string, string> dir = new Dictionary<string, string>();
             dir["filename"] = fileInfo.FullName;
 
@@ -65,7 +65,7 @@ namespace BirdMessenger.Test
         private TusClient BuildClient()
         {
             string clientName = "tusClient";
-            Uri host = new Uri("http://localhost:5000/files");
+            Uri host = new Uri("http://localhost:6000/files");
             IServiceCollection services = new ServiceCollection();
             services.AddHttpClient(clientName, c =>
             {

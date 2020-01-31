@@ -28,4 +28,15 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="TestFile" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="TestFile\bigFile" />
+      <AdditionalFiles Include="TestFile\bigFile" />
+      <None Remove="TestFile\testf" />
+      <AdditionalFiles Include="TestFile\testf" />
+    </ItemGroup>
+
 </Project>
