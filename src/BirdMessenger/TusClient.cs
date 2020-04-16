@@ -105,7 +105,7 @@ namespace BirdMessenger
         /// <param name="uploadMetaDic"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> uploadMetaDic,CancellationToken ct=default(CancellationToken))
+        public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> uploadMetaDic=null,CancellationToken ct=default(CancellationToken))
         {
             
 
@@ -136,7 +136,11 @@ namespace BirdMessenger
         private string CreateMeta (FileInfo fileInfo,Dictionary<string, string> uploadMetaDic)
         {
             string uploadMeta = "";
-            
+
+            if (uploadMetaDic == null)
+            {
+                uploadMetaDic= new Dictionary<string, string>();
+            }
 
             if (!uploadMetaDic.ContainsKey ("fileName"))
             {
