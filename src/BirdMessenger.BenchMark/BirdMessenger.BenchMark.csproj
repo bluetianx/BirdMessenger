@@ -18,4 +18,12 @@
   <ItemGroup>
     <ProjectReference Include="..\BirdMessenger\BirdMessenger.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="TestFile\bigFile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="TestFile\testf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
