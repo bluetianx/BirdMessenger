@@ -21,5 +21,4 @@ samples/testDotNetSite/tusfiles
 /src/BirdMessenger/bin/
 /src/BirdMessenger.BenchMark/bin/
 /src/BirdMessenger.BenchMark/obj/
-/samples/testDotNetSite/bin/
-/samples/testDotNetSite/obj/
+/src/BirdMessenger.BenchMark/TestFile
