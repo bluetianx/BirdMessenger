@@ -10,7 +10,7 @@ namespace BirdMessenger.BenchMark
     [MemoryDiagnoser]
     public class Benchmarks
     {
-        [Benchmark]
+        //[Benchmark]
         public async Task Scenario1()
         {
             var fileInfo = new FileInfo(@"TestFile/testf");

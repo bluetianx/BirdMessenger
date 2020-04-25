@@ -17,7 +17,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Configuration" />
+      <Compile Remove="Configuration\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Configuration\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Configuration\**" />
     </ItemGroup>
 
 </Project>
