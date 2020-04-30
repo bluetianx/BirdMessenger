@@ -51,6 +51,11 @@ namespace BirdMessenger
             GetUploadSize = getUploadSize == null ? (context) => 1 * 1024 * 1024 : getUploadSize;
         }
 
+        public async Task<bool> Upload(Uri url, Stream content, CancellationToken ct = default(CancellationToken))
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// upload file
         /// </summary>
