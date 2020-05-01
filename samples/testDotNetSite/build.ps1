@@ -1,3 +1,1 @@
-dotnet publish -c release -o ./bin/publish
-cd ./bin/publish
-docker build -t tusdotnet .
+docker build -t tusdotnet:v3 .
