@@ -7,6 +7,6 @@ namespace BirdMessenger
 {
     public interface ITusClient
     {
-         Task<bool> Upload(Uri url,FileInfo uploadFileInfo,CancellationToken ct=default(CancellationToken))
+        Task<bool> Upload(Uri url, FileInfo uploadFileInfo, CancellationToken ct = default(CancellationToken));
     }
 }
