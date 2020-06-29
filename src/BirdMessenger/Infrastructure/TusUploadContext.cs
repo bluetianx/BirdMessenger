@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace BirdMessenger.Infrastructure
@@ -20,5 +21,7 @@ namespace BirdMessenger.Infrastructure
         public  FileInfo UploadFileInfo { get; }
         
         public  Uri UploadFileUrl { get;}
+        
+        public  Dictionary<object,object> Items { get; set; }
     }
 }
