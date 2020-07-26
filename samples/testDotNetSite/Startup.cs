@@ -1,24 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
 using testDotNetSite.Services;
 using tusdotnet;
 using tusdotnet.Helpers;
 using tusdotnet.Models;
-using tusdotnet.Models.Concatenation;
-using tusdotnet.Models.Configuration;
 using tusdotnet.Models.Expiration;
 using tusdotnet.Stores;
 
@@ -39,11 +32,14 @@ namespace testDotNetSite
             services.AddCors();
             services.AddSingleton(CreateTusConfiguration);
             services.AddHostedService<ExpiredFilesCleanupService>();
+            
+            //services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             app.Use((context, next) =>
             {
                 // Default limit was changed some time ago. Should work by setting MaxRequestBodySize to null using ConfigureKestrel but this does not seem to work for IISExpress.
