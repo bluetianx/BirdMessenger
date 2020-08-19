@@ -51,7 +51,7 @@ namespace BirdMessenger
             GetUploadSize = getUploadSize == null ? (context) => 1 * 1024 * 1024 : getUploadSize;
         }
 
-
+        
 
         /// <summary>
         /// upload file
@@ -60,15 +60,9 @@ namespace BirdMessenger
         /// <param name="uploadFileInfo"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-
-
-        public async Task<bool> Upload(Uri url, FileInfo uploadFileInfo,  CancellationToken ct = default(CancellationToken))
+        public async Task<bool> Upload(Uri url,FileInfo uploadFileInfo,CancellationToken ct=default(CancellationToken))
         {
-            return await Upload(url, uploadFileInfo, null, ct);
-        }
-        public async Task<bool> Upload(Uri url,FileInfo uploadFileInfo, Dictionary<string, string> headers, CancellationToken ct=default(CancellationToken))
-        {
-            var headResult = await _tusCore.Head(url, ct,headers);
+            var headResult = await _tusCore.Head(url, ct);
             long offset = long.Parse(headResult["Upload-Offset"]);
 
             var tusUploadFileContext = new TusUploadContext(totalSize:uploadFileInfo.Length,
@@ -96,7 +90,7 @@ namespace BirdMessenger
                         Array.Resize (ref buffer, readCount);
                     }
 
-                    var uploadResult=await _tusCore.Patch(url, buffer, offset, ct,headers);
+                    var uploadResult=await _tusCore.Patch(url, buffer, offset, ct);
                     offset = long.Parse(uploadResult["Upload-Offset"]);
                     tusUploadFileContext.UploadedSize = offset;
                     Uploading?.Invoke(tusUploadFileContext);
@@ -113,16 +107,12 @@ namespace BirdMessenger
         /// <param name="uploadMetaDic"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-
-        public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> uploadMetaDic = null, CancellationToken ct = default(CancellationToken))
+        public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> uploadMetaDic=null,CancellationToken ct=default(CancellationToken))
         {
-            return await Create(fileInfo, null, uploadMetaDic, ct);
-        }
-        public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> headers, Dictionary<string, string> uploadMetaDic=null,CancellationToken ct=default(CancellationToken))
-        {
+            
 
             string uploadMeta = this.CreateMeta(fileInfo, uploadMetaDic);
-            var fileUrl = await _tusExtension.Creation(_serverHost, fileInfo.Length,uploadMeta, ct,headers);
+            var fileUrl = await _tusExtension.Creation(_serverHost, fileInfo.Length,uploadMeta, ct);
 
             return fileUrl;
         }
@@ -133,25 +123,15 @@ namespace BirdMessenger
         /// <param name="fileUrl"></param>
         /// <param name="ct"></param>
         /// <returns></returns>
-
-        public async Task<bool> DeleteFile(Uri fileUrl, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteFile(Uri fileUrl, CancellationToken ct=default(CancellationToken))
         {
-            return await DeleteFile(fileUrl, null, ct);
-        }
-        public async Task<bool> DeleteFile(Uri fileUrl, Dictionary<string, string> headers, CancellationToken ct=default(CancellationToken))
-        {
-            var deleteResult = await _tusExtension.Delete(fileUrl, ct,headers);
+            var deleteResult = await _tusExtension.Delete(fileUrl, ct);
             return deleteResult;
         }
 
-        public async Task<Dictionary<string, string>> ServerInfo(CancellationToken ct = default(CancellationToken))
+        public async Task<Dictionary<string, string>> ServerInfo(CancellationToken ct=default(CancellationToken))
         {
-            return await ServerInfo(null, ct);
-        }
-
-        public async Task<Dictionary<string, string>> ServerInfo(Dictionary<string, string> headers,CancellationToken ct=default(CancellationToken))
-        {
-            var serverInfoDic = await _tusCore.Options(_serverHost, ct,headers);
+            var serverInfoDic = await _tusCore.Options(_serverHost, ct);
             return serverInfoDic;
         }
 
