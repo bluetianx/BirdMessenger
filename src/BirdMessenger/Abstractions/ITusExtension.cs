@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace BirdMessenger.Abstractions
         /// <param name="uploadMetadata"></param>
         /// <param name="requestCancellationToken"></param>
         /// <returns></returns>
-        Task<Uri> Creation(Uri url, long uploadLength, string uploadMetadata,CancellationToken requestCancellationToken);
+        Task<Uri> Creation(Uri url, long uploadLength, string uploadMetadata,CancellationToken requestCancellationToken, Dictionary<string, string> headers);
 
         /// <summary>
         /// Termination upload
@@ -27,6 +28,6 @@ namespace BirdMessenger.Abstractions
         /// <param name="url"></param>
         /// <param name="requestCancellationToken"></param>
         /// <returns></returns>
-        Task<bool> Delete(Uri url,CancellationToken requestCancellationToken);
+        Task<bool> Delete(Uri url,CancellationToken requestCancellationToken, Dictionary<string, string> headers);
     }
 }

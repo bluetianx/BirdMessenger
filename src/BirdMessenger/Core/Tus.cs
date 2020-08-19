@@ -44,9 +44,16 @@ namespace BirdMessenger.Core
         /// <param name="url"></param>
         /// <param name="requestCancellationToken"></param>
         /// <returns></returns>
-        public async Task<Dictionary<string, string>> Head(Uri url,CancellationToken requestCancellationToken)
+        public async Task<Dictionary<string, string>> Head(Uri url,CancellationToken requestCancellationToken, Dictionary<string, string> headers)
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Head, url);
+            if (headers != null)
+            {
+                foreach(var pair in headers)
+                {
+                    httpReqMsg.Headers.Add(pair.Key, pair.Value);
+                }
+            }
             var client = this.GetHttpClient();
             var response = await client.SendAsync(httpReqMsg, requestCancellationToken);
 
@@ -65,9 +72,16 @@ namespace BirdMessenger.Core
         }
 
         public async Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, long offset,
-            CancellationToken requestCancellationToken)
+            CancellationToken requestCancellationToken, Dictionary<string, string> headers)
         {
             var httpReqMsg = new HttpRequestMessage(new HttpMethod("PATCH"), url);
+            if (headers != null)
+            {
+                foreach (var pair in headers)
+                {
+                    httpReqMsg.Headers.Add(pair.Key, pair.Value);
+                }
+            }
             httpReqMsg.Headers.Add("Upload-Offset",offset.ToString());
             //httpReqMsg.Headers.Add("Content-Type","application/offset+octet-stream");
             
@@ -88,10 +102,16 @@ namespace BirdMessenger.Core
             return result;
         }
 
-        public async Task<Dictionary<string, string>> Options(Uri url,CancellationToken requestCancellationToken)
+        public async Task<Dictionary<string, string>> Options(Uri url,CancellationToken requestCancellationToken, Dictionary<string, string> headers)
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Options, url);
-            
+            if (headers != null)
+            {
+                foreach (var pair in headers)
+                {
+                    httpReqMsg.Headers.Add(pair.Key, pair.Value);
+                }
+            }
             var client = this.GetHttpClient();
             if (client.DefaultRequestHeaders.Contains("Tus-Resumable"))
             {
@@ -119,10 +139,17 @@ namespace BirdMessenger.Core
             return result;
         }
 
-        public async Task<Uri> Creation(Uri url, long uploadLength, string uploadMetadata,CancellationToken requestCancellationToken)
+        public async Task<Uri> Creation(Uri url, long uploadLength, string uploadMetadata,CancellationToken requestCancellationToken, Dictionary<string, string> headers)
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Post, url);
             httpReqMsg.Headers.Add("Upload-Length",uploadLength.ToString());
+            if (headers != null)
+            {
+                foreach (var pair in headers)
+                {
+                    httpReqMsg.Headers.Add(pair.Key, pair.Value);
+                }
+            }
             if (!string.IsNullOrEmpty(uploadMetadata))
             {
                 httpReqMsg.Headers.Add("Upload-Metadata",uploadMetadata);
@@ -150,9 +177,16 @@ namespace BirdMessenger.Core
             return fileUrl;
         }
 
-        public async Task<bool> Delete(Uri url,CancellationToken requestCancellationToken)
+        public async Task<bool> Delete(Uri url,CancellationToken requestCancellationToken, Dictionary<string, string> headers)
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Delete, url);
+            if (headers != null)
+            {
+                foreach (var pair in headers)
+                {
+                    httpReqMsg.Headers.Add(pair.Key, pair.Value);
+                }
+            }
             var client = this.GetHttpClient();
             var response = await client.SendAsync(httpReqMsg, requestCancellationToken);
             if (response.StatusCode != HttpStatusCode.NoContent)
