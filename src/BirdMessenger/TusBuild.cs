@@ -3,6 +3,7 @@ using BirdMessenger.Core;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using BirdMessenger.Infrastructure;
+using System.Collections.Generic;
 
 namespace BirdMessenger
 {
@@ -37,6 +38,37 @@ namespace BirdMessenger
             TusBuild tusBuild = new TusBuild(tusClientOption);
             return tusBuild;
             
+        }
+
+        public static TusBuild DefaultTusClientBuild(Uri tushost, Dictionary<string, string> header, string clientName = "")
+        {
+            TusClientOption tusClientOption = new TusClientOption
+            {
+                TusHost = tushost,
+                ClientName = string.IsNullOrEmpty(clientName) ? "tusClient" : clientName
+            };
+
+            IServiceCollection services = new ServiceCollection();
+            services.AddHttpClient(tusClientOption.ClientName, c =>
+            {
+                c.DefaultRequestHeaders.Add("Tus-Resumable", "1.0.0");
+                if (header != null)
+                {
+                    foreach (var pair in header)
+                    {
+                        c.DefaultRequestHeaders.Add(pair.Key, pair.Value);
+                    }
+                }
+            });
+
+            services.AddTransient<ITusCore, Tus>();
+            services.AddTransient<ITusExtension, Tus>();
+
+            tusClientOption.Servces = services;
+
+            TusBuild tusBuild = new TusBuild(tusClientOption);
+            return tusBuild;
+
         }
 
         public  TusBuild Configure(Action<TusClientOption> configAction)
