@@ -51,7 +51,7 @@ Package manager
 
 ## Roadmap
 
-I will develop in branch of dev
+I develop on the Dev branch
 
 ## Who is using
 
