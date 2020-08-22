@@ -10,10 +10,6 @@ namespace BirdMessenger.Abstractions
     /// </summary>
     public interface ITusCore
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        string HttpClientName { get; set; }
 
         /// <summary>
         /// tus head request

@@ -17,26 +17,13 @@ namespace BirdMessenger.Core
     public class Tus:ITusCore,ITusExtension
     {
 
-        private readonly IHttpClientFactory _httpClientFactory;
-        
-        //public CancellationToken RequestCancellationToken { get; set; }
-        
-        public  string HttpClientName { get; set; }
+        private HttpClient _httpClient;
 
-        public Tus(IHttpClientFactory httpClientFactory)
+        public Tus(HttpClient httpClient)
         {
-            _httpClientFactory = httpClientFactory;
+            _httpClient = httpClient;
         }
-
-        private HttpClient GetHttpClient()
-        {
-            var client = string.IsNullOrEmpty(HttpClientName)
-                ? this._httpClientFactory.CreateClient()
-                : this._httpClientFactory.CreateClient(HttpClientName);
-
-            return client;
-        }
-
+        
 
         /// <summary>
         /// 
@@ -47,8 +34,8 @@ namespace BirdMessenger.Core
         public async Task<Dictionary<string, string>> Head(Uri url,CancellationToken requestCancellationToken)
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Head, url);
-            var client = this.GetHttpClient();
-            var response = await client.SendAsync(httpReqMsg, requestCancellationToken);
+            
+            var response = await _httpClient.SendAsync(httpReqMsg, requestCancellationToken);
 
             if (response.StatusCode == HttpStatusCode.NotFound 
                 || response.StatusCode == HttpStatusCode.Gone
@@ -74,9 +61,7 @@ namespace BirdMessenger.Core
             httpReqMsg.Content = new ByteArrayContent(uploadData);
             httpReqMsg.Content.Headers.Add("Content-Type", "application/offset+octet-stream");
 
-            var client = this.GetHttpClient();
-            
-            var response = await client.SendAsync(httpReqMsg, requestCancellationToken);
+            var response = await _httpClient.SendAsync(httpReqMsg, requestCancellationToken);
             if (response.StatusCode != HttpStatusCode.NoContent)
             {
                 throw new TusException($"patch response statusCode is {response.StatusCode.ToString()}");
@@ -92,13 +77,12 @@ namespace BirdMessenger.Core
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Options, url);
             
-            var client = this.GetHttpClient();
-            if (client.DefaultRequestHeaders.Contains("Tus-Resumable"))
+            if (_httpClient.DefaultRequestHeaders.Contains("Tus-Resumable"))
             {
-                client.DefaultRequestHeaders.Remove("Tus-Resumable");
+                _httpClient.DefaultRequestHeaders.Remove("Tus-Resumable");
             }
 
-            var response = await client.SendAsync(httpReqMsg, requestCancellationToken);
+            var response = await _httpClient.SendAsync(httpReqMsg, requestCancellationToken);
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
             {
                 throw  new TusException($"Options response statusCode is {response.StatusCode.ToString()}");
@@ -127,8 +111,8 @@ namespace BirdMessenger.Core
             {
                 httpReqMsg.Headers.Add("Upload-Metadata",uploadMetadata);
             }
-            var client = this.GetHttpClient();
-            var response = await client.SendAsync(httpReqMsg, requestCancellationToken);
+            
+            var response = await _httpClient.SendAsync(httpReqMsg, requestCancellationToken);
             if (response.StatusCode != HttpStatusCode.Created)
             {
                 throw  new TusException($"creation response statusCode is {response.StatusCode}");
@@ -153,8 +137,8 @@ namespace BirdMessenger.Core
         public async Task<bool> Delete(Uri url,CancellationToken requestCancellationToken)
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Delete, url);
-            var client = this.GetHttpClient();
-            var response = await client.SendAsync(httpReqMsg, requestCancellationToken);
+            
+            var response = await _httpClient.SendAsync(httpReqMsg, requestCancellationToken);
             if (response.StatusCode != HttpStatusCode.NoContent)
             {
                 throw  new TusException($"delete response statusCode is {response.StatusCode}");

@@ -10,21 +10,15 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BirdMessenger
 {
-    public class TusClient
+    public class TusClient:ITusClient
     {
+        private readonly Uri _serverHost;
         
-
-        private IServiceProvider _serviceProvider;
-
-        private Uri _serverHost;
-
-        
-
         /// <summary>
         /// 
         /// return size which will upload
         /// </summary>
-        private Func< TusUploadContext,int> GetUploadSize;
+        private Func<TusUploadContext,int> GetUploadSize;
 
         public event Action<TusUploadContext> UploadFinish;
 
@@ -32,23 +26,17 @@ namespace BirdMessenger
         /// uri  offset fileLength 
         /// </summary>
         public event Action<TusUploadContext> Uploading; 
-
-        private  string ClientName { get; set; }
-
-
+        
         private  ITusCore _tusCore;
         private ITusExtension _tusExtension;
 
-        public TusClient(IServiceProvider serviceProvider, string clientName,Uri serverHost, Func<TusUploadContext,int> getUploadSize=null)
+        public TusClient(ITusCore tusCore,ITusExtension tusExtension,Uri serverHost, Func<TusUploadContext,int> getUploadSize=null)
         {
-            _serviceProvider = serviceProvider;
-            this.ClientName = clientName;
-            _tusCore = serviceProvider.GetRequiredService<ITusCore>();
-            _tusExtension = serviceProvider.GetRequiredService<ITusExtension>();
-            _tusCore.HttpClientName = clientName;
-            _tusExtension.HttpClientName = clientName;
+            _tusCore = tusCore;
+            _tusExtension = tusExtension;
+            
             _serverHost = serverHost;
-            GetUploadSize = getUploadSize == null ? (context) => 1 * 1024 * 1024 : getUploadSize;
+            GetUploadSize = getUploadSize ?? ((context) => 1 * 1024 * 1024);
         }
 
         
@@ -129,6 +117,7 @@ namespace BirdMessenger
             return deleteResult;
         }
 
+        
         public async Task<Dictionary<string, string>> ServerInfo(CancellationToken ct=default(CancellationToken))
         {
             var serverInfoDic = await _tusCore.Options(_serverHost, ct);

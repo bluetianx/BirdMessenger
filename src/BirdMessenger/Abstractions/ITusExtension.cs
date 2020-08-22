@@ -9,8 +9,6 @@ namespace BirdMessenger.Abstractions
     /// </summary>
     public interface ITusExtension
     {
-        string HttpClientName { get; set; }
-
         /// <summary>
         /// creation 
         /// </summary>

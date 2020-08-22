@@ -62,23 +62,13 @@ namespace BirdMessenger.Test
             var serviceInfo = await tusClient.ServerInfo();
         }
 
-        private TusClient BuildClient()
+        private ITusClient BuildClient()
         {
-            string clientName = "tusClient";
             Uri host = new Uri("http://localhost:6000/files");
-            IServiceCollection services = new ServiceCollection();
-            services.AddHttpClient(clientName, c =>
-            {
-                c.DefaultRequestHeaders.Add("Tus-Resumable", "1.0.0");
-            });
-
-            services.AddTransient<ITusCore, Tus>();
-            services.AddTransient<ITusExtension, Tus>();
-
-            var serviceProvider = services.BuildServiceProvider();
-
-            var tusClient = new TusClient(serviceProvider, clientName, host);
-
+            
+            ITusClient tusClient=TusBuild.DefaultTusClientBuild(host)
+                .Build();
+            
             return tusClient;
         }
     }

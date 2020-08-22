@@ -6,7 +6,7 @@ namespace BirdMessenger.BenchMark
     public class Program
     {
         public  static  Uri host = new Uri("http://localhost:5000/files");
-        public static  TusClient tusClient=TusBuild.DefaultTusClientBuild(host)
+        public static  ITusClient tusClient=TusBuild.DefaultTusClientBuild(host)
             .Build();
         public static void Main(string[] args)
         {
