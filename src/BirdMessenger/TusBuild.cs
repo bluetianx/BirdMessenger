@@ -7,47 +7,50 @@ using BirdMessenger.Infrastructure;
 
 namespace BirdMessenger
 {
-    public  class TusBuild
+    public sealed class DefaultTusBuild : TusBuild
     {
-        private TusClientOption _tusClientOptions = new TusClientOption();
-        
-        private bool _tusBuilt;
-        
-        public IDictionary<object, object> Properties { get; } = new Dictionary<object, object>(); 
-        
-        private List<Action<TusClientOption>> _configureClientActions= new List<Action<TusClientOption>>();
-
-        
-
-        public static TusBuild DefaultTusClientBuild(Uri tushost,string clientName="")
+        private DefaultTusBuild()
         {
-            TusBuild tusBuild = new TusBuild();
+            _tusClientOptions = new DefaultTusClientOption();
+        }
+
+        public DefaultTusClientOption Options => _tusClientOptions as DefaultTusClientOption;
+        public static DefaultTusBuild DefaultTusClientBuild(Uri tushost, string clientName = "")
+        {
+            DefaultTusBuild tusBuild = new DefaultTusBuild();
 
             tusBuild.Configure((tusClientOption) =>
             {
-                tusClientOption.TusHost = tushost;
-                tusClientOption.ClientName = string.IsNullOrEmpty(clientName) ? "tusClient" : clientName;
-                tusClientOption.Servces = new ServiceCollection();
-                
-                tusClientOption.Servces.AddHttpClient<ITusCore>( c =>
-                {
-                    c.DefaultRequestHeaders.Add("Tus-Resumable", "1.0.0");
-                });
-                tusClientOption.Servces.AddHttpClient<ITusExtension>( c =>
-                {
-                    c.DefaultRequestHeaders.Add("Tus-Resumable", "1.0.0");
-                });
+                tusClientOption.TusRemoteHost = tushost;
+                tusClientOption.Services = new ServiceCollection();
 
-                tusClientOption.Servces.AddTransient<ITusCore, Tus>();
-                tusClientOption.Servces.AddTransient<ITusExtension, Tus>();
-                
+                (tusClientOption as DefaultTusClientOption).CoreHttpClientBuilder = tusClientOption.Services.AddHttpClient<ITusCore, Tus>(c =>
+                {
+                    c.DefaultRequestHeaders.Add("Tus-Resumable", "1.0.0");
+                });
+                (tusClientOption as DefaultTusClientOption).ExtensionHttpClientBuilder = tusClientOption.Services.AddHttpClient<ITusExtension, Tus>(c =>
+                {
+                    c.DefaultRequestHeaders.Add("Tus-Resumable", "1.0.0");
+                });
             });
-            
             return tusBuild;
-            
+        }
+    }
+
+    public class TusBuild
+    {
+        protected TusClientOption _tusClientOptions;
+
+        public TusBuild()
+        {
+            _tusClientOptions = new TusClientOption();
         }
 
-        public  TusBuild Configure(Action<TusClientOption> configAction)
+        private bool _tusBuilt;
+        public IDictionary<object, object> Properties { get; } = new Dictionary<object, object>();
+        private List<Action<TusClientOption>> _configureClientActions = new List<Action<TusClientOption>>();
+
+        public TusBuild Configure(Action<TusClientOption> configAction)
         {
             _configureClientActions.Add(configAction ?? throw new ArgumentNullException(nameof(configAction)));
             return this;
@@ -64,20 +67,18 @@ namespace BirdMessenger
             {
                 configureClientAction(_tusClientOptions);
             }
-            var serviceProvider = _tusClientOptions.Servces.BuildServiceProvider();
+            var serviceProvider = _tusClientOptions.Services.BuildServiceProvider();
 
             var tusClient = serviceProvider.GetService<ITusClient>();
             if (tusClient == null)
             {
                 var tusCore = serviceProvider.GetService<ITusCore>();
                 var tusEx = serviceProvider.GetService<ITusExtension>();
-                tusClient= new TusClient(tusCore,tusEx,
-                    _tusClientOptions.TusHost,_tusClientOptions.GetUploadSize);
+                tusClient = new TusClient(tusCore, tusEx, _tusClientOptions.TusRemoteHost, _tusClientOptions.GetUploadChunkSize);
             }
-            
+
             return tusClient;
         }
-
     }
 
     public class TusClientOption
@@ -85,19 +86,20 @@ namespace BirdMessenger
         /// <summary>
         /// tus server host
         /// </summary>
-        public Uri TusHost { get; set; }
+        public Uri TusRemoteHost { get; set; }
 
-        public IServiceCollection Servces { get; set; }
-
-        /// <summary>
-        /// http factory clientName
-        /// </summary>
-        public string ClientName { get; set; }
+        public IServiceCollection Services { get; set; }
 
         /// <summary>
         /// first parameter is uploadedSize,second parameter is totalSize
         /// return size which will upload
         /// </summary>
-        public Func<TusUploadContext, int> GetUploadSize = (context) => 1 * 1024 * 1024;
+        public Func<TusUploadContext, int> GetUploadChunkSize = (context) => 1 * 1024 * 1024;
+    }
+
+    public class DefaultTusClientOption : TusClientOption
+    {
+        public IHttpClientBuilder CoreHttpClientBuilder { get; internal set; }
+        public IHttpClientBuilder ExtensionHttpClientBuilder { get; internal set; }
     }
 }

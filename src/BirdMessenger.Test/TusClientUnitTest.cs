@@ -66,7 +66,7 @@ namespace BirdMessenger.Test
         {
             Uri host = new Uri("http://localhost:6000/files");
             
-            ITusClient tusClient=TusBuild.DefaultTusClientBuild(host)
+            ITusClient tusClient= DefaultTusBuild.DefaultTusClientBuild(host)
                 .Build();
             
             return tusClient;

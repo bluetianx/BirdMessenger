@@ -19,7 +19,7 @@ namespace BirdMessenger.Test
         public async Task TestCreateTusClientAsync()
         {
 
-            var tusClient=TusBuild.DefaultTusClientBuild(tusHost)
+            var tusClient=DefaultTusBuild.DefaultTusClientBuild(tusHost)
                 
                 .Build();
             var fileInfo = new FileInfo(@"TestFile/test.mp4");
@@ -34,7 +34,7 @@ namespace BirdMessenger.Test
         public async Task TestUploadFilesAsync()
         {
 
-            var tusClient = TusBuild.DefaultTusClientBuild(tusHost)
+            var tusClient = DefaultTusBuild.DefaultTusClientBuild(tusHost)
 
                 .Build();
             var fileInfo = new FileInfo(@"TestFile/test.mp4");
@@ -58,10 +58,10 @@ namespace BirdMessenger.Test
         [Fact]
         public async Task TestConfigTusAsync()
         {
-            var tusClient = TusBuild.DefaultTusClientBuild(tusHost)
+            var tusClient = DefaultTusBuild.DefaultTusClientBuild(tusHost)
                 .Configure(option =>
                 {
-                    option.GetUploadSize = (u) => 10 * 1024 * 1024;
+                    option.GetUploadChunkSize = (u) => 10 * 1024 * 1024;
                 })
                 .Build();
             var fileInfo = new FileInfo(@"TestFile/test.mp4");

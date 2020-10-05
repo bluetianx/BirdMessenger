@@ -13,15 +13,15 @@ namespace BirdMessenger.Infrastructure
             UploadFileInfo = uploadFileInfo;
             UploadFileUrl = uploadFileUrl;
         }
-        
-        public   long TotalSize { get; }
 
-        public   long UploadedSize { get; set; }
+        public long TotalSize { get; }
 
-        public  FileInfo UploadFileInfo { get; }
-        
-        public  Uri UploadFileUrl { get;}
-        
-        public  Dictionary<object,object> Items { get; set; }
+        public long UploadedSize { get; set; }
+
+        public FileInfo UploadFileInfo { get; }
+
+        public Uri UploadFileUrl { get; }
+
+        public Dictionary<object, object> Items { get; set; }
     }
 }

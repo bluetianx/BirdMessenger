@@ -13,14 +13,14 @@ namespace demo
         
         static async Task Main(string[] args)
         {
-            FileInfo fileInfo = new FileInfo("test.dmg");
             
             var hostUri = new Uri(@"http://localhost:5000/files");
-            var tusClient=TusBuild.DefaultTusClientBuild(hostUri)
+            var tusClient=DefaultTusBuild.DefaultTusClientBuild(hostUri)
                 .Build();
             tusClient.Uploading += printUploadProcess;
             tusClient.UploadFinish += UploadFinish;
             Dictionary<string, string> dir = new Dictionary<string, string>();
+            FileInfo fileInfo = new FileInfo("test.dmg");
             dir["filename"] = fileInfo.FullName;
 
             var fileUrl = await tusClient.Create(fileInfo, dir);
