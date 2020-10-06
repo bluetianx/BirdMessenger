@@ -15,9 +15,9 @@ namespace BirdMessenger.Abstractions
         /// tus head request
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="requestCancellationToken"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<Dictionary<string, string>> Head(Uri url, CancellationToken requestCancellationToken);
+        Task<Dictionary<string, string>> Head(Uri url, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// tus patch request
@@ -25,16 +25,16 @@ namespace BirdMessenger.Abstractions
         /// <param name="url"></param>
         /// <param name="uploadData"></param>
         /// <param name="offset"></param>
-        /// <param name="requestCancellationToken"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, long offset, CancellationToken requestCancellationToken);
+        Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, long offset, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// tus options request
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="requestCancellationToken"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<OptionCollection> Options(Uri url, CancellationToken requestCancellationToken);
+        Task<OptionCollection> Options(Uri url, CancellationToken cancellationToken = default);
     }
 }
