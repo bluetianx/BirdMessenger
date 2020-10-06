@@ -15,16 +15,16 @@ namespace BirdMessenger.Abstractions
         /// <param name="url"></param>
         /// <param name="uploadLength"></param>
         /// <param name="uploadMetadata"></param>
-        /// <param name="requestCancellationToken"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<Uri> Creation(Uri url, long uploadLength, string uploadMetadata,CancellationToken requestCancellationToken);
+        Task<Uri> Creation(Uri url, long uploadLength, string uploadMetadata, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Termination upload
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="requestCancellationToken"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<bool> Delete(Uri url,CancellationToken requestCancellationToken);
+        Task<bool> Delete(Uri url, CancellationToken cancellationToken = default);
     }
 }

@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace BirdMessenger.Infrastructure
 {
-    public class TusUploadContext
+    internal class TusUploadContext : ITusUploadContext
     {
         public TusUploadContext(long totalSize, long uploadedSize, FileInfo uploadFileInfo, Uri uploadFileUrl)
         {
@@ -13,15 +12,15 @@ namespace BirdMessenger.Infrastructure
             UploadFileInfo = uploadFileInfo;
             UploadFileUrl = uploadFileUrl;
         }
-        
-        public   long TotalSize { get; }
 
-        public   long UploadedSize { get; set; }
+        public long TotalSize { get; }
 
-        public  FileInfo UploadFileInfo { get; }
-        
-        public  Uri UploadFileUrl { get;}
-        
-        public  Dictionary<object,object> Items { get; set; }
+        public long UploadedSize { get; set; }
+
+        public double UploadPercentage { get { return (float)UploadedSize / TotalSize; } }
+
+        public FileInfo UploadFileInfo { get; }
+
+        public Uri UploadFileUrl { get; }
     }
 }
