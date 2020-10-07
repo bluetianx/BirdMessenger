@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading.Tasks;
 using BenchmarkDotNet;
 using BenchmarkDotNet.Attributes;
+using BirdMessenger.Collections;
 
 namespace BirdMessenger.BenchMark
 {
@@ -14,7 +15,7 @@ namespace BirdMessenger.BenchMark
         public async Task Scenario1()
         {
             var fileInfo = new FileInfo(@"TestFile/testf");
-            Dictionary<string, string> dir = new Dictionary<string, string>();
+            MetadataCollection dir = new MetadataCollection();
             dir["filename"] = fileInfo.FullName;
 
             var fileUrl = await Program.tusClient.Create(fileInfo, dir);
@@ -25,7 +26,7 @@ namespace BirdMessenger.BenchMark
         public async Task Scenario2()
         {
             var fileInfo = new FileInfo(@"TestFile/bigFile");
-            Dictionary<string, string> dir = new Dictionary<string, string>();
+            MetadataCollection dir = new MetadataCollection();
             dir["filename"] = fileInfo.FullName;
 
             var fileUrl = await Program.tusClient.Create(fileInfo, dir);

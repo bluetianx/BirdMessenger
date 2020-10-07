@@ -9,6 +9,7 @@ using BirdMessenger.Abstractions;
 using BirdMessenger.Core;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BirdMessenger.Collections;
 
 namespace BirdMessenger.Test
 {
@@ -18,15 +19,15 @@ namespace BirdMessenger.Test
         public async Task TestCreateFileAsync()
         {
 
-            
+
             var tusClient = this.BuildClient();
 
             var fileInfo = new FileInfo(@"TestFile/testf");
-            Dictionary<string, string> dir = new Dictionary<string, string>();
+            MetadataCollection dir = new MetadataCollection();
             dir["filename"] = fileInfo.FullName;
 
             var result = await tusClient.Create(fileInfo, dir);
-            
+
         }
 
         [Fact]
@@ -34,7 +35,7 @@ namespace BirdMessenger.Test
         {
             var tusClient = this.BuildClient();
             var fileInfo = new FileInfo(@"TestFile/test.mp4");
-            Dictionary<string, string> dir = new Dictionary<string, string>();
+            MetadataCollection dir = new MetadataCollection();
 
             var fileUrl = await tusClient.Create(fileInfo, dir);
             var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
@@ -46,7 +47,7 @@ namespace BirdMessenger.Test
         {
             var tusClient = this.BuildClient();
             var fileInfo = new FileInfo(@"TestFile/test.mp4");
-            Dictionary<string, string> dir = new Dictionary<string, string>();
+            MetadataCollection dir = new MetadataCollection();
 
             var fileUrl = await tusClient.Create(fileInfo, dir);
 
@@ -57,7 +58,7 @@ namespace BirdMessenger.Test
         public async Task TestServiceInfoAsync()
         {
             var tusClient = this.BuildClient();
-            
+
 
             var serviceInfo = await tusClient.ServerInfo();
         }
@@ -65,10 +66,10 @@ namespace BirdMessenger.Test
         private ITusClient BuildClient()
         {
             Uri host = new Uri("http://localhost:6000/files");
-            
-            ITusClient tusClient=TusBuild.DefaultTusClientBuild(host)
+
+            ITusClient tusClient = TusBuild.DefaultTusClientBuild(host)
                 .Build();
-            
+
             return tusClient;
         }
     }

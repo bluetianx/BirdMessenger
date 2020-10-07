@@ -4,152 +4,130 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using BirdMessenger.Abstractions;
-using BirdMessenger.Core;
+using BirdMessenger.Collections;
+using BirdMessenger.Delegates;
 using BirdMessenger.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace BirdMessenger
 {
-    public class TusClient:ITusClient
+    public class TusClient : ITusClient
     {
-        private readonly Uri _serverHost;
-        
         /// <summary>
-        /// 
-        /// return size which will upload
+        /// upload completition event
         /// </summary>
-        private Func<TusUploadContext,int> GetUploadSize;
-
-        public event Action<TusUploadContext> UploadFinish;
+        public event TusUploadDelegate UploadFinish;
 
         /// <summary>
-        /// uri  offset fileLength 
+        /// upload progress event
         /// </summary>
-        public event Action<TusUploadContext> Uploading; 
-        
-        private  ITusCore _tusCore;
-        private ITusExtension _tusExtension;
+        public event TusUploadDelegate UploadProgress;
 
-        public TusClient(ITusCore tusCore,ITusExtension tusExtension,Uri serverHost, Func<TusUploadContext,int> getUploadSize=null)
+        /// <summary>
+        /// tus client options
+        /// </summary>
+        public ITusClientOptions Options => _tusClientOptions;
+
+        private readonly ITusCore _tusCore;
+        private readonly ITusExtension _tusExtension;
+        private readonly ITusClientOptions _tusClientOptions;
+
+        public TusClient(ITusCore tusCore, ITusExtension tusExtension, ITusClientOptions tusClientOptions)
         {
             _tusCore = tusCore;
             _tusExtension = tusExtension;
-            
-            _serverHost = serverHost;
-            GetUploadSize = getUploadSize ?? ((context) => 1 * 1024 * 1024);
+            _tusClientOptions = tusClientOptions;
         }
 
-        
-
         /// <summary>
-        /// upload file
+        /// upload file; will continue from where it left off if a previous upload was already in progress
         /// </summary>
-        /// <param name="url"></param>
-        /// <param name="uploadFileInfo"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        public async Task<bool> Upload(Uri url,FileInfo uploadFileInfo,CancellationToken ct=default(CancellationToken))
+        /// <param name="fileUrl">file upload url</param>
+        /// <param name="uploadFileInfo">file to be uploaded</param>
+        /// <param name="cancellationToken">cancellation token to stop the asynchronous action</param>
+        /// <returns>Returns true if upload is complete; false otherwise</returns>
+        public async Task<bool> Upload(Uri fileUrl, FileInfo uploadFileInfo, CancellationToken cancellationToken = default)
         {
-            var headResult = await _tusCore.Head(url, ct);
+            var headResult = await _tusCore.Head(fileUrl, cancellationToken);
             long offset = long.Parse(headResult["Upload-Offset"]);
 
-            var tusUploadFileContext = new TusUploadContext(totalSize:uploadFileInfo.Length,
-                uploadedSize:offset,uploadFileInfo:uploadFileInfo,uploadFileUrl:url);
+            var tusUploadFileContext = new TusUploadContext(totalSize: uploadFileInfo.Length,
+                uploadedSize: offset, uploadFileInfo: uploadFileInfo, uploadFileUrl: fileUrl);
 
             using (var fileStream = new FileStream(uploadFileInfo.FullName, FileMode.Open, FileAccess.Read))
             {
-                while (!ct.IsCancellationRequested)
+                while (!cancellationToken.IsCancellationRequested)
                 {
                     if (offset == uploadFileInfo.Length)
                     {
-                        UploadFinish?.Invoke(tusUploadFileContext);
-                        break;
+                        UploadFinish?.Invoke(this, tusUploadFileContext);
+                        return true;
                     }
-                    
+
                     //get buffer of file
-                    fileStream.Seek (offset, SeekOrigin.Begin);
+                    fileStream.Seek(offset, SeekOrigin.Begin);
 
-                    int uploadSize = GetUploadSize(tusUploadFileContext);
+                    int chunkSize = _tusClientOptions.GetChunkUploadSize(this, tusUploadFileContext);
+                    chunkSize = (int)Math.Min(chunkSize, fileStream.Length - offset);
+                    byte[] buffer = new byte[chunkSize];
+                    var readCount = await fileStream.ReadAsync(buffer, 0, chunkSize);
 
-                    byte[] buffer = new byte[uploadSize];
-                    var readCount = await fileStream.ReadAsync(buffer, 0, uploadSize);
-                    if (readCount < uploadSize)
-                    {
-                        Array.Resize (ref buffer, readCount);
-                    }
-
-                    var uploadResult=await _tusCore.Patch(url, buffer, offset, ct);
+                    var uploadResult = await _tusCore.Patch(fileUrl, buffer, offset, cancellationToken);
                     offset = long.Parse(uploadResult["Upload-Offset"]);
                     tusUploadFileContext.UploadedSize = offset;
-                    Uploading?.Invoke(tusUploadFileContext);
+                    UploadProgress?.Invoke(this, tusUploadFileContext);
                 }
             }
-
-            return true;
+            return false;
         }
 
         /// <summary>
         /// create a url for upload file
         /// </summary>
         /// <param name="fileInfo"></param>
-        /// <param name="uploadMetaDic"></param>
-        /// <param name="ct"></param>
+        /// <param name="metadataContainer"></param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<Uri> Create(FileInfo fileInfo, Dictionary<string, string> uploadMetaDic=null,CancellationToken ct=default(CancellationToken))
+        public async Task<Uri> Create(FileInfo fileInfo, MetadataCollection metadataContainer = null, CancellationToken cancellationToken = default)
         {
-            
-
-            string uploadMeta = this.CreateMeta(fileInfo, uploadMetaDic);
-            var fileUrl = await _tusExtension.Creation(_serverHost, fileInfo.Length,uploadMeta, ct);
-
+            string uploadMeta = createMeta(fileInfo, metadataContainer);
+            var fileUrl = await _tusExtension.Creation(_tusClientOptions.TusHost, fileInfo.Length, uploadMeta, cancellationToken);
             return fileUrl;
         }
 
         /// <summary>
-        /// delete file
+        /// delete uploaded file
         /// </summary>
-        /// <param name="fileUrl"></param>
-        /// <param name="ct"></param>
+        /// <param name="fileUrl">The url provided by #Create</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteFile(Uri fileUrl, CancellationToken ct=default(CancellationToken))
+        public async Task<bool> DeleteFile(Uri fileUrl, CancellationToken cancellationToken = default)
         {
-            var deleteResult = await _tusExtension.Delete(fileUrl, ct);
-            return deleteResult;
+            return await _tusExtension.Delete(fileUrl, cancellationToken);
         }
 
-        
-        public async Task<Dictionary<string, string>> ServerInfo(CancellationToken ct=default(CancellationToken))
+        public async Task<OptionCollection> ServerInfo(CancellationToken cancellationToken = default)
         {
-            var serverInfoDic = await _tusCore.Options(_serverHost, ct);
+            var serverInfoDic = await _tusCore.Options(_tusClientOptions.TusHost, cancellationToken);
             return serverInfoDic;
         }
 
-        private string CreateMeta (FileInfo fileInfo,Dictionary<string, string> uploadMetaDic)
+        private string createMeta(FileInfo fileInfo, MetadataCollection metadataContainer)
         {
-            string uploadMeta = "";
+            if (metadataContainer == null)
+                metadataContainer = new MetadataCollection();
 
-            if (uploadMetaDic == null)
+            if (!metadataContainer.ContainsKey(_tusClientOptions.FileNameMetadataName))
+                metadataContainer[_tusClientOptions.FileNameMetadataName] = fileInfo.Name;
+
+            List<string> uploadMetaList = new List<string>();
+            foreach (var item in metadataContainer)
             {
-                uploadMetaDic= new Dictionary<string, string>();
+                string key = item.Key;
+                string value = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(item.Value));
+                uploadMetaList.Add($"{key} {value}");
             }
 
-            if (!uploadMetaDic.ContainsKey ("fileName"))
-            {
-                uploadMetaDic["fileName"] = fileInfo.Name;
-            }
-
-            List<string> UploadMetaList = new List<string> ();
-            foreach (var item in uploadMetaDic)
-            {
-                string key = item.Key.Replace (" ", "").Replace (",", "");
-                string value = Convert.ToBase64String (System.Text.Encoding.UTF8.GetBytes (item.Value));
-                UploadMetaList.Add ($"{key} {value}");
-            }
-
-            uploadMeta = string.Join (",", UploadMetaList.ToArray ());
-
-            return uploadMeta;
+            return string.Join(",", uploadMetaList.ToArray());
         }
-
     }
 }

@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BirdMessenger</name>
+    </assembly>
+    <members>
+        <member name="T:BirdMessenger.Abstractions.ITusCore">
+            <summary>
+            Tus core Protocol
+            </summary>
+        </member>
+        <member name="M:BirdMessenger.Abstractions.ITusCore.Head(System.Uri,System.Threading.CancellationToken)">
+            <summary>
+            tus head request
+            </summary>
+            <param name="url"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BirdMessenger.Abstractions.ITusCore.Patch(System.Uri,System.Byte[],System.Int64,System.Threading.CancellationToken)">
+            <summary>
+            tus patch request
+            </summary>
+            <param name="url"></param>
+            <param name="uploadData"></param>
+            <param name="offset"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BirdMessenger.Abstractions.ITusCore.Options(System.Uri,System.Threading.CancellationToken)">
+            <summary>
+            tus options request
+            </summary>
+            <param name="url"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BirdMessenger.Abstractions.ITusExtension">
+            <summary>
+            tus protocol extensions
+            </summary>
+        </member>
+        <member name="M:BirdMessenger.Abstractions.ITusExtension.Creation(System.Uri,System.Int64,System.String,System.Threading.CancellationToken)">
+            <summary>
+            creation 
+            </summary>
+            <param name="url"></param>
+            <param name="uploadLength"></param>
+            <param name="uploadMetadata"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BirdMessenger.Abstractions.ITusExtension.Delete(System.Uri,System.Threading.CancellationToken)">
+            <summary>
+            Termination upload
+            </summary>
+            <param name="url"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BirdMessenger.Core.Tus">
+            <summary>
+            Tus implementation class
+            </summary>
+        </member>
+        <member name="M:BirdMessenger.Core.Tus.Head(System.Uri,System.Threading.CancellationToken)">
+            <summary>
+            </summary>
+            <param name="url"></param>
+            <param name="requestCancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="E:BirdMessenger.ITusClient.UploadFinish">
+            <summary>
+            upload completition event
+            </summary>
+        </member>
+        <member name="E:BirdMessenger.ITusClient.UploadProgress">
+            <summary>
+            upload progress event
+            </summary>
+        </member>
+        <member name="P:BirdMessenger.ITusClient.Options">
+            <summary>
+            tus client base options
+            </summary>
+        </member>
+        <member name="M:BirdMessenger.ITusClient.Create(System.IO.FileInfo,BirdMessenger.Collections.MetadataCollection,System.Threading.CancellationToken)">
+            <summary>
+            create a url for file upload
+            </summary>
+            <param name="fileInfo"></param>
+            <param name="metadataCollection"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BirdMessenger.ITusClient.Upload(System.Uri,System.IO.FileInfo,System.Threading.CancellationToken)">
+            <summary>
+            upload file asynchronously
+            </summary>
+            <param name="fileUrl"></param>
+            <param name="uploadFileInfo"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BirdMessenger.ITusClient.DeleteFile(System.Uri,System.Threading.CancellationToken)">
+            <summary>
+            delete file
+            </summary>
+            <param name="fileUrl"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BirdMessenger.ITusClient.ServerInfo(System.Threading.CancellationToken)">
+            <summary>
+            get server information
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="P:BirdMessenger.ITusClientOptions.TusHost">
+            <summary>
+            tus server host
+            </summary>
+        </member>
+        <member name="P:BirdMessenger.ITusClientOptions.GetChunkUploadSize">
+            <summary>
+            method to compute the chunk size for upload
+            </summary>
+        </member>
+        <member name="M:BirdMessenger.ITusClientOptions.ChangeChunkUploadSize(BirdMessenger.Delegates.TusChunkUploadSizeDelegate)">
+            <summary>
+            generate temporary change
+            </summary>
+        </member>
+        <member name="P:BirdMessenger.ITusClientOptions.FileNameMetadataName">
+            <summary>
+            metadata key for uploaded file name
+            </summary>
+        </member>
+        <member name="E:BirdMessenger.TusClient.UploadFinish">
+            <summary>
+            upload completition event
+            </summary>
+        </member>
+        <member name="E:BirdMessenger.TusClient.UploadProgress">
+            <summary>
+            upload progress event
+            </summary>
+        </member>
+        <member name="P:BirdMessenger.TusClient.Options">
+            <summary>
+            tus client options
+            </summary>
+        </member>
+        <member name="M:BirdMessenger.TusClient.Upload(System.Uri,System.IO.FileInfo,System.Threading.CancellationToken)">
+            <summary>
+            upload file; will continue from where it left off if a previous upload was already in progress
+            </summary>
+            <param name="fileUrl">file upload url</param>
+            <param name="uploadFileInfo">file to be uploaded</param>
+            <param name="cancellationToken">cancellation token to stop the asynchronous action</param>
+            <returns>Returns true if upload is complete; false otherwise</returns>
+        </member>
+        <member name="M:BirdMessenger.TusClient.Create(System.IO.FileInfo,BirdMessenger.Collections.MetadataCollection,System.Threading.CancellationToken)">
+            <summary>
+            create a url for upload file
+            </summary>
+            <param name="fileInfo"></param>
+            <param name="metadataContainer"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:BirdMessenger.TusClient.DeleteFile(System.Uri,System.Threading.CancellationToken)">
+            <summary>
+            delete uploaded file
+            </summary>
+            <param name="fileUrl">The url provided by #Create</param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="P:BirdMessenger.TusClientOptions.TusHost">
+            <summary>
+            tus server host
+            </summary>
+        </member>
+        <member name="P:BirdMessenger.TusClientOptions.GetChunkUploadSize">
+            <summary>
+            method to compute the chunk size for upload
+            </summary>
+        </member>
+        <member name="P:BirdMessenger.TusClientOptions.FileNameMetadataName">
+            <summary>
+            metadata key for uploaded file name
+            </summary>
+        </member>
+    </members>
+</doc>

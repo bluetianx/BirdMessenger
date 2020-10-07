@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 
 namespace BirdMessenger.Infrastructure
@@ -16,7 +13,7 @@ namespace BirdMessenger.Infrastructure
             }
             else
             {
-                throw  new TusException($"no found header of {key}");
+                throw new TusException($"no found header of {key}");
             }
         }
     }
