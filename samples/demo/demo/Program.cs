@@ -14,7 +14,7 @@ namespace demo
 
         static async Task Main(string[] args)
         {
-            FileInfo fileInfo = new FileInfo("test.dmg");
+            FileInfo fileInfo = new FileInfo("test.txt");
 
             var hostUri = new Uri(@"http://localhost:5000/files");
             var tusClient = TusBuild.DefaultTusClientBuild(hostUri)

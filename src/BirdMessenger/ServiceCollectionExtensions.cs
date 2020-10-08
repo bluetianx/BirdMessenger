@@ -32,7 +32,6 @@ namespace BirdMessenger
             {
                 DefaultHttpClientConfigure(httpClient);
             });
-            services.AddSingleton<ITusClientOptions>(options);
             services.AddTransient<ITusClient>((services) =>
             {
                 var tusCore = services.GetService<ITusCore>();
@@ -61,7 +60,6 @@ namespace BirdMessenger
             {
                 DefaultHttpClientConfigure(httpClient);
             });
-            services.AddSingleton<ITusClientOptions>(options);
             services.AddTransient<ITusClient<TService>>((services) =>
             {
                 var tusCore = services.GetService<ITusCore<TService>>();
