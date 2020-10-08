@@ -8,6 +8,9 @@
       <None Update="test.dmg">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="test.txt">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
     <PropertyGroup>
