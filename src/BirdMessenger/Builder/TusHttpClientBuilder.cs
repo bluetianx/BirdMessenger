@@ -5,9 +5,9 @@ namespace BirdMessenger.Builder
 {
     public class TusHttpClientBuilder : ITusHttpClientBuilder<TusHttpClientBuilder>
     {
-        internal readonly TusClientOptions _tusClientOptions;
-        internal readonly IHttpClientBuilder _coreHttpClientBuilder;
-        internal readonly IHttpClientBuilder _extensionHttpClientBuilder;
+        private readonly TusClientOptions _tusClientOptions;
+        private readonly IHttpClientBuilder _coreHttpClientBuilder;
+        private readonly IHttpClientBuilder _extensionHttpClientBuilder;
 
         internal TusHttpClientBuilder(TusClientOptions tusClientOptions, IHttpClientBuilder coreHttpClientBuilder, IHttpClientBuilder extensionHttpClientBuilder)
         {
