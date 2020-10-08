@@ -53,11 +53,11 @@ namespace BirdMessenger
             var options = new TusClientOptions();
             configure(options);
 
-            var coreHttpClientBuilder = services.AddHttpClient<ITusCore, Tus>(httpClient =>
+            var coreHttpClientBuilder = services.AddHttpClient<ITusCore<TService>, Tus<TService>>(httpClient =>
             {
                 DefaultHttpClientConfigure(httpClient);
             });
-            var extensionHttpClientBuilder = services.AddHttpClient<ITusExtension, Tus>(httpClient =>
+            var extensionHttpClientBuilder = services.AddHttpClient<ITusExtension<TService>, Tus<TService>>(httpClient =>
             {
                 DefaultHttpClientConfigure(httpClient);
             });
