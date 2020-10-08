@@ -4,7 +4,7 @@ using System;
 
 namespace BirdMessenger
 {
-    public class TusBuild
+    public static class TusBuild
     {
         public static TusDefaultBuilder DefaultTusClientBuild(Uri tusHost)
         {
