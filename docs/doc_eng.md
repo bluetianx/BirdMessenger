@@ -1,80 +1,146 @@
-### Get Start
+# Documentation
+## Getting started
 ```C#
-            FileInfo fileInfo = new FileInfo("testfile");//a file which will upload 
-            
-            var hostUri = new Uri(@"http://localhost:5000/files");// tus server Url
-            //Build default tusclient
-            var tusClient=TusBuild.DefaultTusClientBuild(hostUri)
-                .Build();
-            //subscribe event
-            tusClient.Uploading += printUploadProcess;
-            tusClient.UploadFinish += UploadFinish;
-            // create Upload-Metadata
-            Dictionary<string, string> dir = new Dictionary<string, string>();
-            dir["filename"] = fileInfo.FullName;
-            //create a Url of uploadfile
-            var fileUrl = await tusClient.Create(fileInfo, dir);
-            //start upload
-            var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
-```
-### subscribe event of upload
-TusClient has two events 
+// file to be uploaded
+FileInfo fileInfo = new FileInfo("test.txt");
 
+// remote tus service
+var hostUri = new Uri(@"http://localhost:5000/files");
+
+// build a standalone tus client instance
+var tusClient = TusBuild.DefaultTusClientBuild(hostUri).Build();
+
+//hook up events
+tusClient.UploadProgress += printUploadProcess;
+tusClient.UploadFinish += uploadFinish;
+
+//define additional file metadata 
+MetadataCollection metadata = new MetadataCollection();
+metadata["filename"] = fileInfo.FullName;
+
+//create upload url
+var fileUrl = await tusClient.Create(fileInfo, metadata);
+
+//upload file
+var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
+```
+## Subscribe upload events
+### Delegate prototype
 ```C#
-        public event Action<TusUploadContext> UploadFinish;
-
-        /// <summary>
-        /// uri  offset fileLength 
-        /// </summary>
-        public event Action<TusUploadContext> Uploading; 
+/// <summary>
+/// tus client delegate
+/// </summary>
+delegate void TusUploadDelegate(ITusClient source, ITusUploadContext tusUploadContext);
 ```
-
-* Action<TusUploadContext> UploadFinish: It can be invoked when the file has been uploaded
-* Action<TusUploadContext> Uploading:This method is used to notify the progress of the upload
-
-## TusUploadContext specification
-
-The field definition for TusUploadContext is as follows：
-
-* public   long TotalSize { get; }          :Total Size of upload File
-* public   long UploadedSize { get; set; }  : size per transfer
-* public  FileInfo UploadFileInfo { get; }  : upload file info
-* public  Uri UploadFileUrl { get;}         : URl of upload file
-
-###  build Tusclient by TusBuild
-
-## Default Build Method
+### ITusClient events 
 ```C#
-var tusClient=TusBuild.DefaultTusClientBuild(tusHost)
-                .Build();
-```
-* tusHost is  tus server Url，clientName default value is  tusClient ，By default, every HTTP request is given with a "Tus-Resumable", "1.0.0" request header (except for Options requests)
+/// <summary>
+/// upload completition event
+/// </summary>
+event TusUploadDelegate UploadFinish;
 
-## Customization
+/// <summary>
+/// upload progress event
+/// </summary>
+event TusUploadDelegate UploadProgress;
+```
+
+* UploadFinish: It is invoked when the file has been uploaded
+* UploadProgress: This method is used to notify the progress of the upload
+
+## ITusUploadContext specification
+
+The field definition for ITusUploadContext is as follows：
+
+* public long TotalSize { get; }           : Total size of upload File
+* public long UploadedSize { get; set; }   : Total uploaded size
+* public FileInfo UploadFileInfo { get; }  : Upload file info
+* public Uri UploadFileUrl { get;}         : URl of upload file
+
+## Building an ITusClient instance
+### Build standalone ITusClient by TusBuild.DefaultTusClientBuild
 ```C#
- var tusClient = TusBuild.DefaultTusClientBuild(tusHost)
-                .Configure(option =>
-                {
-                    option.GetUploadSize = (u, t) => 10 * 1024 * 1024;
-                })
-                .Build();
+// returns an isolated instance of ITusClient
+var tusClient = TusBuild.DefaultTusClientBuild(tusHost).Build(); 
 ```
-* TusBuild  has  Configure method for custom TusClient. option  is a TusClientOption Instance，It contains properties for custom configuration
-* The implement of ITusCore,ITusExtension and  IHttpClientFactory Interface can be rewrite by setting  IServiceCollection Servces property of option
-* custom size of every upload by rewriting GetUploadSize method
-## TusBuild specification
-1. public static TusBuild DefaultTusClientBuild(Uri tushost,string clientName="")
-    - summary：default build method
-    - first parameter  is tus server host
-    - second parameter is  logical name of the http client to create with IHttpClientFactory
-2. TusBuild Configure(Action<TusClientOption> configAction)
-   - summary：to configure TusClient
-3. TusClientOption specification
-   - public Uri TusHost { get; set; } ：tus server host
-   - public IServiceCollection Servces { get; set; } ：contain implement of ITusCore,ITusExtension and IHttpClientFactory
-   - public Func<TusUploadContext, int> GetUploadSize = (context) => 1 * 1024 * 1024 ：custom size of every upload 
+###  Build ITusClient using Dependency Injection
 
+#### Non-specific ITusClient configuration
+```C#
+public static void ConfigureServices(IServiceCollection services)
+{
+    services.AddTusClient(tusHost);
+}
+```
+```C#
+public class Example
+{
+    public Example(ITusClient tusClient) 
+    {
+        ...
+    }
+}
+```
 
+#### Specific ITusClient configuration based on targeted service
+```C#
+public static void ConfigureServices(IServiceCollection services)
+{
+    services.AddTusClient<Example>(tusHost);
+}
+```
+```C#
+public class Example
+{
+    public Example(ITusClient<Example> tusClient) 
+    {
+        ...
+    }
+}
+```
+* tusHost is tus server Url
+* by default, every HTTP request is sent with a "Tus-Resumable: 1.0.0" header (except for Options requests)
+## ITusClient configuration
+* All three configuration methods can be called with either an URI or a configuration action
+
+### Basic configuration
+```C#
+Action<TusClientOptions> configure = (options) => {
+    options.TusHost = tusHost;
+    options.GetChunkUploadSize = (src, ctx) => 1 * 1024 * 1024; // 1 mega byte per upload request
+    options.FileNameMetadataName = "fileName"; // default creation metadata
+};
+```
+```C#
+TusDefaultBuilder tusClientBuilder = TusBuild.DefaultTusClientBuild(configure);
+```
+OR
+```C#
+TusHttpClientBuilder tusClientBuilder = services.AddTusClient(configure);
+```
+OR
+```C#
+TusHttpClientBuilder tusClientBuilder = services.AddTusClient<Example>(configure);
+```
+### HttpClient configuration
+```C#
+var tusClientBuilder = TusBuild.DefaultTusClientBuild(configure);
+// OR
+// var tusClientBuilder = TusBuild.DefaultTusClientBuild(tusHost);
+
+tusClientBuilder.Configure((TusClientOptions options, IHttpClientBuilder httpClientBuilder) => {
+    //configure either options or httpClientBuilder
+});
+```
+* TusHttpClientBuilder has 3 main methods:
+```C#
+public TusHttpClientBuilder Configure(Action<TusClientOptions, IHttpClientBuilder> builder);
+public TusHttpClientBuilder ConfigureCore(Action<TusClientOptions, IHttpClientBuilder> builder);
+public TusHttpClientBuilder ConfigureExtension(Action<TusClientOptions, IHttpClientBuilder> builder);
+```
+* TusDefaultBuilder inherits TusHttpClientBuilder
+* Configure will call both ConfigureCore and ConfigureExtension to configure the HttpClient used by either the Core of tus or the Extension of tus
+* tus uses two different HttpClient for core and extensions, you may configure each as you need
 
 ### Polly Integration 
-[httpclientfactoryWithPolly](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.0#use-polly-based-handlers)
+[HttpClientFactory With Polly](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.0#use-polly-based-handlers)
