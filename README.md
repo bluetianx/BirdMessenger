@@ -52,21 +52,21 @@ var fileUrl = await tusClient.Create(fileInfo, metadata);
 var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
 ```
 
-```
-
 * You can see more examples in unit tests
 
 ## Document
 
 [Wiki](https://github.com/bluetianx/BirdMessenger/wiki)
 
-## Roadmap
+## Development
 
-I develop on the Dev branch
+Development is done on the 'dev' branch. 
 
-## Who is using
+## Who is using the library
 
 * [China National Petroleum Corporation](https://www.cnpc.com.cn/cnpc/index.shtml)
+* [BSS-ONE](https://www.bss-one.ro)
+
 ## Support and Sponsorship
 
 <a href="https://www.jetbrains.com" target="_blank">
