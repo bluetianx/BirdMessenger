@@ -19,7 +19,7 @@ namespace BirdMessenger.BenchMark
             dir["filename"] = fileInfo.FullName;
 
             var fileUrl = await Program.tusClient.Create(fileInfo, dir);
-            var uploadResult = await Program.tusClient.Upload(fileUrl, fileInfo);
+            var uploadResult = await Program.tusClient.Upload(fileUrl, fileInfo, null);
         }
 
         [Benchmark]
@@ -30,7 +30,7 @@ namespace BirdMessenger.BenchMark
             dir["filename"] = fileInfo.FullName;
 
             var fileUrl = await Program.tusClient.Create(fileInfo, dir);
-            var uploadResult = await Program.tusClient.Upload(fileUrl, fileInfo);
+            var uploadResult = await Program.tusClient.Upload(fileUrl, fileInfo, null);
         }
     }
 }

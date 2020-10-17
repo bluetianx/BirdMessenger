@@ -14,12 +14,9 @@ namespace BirdMessenger.Test
     {
         public Uri tusHost = new Uri("http://localhost:5000/files");
 
-
-
         [Fact]
         public async Task TestCreateTusClientAsync()
         {
-
             var tusClient = TusBuild.DefaultTusClientBuild(tusHost)
 
                 .Build();
@@ -30,13 +27,10 @@ namespace BirdMessenger.Test
             var result = await tusClient.Create(fileInfo, dir);
         }
 
-
         [Fact]
         public async Task TestUploadFilesAsync()
         {
-
             var tusClient = TusBuild.DefaultTusClientBuild(tusHost)
-
                 .Build();
             var fileInfo = new FileInfo(@"TestFile/test.mp4");
             MetadataCollection dir = new MetadataCollection();
@@ -50,10 +44,9 @@ namespace BirdMessenger.Test
 
             foreach (var item in fileUrls)
             {
-                var uploadResult = await tusClient.Upload(item, fileInfo);
+                var uploadResult = await tusClient.Upload(item, fileInfo, null);
                 Assert.True(uploadResult);
             }
-
         }
 
         [Fact]
@@ -71,29 +64,7 @@ namespace BirdMessenger.Test
 
             var result = await tusClient.Create(fileInfo, dir);
         }
-        public static bool CompareFileByFilePath(string sourceFile, string targetFile)
-        {
-            byte[] sourceData = File.ReadAllBytes(sourceFile);
-            byte[] targetData = File.ReadAllBytes(targetFile);
-            bool resultCompare = false;
-            using (SHA256 sHA256 = SHA256.Create())
-            {
-                string hashOfSource = GetHash(sHA256, sourceData);
-                resultCompare = VerifyHash(sHA256, targetData, hashOfSource);
-            }
-            return resultCompare;
-        }
 
-        public static bool CompareFileByHash(string hash, string targetFile)
-        {
-            byte[] data = File.ReadAllBytes(targetFile);
-            bool resultCompare = false;
-            using (SHA256 sHA256 = SHA256.Create())
-            {
-                resultCompare = VerifyHash(sHA256, data, hash);
-            }
-            return resultCompare;
-        }
         public static string GetHash(HashAlgorithm hashAlgorithm, byte[] data)
         {
             byte[] hashData = hashAlgorithm.ComputeHash(data);

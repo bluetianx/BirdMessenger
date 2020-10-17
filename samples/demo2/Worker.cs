@@ -25,7 +25,7 @@ namespace demo2
             {
                 FileInfo fileInfo = new FileInfo("test.txt");
                 var url = await _tusClient.Create(fileInfo);
-                await _tusClient.Upload(url, fileInfo);
+                await _tusClient.Upload(url, fileInfo, null);
             }
             catch (Exception ex)
             {

@@ -22,3 +22,4 @@ samples/testDotNetSite/tusfiles
 /src/BirdMessenger.BenchMark/bin/
 /src/BirdMessenger.BenchMark/obj/
 /src/BirdMessenger.BenchMark/TestFile
+.DS_Store
