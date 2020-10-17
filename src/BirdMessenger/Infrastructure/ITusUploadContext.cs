@@ -9,10 +9,10 @@ namespace BirdMessenger.Infrastructure
 
         long UploadedSize { get; }
 
+        Uri UploadUrl { get; }
+
+        object State { get; }
+        
         double UploadPercentage { get; }
-
-        FileInfo UploadFileInfo { get; }
-
-        Uri UploadFileUrl { get; }
     }
 }

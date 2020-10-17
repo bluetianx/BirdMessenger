@@ -5,22 +5,22 @@ namespace BirdMessenger.Infrastructure
 {
     internal class TusUploadContext : ITusUploadContext
     {
-        public TusUploadContext(long totalSize, long uploadedSize, FileInfo uploadFileInfo, Uri uploadFileUrl)
+        public TusUploadContext(long totalSize, long uploadedSize, Uri uploadUrl, object state)
         {
             TotalSize = totalSize;
             UploadedSize = uploadedSize;
-            UploadFileInfo = uploadFileInfo;
-            UploadFileUrl = uploadFileUrl;
+            UploadUrl = uploadUrl;
+            State = state;
         }
 
         public long TotalSize { get; }
 
         public long UploadedSize { get; set; }
 
+        public Uri UploadUrl { get; }
+
+        public object State { get; }
+        
         public double UploadPercentage { get { return (float)UploadedSize / TotalSize; } }
-
-        public FileInfo UploadFileInfo { get; }
-
-        public Uri UploadFileUrl { get; }
     }
 }

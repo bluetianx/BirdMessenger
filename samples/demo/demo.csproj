@@ -1,13 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\src\BirdMessenger\BirdMessenger.csproj" />
+      <ProjectReference Include="..\..\src\BirdMessenger\BirdMessenger.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="test.dmg">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
       <None Update="test.txt">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>

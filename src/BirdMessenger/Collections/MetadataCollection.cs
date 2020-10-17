@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace BirdMessenger.Collections
 {
@@ -98,6 +99,20 @@ namespace BirdMessenger.Collections
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)_container).GetEnumerator();
+        }
+
+        public string Serialize()
+        {
+            string[] meta = new string[this.Count];
+            int index = 0;
+            foreach (var item in this)
+            {
+                string key = item.Key;
+                string value = Convert.ToBase64String(Encoding.UTF8.GetBytes(item.Value));
+                meta[index++] = $"{key} {value}";
+            }
+
+            return string.Join(",", meta);
         }
     }
 }

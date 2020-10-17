@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using BirdMessenger;
 using BirdMessenger.Collections;
@@ -11,11 +12,11 @@ namespace demo
 {
     class Program
     {
-
         static async Task Main(string[] args)
         {
+            var location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             // file to be uploaded
-            FileInfo fileInfo = new FileInfo("test.txt");
+            FileInfo fileInfo = new FileInfo(Path.Combine(location, "test.txt"));
 
             // remote tus service
             var hostUri = new Uri(@"http://localhost:5000/files");
@@ -36,19 +37,18 @@ namespace demo
             var fileUrl = await tusClient.Create(fileInfo, metadata);
 
             //upload file
-            var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
-            Console.ReadLine();
+            var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null);
         }
 
         public static void printUploadProcess(ITusClient src, ITusUploadContext context)
         {
 
-            Console.WriteLine($"finished:fileUri:{context.UploadFileUrl}-{context.UploadedSize},total:{context.TotalSize} ");
+            Console.WriteLine($"finished:fileUri:{context.UploadUrl}-{context.UploadedSize},total:{context.TotalSize} ");
         }
 
         public static void uploadFinish(ITusClient src, ITusUploadContext context)
         {
-            Console.WriteLine($"uploadfinish :{context.UploadFileUrl.ToString()}");
+            Console.WriteLine($"uploadfinish :{context.UploadUrl.ToString()}");
         }
     }
 }

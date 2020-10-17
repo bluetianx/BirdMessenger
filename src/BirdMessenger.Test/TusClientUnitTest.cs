@@ -18,8 +18,6 @@ namespace BirdMessenger.Test
         [Fact]
         public async Task TestCreateFileAsync()
         {
-
-
             var tusClient = this.BuildClient();
 
             var fileInfo = new FileInfo(@"TestFile/testf");
@@ -27,7 +25,6 @@ namespace BirdMessenger.Test
             dir["filename"] = fileInfo.FullName;
 
             var result = await tusClient.Create(fileInfo, dir);
-
         }
 
         [Fact]
@@ -38,8 +35,7 @@ namespace BirdMessenger.Test
             MetadataCollection dir = new MetadataCollection();
 
             var fileUrl = await tusClient.Create(fileInfo, dir);
-            var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
-
+            var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null);
         }
 
         [Fact]
@@ -59,8 +55,7 @@ namespace BirdMessenger.Test
         {
             var tusClient = this.BuildClient();
 
-
-            var serviceInfo = await tusClient.ServerInfo();
+            var serviceInfo = await tusClient.ServerInformation();
         }
 
         private ITusClient BuildClient()
