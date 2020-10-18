@@ -47,7 +47,7 @@ namespace BirdMessenger
         /// <returns></returns>
         public async Task<Uri> Create(long blobLength, MetadataCollection metadataContainer = null, CancellationToken cancellationToken = default)
         {
-            metadataContainer = metadataContainer ?? new MetadataCollection();
+            metadataContainer ??= new MetadataCollection();
             var fileUrl = await _tusExtension.Creation(_tusClientOptions.TusHost, blobLength, metadataContainer.Serialize(), cancellationToken);
             return fileUrl;
         }
@@ -61,7 +61,7 @@ namespace BirdMessenger
         /// <returns></returns>
         public Task<Uri> Create(FileInfo fileInfo, MetadataCollection metadataContainer = null, CancellationToken cancellationToken = default)
         {
-            metadataContainer = metadataContainer ?? new MetadataCollection();
+            metadataContainer ??= new MetadataCollection();
             if (!metadataContainer.ContainsKey(_tusClientOptions.FileNameMetadataName))
                 metadataContainer[_tusClientOptions.FileNameMetadataName] = fileInfo.Name;
 
@@ -71,8 +71,9 @@ namespace BirdMessenger
         /// <summary>
         /// upload blob; will continue from where it left off if a previous upload was already in progress
         /// </summary>
-        /// <param name="fileUrl">blob upload url</param>
+        /// <param name="uploadUrl">blob upload url</param>
         /// <param name="blobStream">blob stream to be uploaded; must allow Length, ReadAsync operations. Seek operation must be available for resumed uploads.</param>
+        /// <param name="state"></param>
         /// <param name="cancellationToken">cancellation token to stop the asynchronous action</param>
         /// <returns>Returns true if upload is complete; false otherwise</returns>
         public async Task<bool> Upload(Uri uploadUrl, Stream blobStream, object state, CancellationToken cancellationToken = default)
@@ -112,6 +113,7 @@ namespace BirdMessenger
         /// </summary>
         /// <param name="uploadUrl">file upload url</param>
         /// <param name="uploadFileInfo">file to be uploaded</param>
+        /// <param name="state"></param>
         /// <param name="cancellationToken">cancellation token to stop the asynchronous action</param>
         /// <returns>Returns true if upload is complete; false otherwise</returns>
         public async Task<bool> Upload(Uri uploadUrl, FileInfo uploadFileInfo, object state, CancellationToken cancellationToken = default)

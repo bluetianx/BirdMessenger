@@ -3,12 +3,12 @@ using System;
 
 namespace BirdMessenger.Builder
 {
-    public class TusDefaultBuilder : ITusHttpClientBuilder<TusDefaultBuilder>
+    public class TusDefaultBuilder : ITusHttpClientConfiguration<TusDefaultBuilder>
     {
         private readonly IServiceCollection _services;
-        private readonly TusHttpClientBuilder _tusHttpClientBuilder;
+        private readonly TusHttpClientConfiguration _tusHttpClientBuilder;
 
-        internal TusDefaultBuilder(IServiceCollection services, TusHttpClientBuilder tusHttpClientBuilder)
+        internal TusDefaultBuilder(IServiceCollection services, TusHttpClientConfiguration tusHttpClientBuilder)
         {
             _services = services;
             _tusHttpClientBuilder = tusHttpClientBuilder;

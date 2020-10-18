@@ -47,6 +47,7 @@ namespace BirdMessenger
         /// </summary>
         /// <param name="uploadUrl"></param>
         /// <param name="blobStream"></param>
+        /// <param name="state"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<bool> Upload(Uri uploadUrl, Stream blobStream, object state, CancellationToken cancellationToken = default);
@@ -56,6 +57,7 @@ namespace BirdMessenger
         /// </summary>
         /// <param name="uploadUrl"></param>
         /// <param name="uploadFileInfo"></param>
+        /// <param name="state"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<bool> Upload(Uri uploadUrl, FileInfo uploadFileInfo, object state, CancellationToken cancellationToken = default);

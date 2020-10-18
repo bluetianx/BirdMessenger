@@ -14,12 +14,12 @@ namespace BirdMessenger
             c.DefaultRequestHeaders.Add("Tus-Resumable", "1.0.0");
         }
 
-        public static TusHttpClientBuilder AddTusClient(this IServiceCollection services, Uri tusHost)
+        public static TusHttpClientConfiguration AddTusClient(this IServiceCollection services, Uri tusHost)
         {
             return services.AddTusClient((opts) => { opts.TusHost = tusHost; });
         }
 
-        public static TusHttpClientBuilder AddTusClient(this IServiceCollection services, Action<TusClientOptions> configure)
+        public static TusHttpClientConfiguration AddTusClient(this IServiceCollection services, Action<TusClientOptions> configure)
         {
             var options = new TusClientOptions();
             configure(options);
@@ -39,15 +39,15 @@ namespace BirdMessenger
                 var opts = options;
                 return new TusClient(tusCore, tusExtension, opts);
             });
-            return new TusHttpClientBuilder(options, coreHttpClientBuilder, extensionHttpClientBuilder);
+            return new TusHttpClientConfiguration(options, coreHttpClientBuilder, extensionHttpClientBuilder);
         }
 
-        public static TusHttpClientBuilder AddTusClient<TService>(this IServiceCollection services, Uri tusHost)
+        public static TusHttpClientConfiguration AddTusClient<TService>(this IServiceCollection services, Uri tusHost)
         {
             return services.AddTusClient<TService>((opts) => { opts.TusHost = tusHost; });
         }
 
-        public static TusHttpClientBuilder AddTusClient<TService>(this IServiceCollection services, Action<TusClientOptions> configure)
+        public static TusHttpClientConfiguration AddTusClient<TService>(this IServiceCollection services, Action<TusClientOptions> configure)
         {
             var options = new TusClientOptions();
             configure(options);
@@ -67,7 +67,7 @@ namespace BirdMessenger
                 var opts = options;
                 return new TusClient<TService>(tusCore, tusExtension, opts);
             });
-            return new TusHttpClientBuilder(options, coreHttpClientBuilder, extensionHttpClientBuilder);
+            return new TusHttpClientConfiguration(options, coreHttpClientBuilder, extensionHttpClientBuilder);
         }
     }
 }

@@ -3,7 +3,7 @@ using System;
 
 namespace BirdMessenger.Builder
 {
-    public interface ITusHttpClientBuilder<TService>
+    public interface ITusHttpClientConfiguration<TService>
     {
         public TService Configure(Action<TusClientOptions, IHttpClientBuilder> builder);
         public TService ConfigureCore(Action<TusClientOptions, IHttpClientBuilder> builder);
