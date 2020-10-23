@@ -19,11 +19,11 @@ BirdMessnger 是一个基于.NET Standard 的 Tus协议的实现客户端。
 
 Package manager
 
-``Install-Package BirdMessenger -Version 1.0.1``
+``Install-Package BirdMessenger -Version 2.0.0``
 
 .NET CLI
 
-``dotnet add package BirdMessenger --version 1.0.1``
+``dotnet add package BirdMessenger --version 2.0.0``
 
 ## Getting Started
 
