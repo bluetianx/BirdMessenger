@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Reflection;
-using System.Threading.Tasks;
-using BirdMessenger;
+﻿using BirdMessenger;
 using BirdMessenger.Collections;
 using BirdMessenger.Infrastructure;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace demo
 {
@@ -20,7 +18,7 @@ namespace demo
 
             // remote tus service
             var hostUri = new Uri(@"http://localhost:5000/files");
-            
+
             // build a standalone tus client instance
             var tusClient = TusBuild.DefaultTusClientBuild(hostUri)
                 .Build();

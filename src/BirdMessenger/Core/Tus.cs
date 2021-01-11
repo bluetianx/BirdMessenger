@@ -1,12 +1,12 @@
+using BirdMessenger.Abstractions;
+using BirdMessenger.Collections;
+using BirdMessenger.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using BirdMessenger.Abstractions;
-using BirdMessenger.Collections;
-using BirdMessenger.Infrastructure;
 
 namespace BirdMessenger.Core
 {
@@ -87,13 +87,13 @@ namespace BirdMessenger.Core
             OptionCollection result = new OptionCollection();
             result["Tus-Version"] = response.GetValueOfHeader("Tus-Version");
             result["Tus-Resumable"] = response.GetValueOfHeader("Tus-Resumable");
-            
+
             if (response.Headers.Contains("Tus-Extension"))
                 result["Tus-Extension"] = response.GetValueOfHeader("Tus-Extension");
 
             if (response.Headers.Contains("Tus-Max-Size"))
                 result["Tus-Max-Size"] = response.GetValueOfHeader("Tus-Max-Size");
-            
+
             return result;
         }
 

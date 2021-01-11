@@ -1,6 +1,6 @@
+using BirdMessenger;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using BirdMessenger;
 using System;
 
 namespace demo2

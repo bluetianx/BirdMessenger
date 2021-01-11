@@ -1,13 +1,13 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 using testDotNetSite.Services;
 using tusdotnet;
 using tusdotnet.Helpers;
@@ -20,7 +20,7 @@ namespace testDotNetSite
     public class Startup
     {
         private readonly IConfiguration _configuration;
-        
+
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -32,14 +32,14 @@ namespace testDotNetSite
             services.AddCors();
             services.AddSingleton(CreateTusConfiguration);
             services.AddHostedService<ExpiredFilesCleanupService>();
-            
+
             //services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
+
             app.Use((context, next) =>
             {
                 // Default limit was changed some time ago. Should work by setting MaxRequestBodySize to null using ConfigureKestrel but this does not seem to work for IISExpress.
@@ -51,7 +51,7 @@ namespace testDotNetSite
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
@@ -86,9 +86,9 @@ namespace testDotNetSite
             return new DefaultTusConfiguration
             {
                 UrlPath = "/files",
-                
+
                 Store = new TusDiskStore(@"tusfiles"),
-                
+
                 // Set an expiration time where incomplete files can no longer be updated.
                 // This value can either be absolute or sliding.
                 // Absolute expiration will be saved per file on create

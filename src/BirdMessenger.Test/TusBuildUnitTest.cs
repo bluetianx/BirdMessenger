@@ -1,12 +1,11 @@
+using BirdMessenger.Collections;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using Xunit;
-using BirdMessenger;
 using System.Security.Cryptography;
 using System.Text;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using BirdMessenger.Collections;
+using Xunit;
 
 namespace BirdMessenger.Test
 {

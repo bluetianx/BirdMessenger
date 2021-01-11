@@ -1,4 +1,5 @@
-﻿using BirdMessenger.Delegates;
+﻿using BirdMessenger.Abstractions;
+using BirdMessenger.Delegates;
 using BirdMessenger.Infrastructure;
 using System;
 
@@ -17,6 +18,9 @@ namespace BirdMessenger
         /// </summary>
         public Uri TusHost { get; set; }
 
+
+
+
         /// <summary>
         /// method to compute the chunk size for upload
         /// </summary>
@@ -26,6 +30,12 @@ namespace BirdMessenger
         /// metadata key for uploaded file name
         /// </summary>
         public string FileNameMetadataName { get; set; }
+
+        /// <summary>
+        /// modify Resume
+        /// </summary>
+        public bool Resume { get; set; } = true;
+        public IStore Store { get; set; }
 
         public IDisposable ChangeChunkUploadSize(TusChunkUploadSizeDelegate tusChunkUploadSizeDelegate)
         {
