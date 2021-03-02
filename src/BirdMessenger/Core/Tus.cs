@@ -87,13 +87,13 @@ namespace BirdMessenger.Core
             OptionCollection result = new OptionCollection();
             result["Tus-Version"] = response.GetValueOfHeader("Tus-Version");
             result["Tus-Resumable"] = response.GetValueOfHeader("Tus-Resumable");
-            
+
             if (response.Headers.Contains("Tus-Extension"))
                 result["Tus-Extension"] = response.GetValueOfHeader("Tus-Extension");
 
             if (response.Headers.Contains("Tus-Max-Size"))
                 result["Tus-Max-Size"] = response.GetValueOfHeader("Tus-Max-Size");
-            
+
             return result;
         }
 
@@ -116,10 +116,9 @@ namespace BirdMessenger.Core
             Uri fileUrl = null;
             if (Uri.TryCreate(fileUrlStr, UriKind.RelativeOrAbsolute, out fileUrl))
             {
-                if (!fileUrl.IsAbsoluteUri)
-                {
-                    fileUrl = new Uri(url, fileUrl);
-                }
+                if (fileUrlStr.StartsWith("https://") || fileUrlStr.StartsWith("http://"))
+                    return fileUrl;
+                fileUrl = new Uri(url, fileUrl);
             }
             else
             {
