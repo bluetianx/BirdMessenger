@@ -16,7 +16,7 @@ namespace demo
         {
             var location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             // file to be uploaded
-            FileInfo fileInfo = new FileInfo(Path.Combine(location, "test.txt"));
+            FileInfo fileInfo = new FileInfo(Path.Combine(location, @"TestFile/bigFile"));
 
             // remote tus service
             var hostUri = new Uri(@"http://localhost:5000/files");
@@ -34,7 +34,7 @@ namespace demo
             metadata["filename"] = fileInfo.FullName;
 
             //create upload url
-            var fileUrl = await tusClient.Create(fileInfo, metadata);
+            var fileUrl = await tusClient.Create(fileInfo);
 
             //upload file
             var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null);

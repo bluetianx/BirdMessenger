@@ -10,9 +10,16 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="TestFile\bigFile">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <AdditionalFiles Include="TestFile\testf" />
+    </ItemGroup>
+
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp2.1</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
