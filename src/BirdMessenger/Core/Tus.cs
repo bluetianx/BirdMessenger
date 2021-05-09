@@ -136,8 +136,6 @@ namespace BirdMessenger.Core
             {
                 throw new TusException($"delete response statusCode is {response.StatusCode}");
             }
-
-
             return true;
         }
     }
