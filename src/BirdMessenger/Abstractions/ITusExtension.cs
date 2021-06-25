@@ -20,6 +20,23 @@ namespace BirdMessenger.Abstractions
         Task<Uri> Creation(Uri url, long uploadLength, string uploadMetadata, CancellationToken cancellationToken = default);
 
         /// <summary>
+        /// create partial file
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="uploadLength"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<Uri> CreatePartialAsync(Uri host, long uploadLength, CancellationToken ct = default);
+
+        /// <summary>
+        /// Concatenate partial files
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="partialFiles"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<Uri> ConcatenateAsync(Uri host, string[] partialFiles, CancellationToken ct = default);
+        /// <summary>
         /// Termination upload
         /// </summary>
         /// <param name="url"></param>

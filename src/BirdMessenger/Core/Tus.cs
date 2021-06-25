@@ -15,7 +15,7 @@ namespace BirdMessenger.Core
     /// </summary>
     public class Tus : ITusCore, ITusExtension
     {
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
         public Tus(HttpClient httpClient)
         {
@@ -126,6 +126,17 @@ namespace BirdMessenger.Core
             }
             return fileUrl;
         }
+
+        public async Task<Uri> CreatePartialAsync(Uri host, long uploadLength, CancellationToken ct = default)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Uri> ConcatenateAsync(Uri host, string[] partialFiles, CancellationToken ct = default)
+        {
+            throw new NotImplementedException();
+        }
+
 
         public async Task<bool> Delete(Uri url, CancellationToken requestCancellationToken)
         {
