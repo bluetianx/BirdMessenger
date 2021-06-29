@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -99,11 +100,40 @@ namespace BirdMessenger.Core
 
         public async Task<Uri> Creation(Uri url, long uploadLength, string uploadMetadata, CancellationToken requestCancellationToken)
         {
+            return await CreateFileAsync(url, uploadLength, uploadMetadata, null,requestCancellationToken);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="uploadLength">if uploadLength less than 0, http does not include header of Upload-Length</param>
+        /// <param name="uploadMetadata"></param>
+        /// <param name="headers"></param>
+        /// <param name="requestCancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="TusException"></exception>
+        /// <exception cref="Exception"></exception>
+        private async Task<Uri> CreateFileAsync(Uri url, long uploadLength, string uploadMetadata,IDictionary<string,string> headers,
+            CancellationToken requestCancellationToken =default)
+        {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Post, url);
-            httpReqMsg.Headers.Add("Upload-Length", uploadLength.ToString());
+            if (uploadLength >= 0)
+            {
+                httpReqMsg.Headers.Add("Upload-Length", uploadLength.ToString());
+            }
+            
             if (!string.IsNullOrEmpty(uploadMetadata))
             {
                 httpReqMsg.Headers.Add("Upload-Metadata", uploadMetadata);
+            }
+
+            if (headers is not null && headers.Any())
+            {
+                foreach (var key in headers.Keys)
+                {
+                    httpReqMsg.Headers.Add(key,headers[key]);
+                }
             }
 
             var response = await _httpClient.SendAsync(httpReqMsg, requestCancellationToken);
@@ -124,17 +154,25 @@ namespace BirdMessenger.Core
             {
                 throw new Exception("Invalid location header");
             }
+
             return fileUrl;
         }
 
         public async Task<Uri> CreatePartialAsync(Uri host, long uploadLength, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            Dictionary<string, string> headers = new Dictionary<string, string>();
+            headers["Upload-Concat"] = "partial";
+            var fileUrl = await CreateFileAsync(host, uploadLength, string.Empty, headers, ct);
+            return fileUrl;
         }
 
         public async Task<Uri> ConcatenateAsync(Uri host, string[] partialFiles, CancellationToken ct = default)
         {
-            throw new NotImplementedException();
+            Dictionary<string, string> headers = new Dictionary<string, string>();
+            var filesStr = string.Join(" ", partialFiles);
+            headers["Upload-Concat"] = $"final;{filesStr}";
+            var finalFileUrl = await CreateFileAsync(host, -1,string.Empty, headers, ct);
+            return finalFileUrl;
         }
 
 
