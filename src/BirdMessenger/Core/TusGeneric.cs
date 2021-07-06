@@ -1,5 +1,5 @@
-using System.Net.Http;
 using BirdMessenger.Abstractions;
+using System.Net.Http;
 
 namespace BirdMessenger.Core
 {

@@ -5,6 +5,6 @@ namespace BirdMessenger.Abstractions
     /// </summary>
     public interface ITusCore<TService> : ITusCore
     {
-        
+
     }
 }

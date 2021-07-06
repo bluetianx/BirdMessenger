@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-using BirdMessenger.Abstractions;
+﻿using BirdMessenger.Abstractions;
 using BirdMessenger.Collections;
 using BirdMessenger.Delegates;
 using BirdMessenger.Infrastructure;
+using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace BirdMessenger
 {
@@ -48,7 +47,21 @@ namespace BirdMessenger
         public async Task<Uri> Create(long blobLength, MetadataCollection metadataContainer = null, CancellationToken cancellationToken = default)
         {
             metadataContainer ??= new MetadataCollection();
+            var fingerPrint = $"{metadataContainer.Serialize()}-{blobLength}";
+            var resume = _tusClientOptions.Resume && _tusClientOptions.Store != null;
+            if (resume)
+            {
+                var cacheUrl = _tusClientOptions.Store.Get(fingerPrint);
+                if (!string.IsNullOrWhiteSpace(cacheUrl))
+                {
+                    return new Uri(cacheUrl);
+                }
+            }
             var fileUrl = await _tusExtension.Creation(_tusClientOptions.TusHost, blobLength, metadataContainer.Serialize(), cancellationToken);
+            if (fileUrl != null && resume)
+            {
+                _tusClientOptions.Store.Set(fingerPrint, fileUrl.ToString());
+            }
             return fileUrl;
         }
 

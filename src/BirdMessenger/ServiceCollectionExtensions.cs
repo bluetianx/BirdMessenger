@@ -1,6 +1,7 @@
 ﻿using BirdMessenger.Abstractions;
 using BirdMessenger.Builder;
 using BirdMessenger.Core;
+using BirdMessenger.Store;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
@@ -16,13 +17,24 @@ namespace BirdMessenger
 
         public static TusHttpClientConfiguration AddTusClient(this IServiceCollection services, Uri tusHost)
         {
-            return services.AddTusClient((opts) => { opts.TusHost = tusHost; });
+            return services.AddTusClient((opts) =>
+            {
+                opts.TusHost = tusHost;
+                if (opts.Resume)
+                {
+                    opts.Store = new MemoryStore();
+                }
+            });
         }
 
         public static TusHttpClientConfiguration AddTusClient(this IServiceCollection services, Action<TusClientOptions> configure)
         {
             var options = new TusClientOptions();
             configure(options);
+            if (options.Resume && options.Store == null)
+            {
+                options.Store = new MemoryStore();
+            }
 
             var coreHttpClientBuilder = services.AddHttpClient<ITusCore, Tus>(httpClient =>
             {

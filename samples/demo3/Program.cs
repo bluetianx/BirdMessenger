@@ -1,13 +1,10 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Reflection;
-using System.Threading.Tasks;
-using BirdMessenger;
+﻿using BirdMessenger;
 using BirdMessenger.Collections;
 using BirdMessenger.Infrastructure;
+using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace demo3
 {
@@ -17,7 +14,8 @@ namespace demo3
         {
             var stream = new MemoryStream(1024 * 1024 * 32);
 
-            for(var i = 0; i < 1024 * 1024 * 32; i++) {
+            for (var i = 0; i < 1024 * 1024 * 32; i++)
+            {
                 stream.Write(Encoding.UTF8.GetBytes(BitConverter.ToString(new byte[] { (byte)i }), 0, 2));
             }
 
@@ -26,7 +24,7 @@ namespace demo3
 
             // remote tus service
             var hostUri = new Uri(@"http://localhost:5000/files");
-            
+
             // build a standalone tus client instance
             var tusClient = TusBuild.DefaultTusClientBuild(hostUri)
                 .Build();

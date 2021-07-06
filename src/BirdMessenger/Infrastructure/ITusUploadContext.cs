@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 
 namespace BirdMessenger.Infrastructure
 {
@@ -12,7 +11,12 @@ namespace BirdMessenger.Infrastructure
         Uri UploadUrl { get; }
 
         object State { get; }
-        
+
         double UploadPercentage { get; }
+
+        /// <summary>
+        /// Name-Size-{ChangedTime}
+        /// </summary>
+        string FingerPrint { get; }
     }
 }

@@ -1,15 +1,8 @@
-﻿using System;
+﻿using BirdMessenger.Collections;
+using System;
 using System.IO;
-using Xunit;
-using BirdMessenger;
-using System.Security.Cryptography;
-using System.Text;
-using Microsoft.Extensions.DependencyInjection;
-using BirdMessenger.Abstractions;
-using BirdMessenger.Core;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using BirdMessenger.Collections;
+using Xunit;
 
 namespace BirdMessenger.Test
 {
