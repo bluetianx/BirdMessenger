@@ -187,5 +187,11 @@ namespace BirdMessenger.Core
             }
             return true;
         }
+
+        public Task<Dictionary<string, string>> CreationWithUploadAsync(Uri url, long uploadLength, string uploadMetadata, byte[] uploadData,
+            CancellationToken cancellationToken = default)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

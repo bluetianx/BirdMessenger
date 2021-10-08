@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -43,5 +44,16 @@ namespace BirdMessenger.Abstractions
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         Task<bool> Delete(Uri url, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Creation With Upload
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="uploadLength"></param>
+        /// <param name="uploadMetadata"></param>
+        /// <param name="uploadData"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<Dictionary<string, string>> CreationWithUploadAsync(Uri url, long uploadLength, string uploadMetadata,byte[] uploadData, CancellationToken cancellationToken = default);
     }
 }
