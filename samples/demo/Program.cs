@@ -32,12 +32,14 @@ namespace demo
             //define additional file metadata 
             MetadataCollection metadata = new MetadataCollection();
             metadata["filename"] = fileInfo.FullName;
+            TusRequestOption requestOption = new TusRequestOption();
+            requestOption.HttpHeader["token"] = "hello";
 
             //create upload url
-            var fileUrl = await tusClient.Create(fileInfo);
+            var fileUrl = await tusClient.Create(fileInfo,null,requestOption);
 
             //upload file
-            var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null);
+            var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null,requestOption);
         }
 
         public static void printUploadProcess(ITusClient src, ITusUploadContext context)

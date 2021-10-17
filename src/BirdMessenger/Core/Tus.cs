@@ -28,11 +28,11 @@ namespace BirdMessenger.Core
         /// <param name="url"></param>
         /// <param name="requestCancellationToken"></param>
         /// <returns></returns>
-        public async Task<Dictionary<string, string>> Head(Uri url, CancellationToken requestCancellationToken)
+        public async Task<Dictionary<string, string>> Head(Uri url,TusRequestOption option=default, CancellationToken ct=default)
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Head, url);
-
-            var response = await _httpClient.SendAsync(httpReqMsg, requestCancellationToken);
+            ConfigHttpRequestMsg(option, httpReqMsg);
+            var response = await _httpClient.SendAsync(httpReqMsg, ct);
 
             if (response.StatusCode == HttpStatusCode.NotFound
                 || response.StatusCode == HttpStatusCode.Gone
@@ -48,17 +48,29 @@ namespace BirdMessenger.Core
             return result;
         }
 
+        private static void ConfigHttpRequestMsg(TusRequestOption option, HttpRequestMessage httpReqMsg)
+        {
+            if (option is not null)
+            {
+                option.Validate();
+                foreach (var kv in option.HttpHeader)
+                {
+                    httpReqMsg.Headers.Add(kv.Key, kv.Value);
+                }
+            }
+        }
+
         public async Task<Dictionary<string, string>> Patch(Uri url, byte[] uploadData, long offset,
-            CancellationToken requestCancellationToken)
+            TusRequestOption option=default,CancellationToken ct=default)
         {
             var httpReqMsg = new HttpRequestMessage(new HttpMethod("PATCH"), url);
             httpReqMsg.Headers.Add("Upload-Offset", offset.ToString());
-            //httpReqMsg.Headers.Add("Content-Type","application/offset+octet-stream");
+            ConfigHttpRequestMsg(option, httpReqMsg);
 
             httpReqMsg.Content = new ByteArrayContent(uploadData);
             httpReqMsg.Content.Headers.Add("Content-Type", "application/offset+octet-stream");
 
-            var response = await _httpClient.SendAsync(httpReqMsg, requestCancellationToken);
+            var response = await _httpClient.SendAsync(httpReqMsg, ct);
             if (response.StatusCode != HttpStatusCode.NoContent)
             {
                 throw new TusException($"patch response statusCode is {response.StatusCode.ToString()}");
@@ -70,16 +82,17 @@ namespace BirdMessenger.Core
             return result;
         }
 
-        public async Task<OptionCollection> Options(Uri url, CancellationToken requestCancellationToken)
+        public async Task<OptionCollection> Options(Uri url, TusRequestOption option=default,CancellationToken ct=default)
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Options, url);
+            ConfigHttpRequestMsg(option, httpReqMsg);
 
             if (_httpClient.DefaultRequestHeaders.Contains("Tus-Resumable"))
             {
                 _httpClient.DefaultRequestHeaders.Remove("Tus-Resumable");
             }
 
-            var response = await _httpClient.SendAsync(httpReqMsg, requestCancellationToken);
+            var response = await _httpClient.SendAsync(httpReqMsg, ct);
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
             {
                 throw new TusException($"Options response statusCode is {response.StatusCode}");
@@ -98,9 +111,9 @@ namespace BirdMessenger.Core
             return result;
         }
 
-        public async Task<Uri> Creation(Uri url, long uploadLength, string uploadMetadata, CancellationToken requestCancellationToken)
+        public async Task<Uri> Creation(Uri url, long uploadLength, string uploadMetadata,TusRequestOption option=default, CancellationToken ct=default)
         {
-            return await CreateFileAsync(url, uploadLength, uploadMetadata, null,requestCancellationToken);
+            return await CreateFileAsync(url, uploadLength, uploadMetadata, null,option,ct);
         }
 
         /// <summary>
@@ -115,7 +128,7 @@ namespace BirdMessenger.Core
         /// <exception cref="TusException"></exception>
         /// <exception cref="Exception"></exception>
         private async Task<Uri> CreateFileAsync(Uri url, long uploadLength, string uploadMetadata,IDictionary<string,string> headers,
-            CancellationToken requestCancellationToken =default)
+            TusRequestOption option=default,CancellationToken ct =default)
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Post, url);
             if (uploadLength >= 0)
@@ -135,8 +148,9 @@ namespace BirdMessenger.Core
                     httpReqMsg.Headers.Add(key,headers[key]);
                 }
             }
+            ConfigHttpRequestMsg(option, httpReqMsg);
 
-            var response = await _httpClient.SendAsync(httpReqMsg, requestCancellationToken);
+            var response = await _httpClient.SendAsync(httpReqMsg, ct);
             if (response.StatusCode != HttpStatusCode.Created)
             {
                 throw new TusException($"creation response statusCode is {response.StatusCode}");
@@ -158,29 +172,30 @@ namespace BirdMessenger.Core
             return fileUrl;
         }
 
-        public async Task<Uri> CreatePartialAsync(Uri host, long uploadLength, CancellationToken ct = default)
+        public async Task<Uri> CreatePartialAsync(Uri host, long uploadLength,TusRequestOption option=default, CancellationToken ct = default)
         {
             Dictionary<string, string> headers = new Dictionary<string, string>();
             headers["Upload-Concat"] = "partial";
-            var fileUrl = await CreateFileAsync(host, uploadLength, string.Empty, headers, ct);
+            var fileUrl = await CreateFileAsync(host, uploadLength, string.Empty, headers,option, ct);
             return fileUrl;
         }
 
-        public async Task<Uri> ConcatenateAsync(Uri host, string[] partialFiles, CancellationToken ct = default)
+        public async Task<Uri> ConcatenateAsync(Uri host, string[] partialFiles,TusRequestOption option=default, CancellationToken ct = default)
         {
             Dictionary<string, string> headers = new Dictionary<string, string>();
             var filesStr = string.Join(" ", partialFiles);
             headers["Upload-Concat"] = $"final;{filesStr}";
-            var finalFileUrl = await CreateFileAsync(host, -1,string.Empty, headers, ct);
+            var finalFileUrl = await CreateFileAsync(host, -1,string.Empty, headers,option, ct);
             return finalFileUrl;
         }
 
 
-        public async Task<bool> Delete(Uri url, CancellationToken requestCancellationToken)
+        public async Task<bool> Delete(Uri url,TusRequestOption option=default, CancellationToken ct=default)
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Delete, url);
-
-            var response = await _httpClient.SendAsync(httpReqMsg, requestCancellationToken);
+            ConfigHttpRequestMsg(option, httpReqMsg);
+            
+            var response = await _httpClient.SendAsync(httpReqMsg, ct);
             if (response.StatusCode != HttpStatusCode.NoContent)
             {
                 throw new TusException($"delete response statusCode is {response.StatusCode}");
@@ -189,7 +204,7 @@ namespace BirdMessenger.Core
         }
 
         public Task<Dictionary<string, string>> CreationWithUploadAsync(Uri url, long uploadLength, string uploadMetadata, byte[] uploadData,
-            CancellationToken cancellationToken = default)
+            TusRequestOption option=default,CancellationToken ct = default)
         {
             throw new NotImplementedException();
         }

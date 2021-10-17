@@ -31,7 +31,7 @@ namespace BirdMessenger
         /// <param name="metadataCollection"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<Uri> Create(long blobLength, MetadataCollection metadataCollection = null, CancellationToken cancellationToken = default);
+        Task<Uri> Create(long blobLength, MetadataCollection metadataCollection = null,TusRequestOption option =default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// create a url for file upload
@@ -40,7 +40,7 @@ namespace BirdMessenger
         /// <param name="metadataCollection"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<Uri> Create(FileInfo fileInfo, MetadataCollection metadataCollection = null, CancellationToken cancellationToken = default);
+        Task<Uri> Create(FileInfo fileInfo, MetadataCollection metadataCollection = null,TusRequestOption option=default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// upload blob asynchronously
@@ -50,7 +50,7 @@ namespace BirdMessenger
         /// <param name="state"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<bool> Upload(Uri uploadUrl, Stream blobStream, object state, CancellationToken cancellationToken = default);
+        Task<bool> Upload(Uri uploadUrl, Stream blobStream, object state,TusRequestOption option=default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// upload file asynchronously
@@ -60,7 +60,7 @@ namespace BirdMessenger
         /// <param name="state"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<bool> Upload(Uri uploadUrl, FileInfo uploadFileInfo, object state, CancellationToken cancellationToken = default);
+        Task<bool> Upload(Uri uploadUrl, FileInfo uploadFileInfo, object state,TusRequestOption option=default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// delete file
@@ -68,13 +68,13 @@ namespace BirdMessenger
         /// <param name="fileUrl"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<bool> DeleteFile(Uri fileUrl, CancellationToken cancellationToken = default);
+        Task<bool> DeleteFile(Uri fileUrl,TusRequestOption option=default, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// get server information
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        Task<OptionCollection> ServerInformation(CancellationToken cancellationToken = default);
+        Task<OptionCollection> ServerInformation(TusRequestOption option=default,CancellationToken cancellationToken = default);
     }
 }

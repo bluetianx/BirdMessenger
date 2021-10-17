@@ -39,16 +39,16 @@ namespace BirdMessenger
         }
 
         /// <summary>
-        /// create a url for blobl upload
+        /// create a url for blob upload
         /// </summary>
         /// <param name="blobLength"></param>
         /// <param name="metadataContainer"></param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="ct"></param>
         /// <returns></returns>
-        public async Task<Uri> Create(long blobLength, MetadataCollection metadataContainer = null, CancellationToken cancellationToken = default)
+        public async Task<Uri> Create(long blobLength, MetadataCollection metadataContainer = null,TusRequestOption option=default, CancellationToken ct = default)
         {
             metadataContainer ??= new MetadataCollection();
-            var fileUrl = await _tusExtension.Creation(_tusClientOptions.TusHost, blobLength, metadataContainer.Serialize(), cancellationToken);
+            var fileUrl = await _tusExtension.Creation(_tusClientOptions.TusHost, blobLength, metadataContainer.Serialize(),option, ct);
             return fileUrl;
         }
 
@@ -57,15 +57,15 @@ namespace BirdMessenger
         /// </summary>
         /// <param name="fileInfo"></param>
         /// <param name="metadataContainer"></param>
-        /// <param name="cancellationToken"></param>
+        /// <param name="ct"></param>
         /// <returns></returns>
-        public Task<Uri> Create(FileInfo fileInfo, MetadataCollection metadataContainer = null, CancellationToken cancellationToken = default)
+        public Task<Uri> Create(FileInfo fileInfo, MetadataCollection metadataContainer = null,TusRequestOption option=default, CancellationToken ct = default)
         {
             metadataContainer ??= new MetadataCollection();
             if (!metadataContainer.ContainsKey(_tusClientOptions.FileNameMetadataName))
                 metadataContainer[_tusClientOptions.FileNameMetadataName] = fileInfo.Name;
 
-            return Create(fileInfo.Length, metadataContainer, cancellationToken);
+            return Create(fileInfo.Length, metadataContainer,option, ct);
         }
 
         /// <summary>
@@ -74,17 +74,18 @@ namespace BirdMessenger
         /// <param name="uploadUrl">blob upload url</param>
         /// <param name="blobStream">blob stream to be uploaded; must allow Length, ReadAsync operations. Seek operation must be available for resumed uploads.</param>
         /// <param name="state"></param>
-        /// <param name="cancellationToken">cancellation token to stop the asynchronous action</param>
+        /// <param name="option"></param>
+        /// <param name="ct">cancellation token to stop the asynchronous action</param>
         /// <returns>Returns true if upload is complete; false otherwise</returns>
-        public async Task<bool> Upload(Uri uploadUrl, Stream blobStream, object state, CancellationToken cancellationToken = default)
+        public async Task<bool> Upload(Uri uploadUrl, Stream blobStream, object state,TusRequestOption option=default, CancellationToken ct = default)
         {
-            var headResult = await _tusCore.Head(uploadUrl, cancellationToken);
+            var headResult = await _tusCore.Head(uploadUrl,option, ct);
             long offset = long.Parse(headResult["Upload-Offset"]);
             long length = blobStream.Length;
 
             var tusUploadFileContext = new TusUploadContext(length, offset, uploadUrl, state);
 
-            while (!cancellationToken.IsCancellationRequested)
+            while (!ct.IsCancellationRequested)
             {
                 if (offset == length)
                 {
@@ -100,7 +101,7 @@ namespace BirdMessenger
                 byte[] buffer = new byte[chunkSize];
                 var readCount = await blobStream.ReadAsync(buffer, 0, chunkSize);
 
-                var uploadResult = await _tusCore.Patch(uploadUrl, buffer, offset, cancellationToken);
+                var uploadResult = await _tusCore.Patch(uploadUrl, buffer, offset,option, ct);
                 offset = long.Parse(uploadResult["Upload-Offset"]);
                 tusUploadFileContext.UploadedSize = offset;
                 UploadProgress?.Invoke(this, tusUploadFileContext);
@@ -116,10 +117,10 @@ namespace BirdMessenger
         /// <param name="state"></param>
         /// <param name="cancellationToken">cancellation token to stop the asynchronous action</param>
         /// <returns>Returns true if upload is complete; false otherwise</returns>
-        public async Task<bool> Upload(Uri uploadUrl, FileInfo uploadFileInfo, object state, CancellationToken cancellationToken = default)
+        public async Task<bool> Upload(Uri uploadUrl, FileInfo uploadFileInfo, object state,TusRequestOption option=default, CancellationToken cancellationToken = default)
         {
-            using (var fileStream = new FileStream(uploadFileInfo.FullName, FileMode.Open, FileAccess.Read))
-                return await Upload(uploadUrl, fileStream, state, cancellationToken);
+            using var fileStream = new FileStream(uploadFileInfo.FullName, FileMode.Open, FileAccess.Read);
+            return await Upload(uploadUrl, fileStream, state,option, cancellationToken);
         }
 
         /// <summary>
@@ -128,17 +129,17 @@ namespace BirdMessenger
         /// <param name="fileUrl">The url provided by #Create</param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteFile(Uri fileUrl, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteFile(Uri fileUrl,TusRequestOption option =default, CancellationToken ct = default)
         {
-            return await _tusExtension.Delete(fileUrl, cancellationToken);
+            return await _tusExtension.Delete(fileUrl,option, ct);
         }
 
         /// <summary>
         /// get server information
         /// </summary>
-        public async Task<OptionCollection> ServerInformation(CancellationToken cancellationToken = default)
+        public async Task<OptionCollection> ServerInformation(TusRequestOption option=default,CancellationToken ct = default)
         {
-            return await _tusCore.Options(_tusClientOptions.TusHost, cancellationToken);
+            return await _tusCore.Options(_tusClientOptions.TusHost,option, ct);
         }
     }
 }

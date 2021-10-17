@@ -62,6 +62,21 @@ namespace testDotNetSite
                 .WithExposedHeaders(CorsHelper.GetExposedHeaders()));
 
             //app.UseSimpleExceptionHandler();
+            app.Use(async (context, next) =>
+            {
+                // Do work that doesn't write to the Response.
+                var token = context.Request.Headers["token"];
+                if (!string.IsNullOrEmpty(token))
+                {
+                    Console.WriteLine($"token:{token}");
+                }
+                else
+                {
+                    Console.WriteLine("token is null");
+                }
+                await next.Invoke();
+                // Do logging or other work that doesn't write to the Response.
+            });
 
             // httpContext parameter can be used to create a tus configuration based on current user, domain, host, port or whatever.
             // In this case we just return the same configuration for everyone.
