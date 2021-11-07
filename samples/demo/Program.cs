@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
 using BirdMessenger;
 using BirdMessenger.Collections;
 using BirdMessenger.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace demo
 {
@@ -23,6 +25,15 @@ namespace demo
             
             // build a standalone tus client instance
             var tusClient = TusBuild.DefaultTusClientBuild(hostUri)
+                .Configure((options, httpClientBuilder) =>
+                {
+                    //customize http client
+                    /*httpClientBuilder.ConfigureHttpClient(httpClient =>
+                    {
+                        httpClient.DefaultRequestHeaders.Authorization =
+                            new AuthenticationHeaderValue("Bearer", "ACCESS_TOKEN");
+                    });*/
+                })
                 .Build();
 
             //hook up events
