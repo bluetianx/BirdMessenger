@@ -29,13 +29,13 @@ namespace demo
                 .Configure((options, httpClientBuilder) =>
                 {
                     //customize http client
-                    /*httpClientBuilder.ConfigureHttpClient(httpClient =>
+                    httpClientBuilder.ConfigureHttpClient(httpClient =>
                     {
                         httpClient.DefaultRequestHeaders.Authorization =
                             new AuthenticationHeaderValue("Bearer", "ACCESS_TOKEN");
                         
                     });
-                    httpClientBuilder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
+                   /* httpClientBuilder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
                     {
                         UseCookies = false,
                     });*/
