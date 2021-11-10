@@ -134,6 +134,12 @@ var tusClientBuilder = TusBuild.DefaultTusClientBuild(configure);
 
 tusClientBuilder.Configure((TusClientOptions options, IHttpClientBuilder httpClientBuilder) => {
     //configure either options or httpClientBuilder
+    //例如
+    httpClientBuilder.ConfigureHttpClient(httpClient =>
+                    {
+                        httpClient.DefaultRequestHeaders.Authorization =
+                            new AuthenticationHeaderValue("Bearer", "ACCESS_TOKEN");
+                    });
 });
 ```
 * TusHttpClientBuilder 主要有三个方法:
