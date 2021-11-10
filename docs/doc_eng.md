@@ -130,6 +130,12 @@ var tusClientBuilder = TusBuild.DefaultTusClientBuild(configure);
 
 tusClientBuilder.Configure((TusClientOptions options, IHttpClientBuilder httpClientBuilder) => {
     //configure either options or httpClientBuilder
+    //etc
+    httpClientBuilder.ConfigureHttpClient(httpClient =>
+                    {
+                        httpClient.DefaultRequestHeaders.Authorization =
+                            new AuthenticationHeaderValue("Bearer", "ACCESS_TOKEN");
+                    });
 });
 ```
 * TusHttpClientBuilder has 3 main methods:
