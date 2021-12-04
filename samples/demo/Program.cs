@@ -33,7 +33,7 @@ namespace demo
                     {
                         httpClient.DefaultRequestHeaders.Authorization =
                             new AuthenticationHeaderValue("Bearer", "ACCESS_TOKEN");
-                        
+
                     });
                    /* httpClientBuilder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
                     {
