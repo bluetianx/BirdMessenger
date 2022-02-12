@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 using BirdMessenger.Abstractions;
 using BirdMessenger.Collections;
 using BirdMessenger.Infrastructure;
+using BirdMessenger.Internal;
 
 namespace BirdMessenger.Core
 {
@@ -82,6 +84,36 @@ namespace BirdMessenger.Core
             return result;
         }
 
+        /// <summary>
+        /// upload file with streaming
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="uploadStream"></param>
+        /// <param name="uploadProgress"></param>
+        /// <param name="option"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<Dictionary<string, string>> PatchWithStreaming(Uri url, Stream uploadStream, Func<long, Task> uploadProgress, TusRequestOption option = default,
+            CancellationToken ct = default)
+        {
+            var httpReqMsg = new HttpRequestMessage(new HttpMethod("PATCH"), url);
+            httpReqMsg.Headers.Add("Upload-Offset", uploadStream.Position.ToString());
+            ConfigHttpRequestMsg(option, httpReqMsg);
+
+            httpReqMsg.Content = new ProgressableStreamContent(uploadStream, uploadProgress);
+            httpReqMsg.Content.Headers.Add("Content-Type", "application/offset+octet-stream");
+            var response = await _httpClient.SendAsync(httpReqMsg, ct);
+            if (response.StatusCode != HttpStatusCode.NoContent)
+            {
+                throw new TusException($"patch response statusCode is {response.StatusCode.ToString()}",httpReqMsg,response);
+            }
+            Dictionary<string, string> result = new Dictionary<string, string>();
+            result["Upload-Offset"] = response.GetValueOfHeader("Upload-Offset");
+            result["Tus-Resumable"] = response.GetValueOfHeader("Tus-Resumable");
+
+            return result;
+        }
+
         public async Task<OptionCollection> Options(Uri url, TusRequestOption option=default,CancellationToken ct=default)
         {
             var httpReqMsg = new HttpRequestMessage(HttpMethod.Options, url);
@@ -95,7 +127,7 @@ namespace BirdMessenger.Core
             var response = await _httpClient.SendAsync(httpReqMsg, ct);
             if (response.StatusCode != HttpStatusCode.OK && response.StatusCode != HttpStatusCode.NoContent)
             {
-                throw new TusException($"Options response statusCode is {response.StatusCode}");
+                throw new TusException($"Options response statusCode is {response.StatusCode}",httpReqMsg,response);
             }
 
             OptionCollection result = new OptionCollection();
@@ -153,7 +185,7 @@ namespace BirdMessenger.Core
             var response = await _httpClient.SendAsync(httpReqMsg, ct);
             if (response.StatusCode != HttpStatusCode.Created)
             {
-                throw new TusException($"creation response statusCode is {response.StatusCode}");
+                throw new TusException($"creation response statusCode is {response.StatusCode}",httpReqMsg,response);
             }
 
             string fileUrlStr = response.GetValueOfHeader("Location");
@@ -198,7 +230,7 @@ namespace BirdMessenger.Core
             var response = await _httpClient.SendAsync(httpReqMsg, ct);
             if (response.StatusCode != HttpStatusCode.NoContent)
             {
-                throw new TusException($"delete response statusCode is {response.StatusCode}");
+                throw new TusException($"delete response statusCode is {response.StatusCode}",httpReqMsg,response);
             }
             return true;
         }

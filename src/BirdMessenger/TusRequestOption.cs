@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using BirdMessenger.Infrastructure;
 
 namespace BirdMessenger
@@ -26,6 +27,11 @@ namespace BirdMessenger
         /// add additional http header
         /// </summary>
         public Dictionary<string,string> HttpHeader { get; }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether upload file with streaming,upload file with streaming is efficient, default value is false,
+        /// </summary>
+        public bool UploadWithStreaming { get; set; }
 
         /// <summary>
         /// 

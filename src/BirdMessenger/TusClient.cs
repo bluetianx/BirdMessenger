@@ -79,7 +79,22 @@ namespace BirdMessenger
         /// <returns>Returns true if upload is complete; false otherwise</returns>
         public async Task<bool> Upload(Uri uploadUrl, Stream blobStream, object state,TusRequestOption option=default, CancellationToken ct = default)
         {
-            var headResult = await _tusCore.Head(uploadUrl,option, ct);
+            bool uploadResult;
+            if (option is not null && option.UploadWithStreaming)
+            {
+                uploadResult = await UploadWithStreamingAsync(uploadUrl, blobStream, state, option, ct);
+            }
+            else
+            {
+                uploadResult = await UploadWithMultipleRequest(uploadUrl, blobStream, state, option, ct);
+            }
+            return uploadResult;
+        }
+
+        private async Task<bool> UploadWithMultipleRequest(Uri uploadUrl, Stream blobStream, object state, TusRequestOption option,
+            CancellationToken ct)
+        {
+            var headResult = await _tusCore.Head(uploadUrl, option, ct);
             long offset = long.Parse(headResult["Upload-Offset"]);
             long length = blobStream.Length;
 
@@ -101,12 +116,45 @@ namespace BirdMessenger
                 byte[] buffer = new byte[chunkSize];
                 var readCount = await blobStream.ReadAsync(buffer, 0, chunkSize);
 
-                var uploadResult = await _tusCore.Patch(uploadUrl, buffer, offset,option, ct);
+                var uploadResult = await _tusCore.Patch(uploadUrl, buffer, offset, option, ct);
                 offset = long.Parse(uploadResult["Upload-Offset"]);
                 tusUploadFileContext.UploadedSize = offset;
                 UploadProgress?.Invoke(this, tusUploadFileContext);
             }
+
             return false;
+        }
+
+        private async Task<bool> UploadWithStreamingAsync(Uri uploadUrl, Stream blobStream, object state,
+            TusRequestOption option = default, CancellationToken ct = default)
+        {
+            var headResult = await _tusCore.Head(uploadUrl,option, ct);
+            long offset = long.Parse(headResult["Upload-Offset"]);
+            long length = blobStream.Length;
+
+            var tusUploadFileContext = new TusUploadContext(length, offset, uploadUrl, state);
+            if (offset == length)
+            {
+                UploadFinish?.Invoke(this, tusUploadFileContext);
+                return true;
+            }
+
+            if (blobStream.Position != offset)
+            {
+                blobStream.Seek(offset, SeekOrigin.Begin);
+            }
+
+            var uploadResult = await _tusCore.PatchWithStreaming(uploadUrl, blobStream, OnUploadProgress, option, ct);
+            var uploadedBytes = long.Parse(uploadResult["Upload-Offset"]);
+
+            Task OnUploadProgress(long offset)
+            {
+                tusUploadFileContext.UploadedSize = offset;
+                UploadProgress?.Invoke(this, tusUploadFileContext);
+                return Task.CompletedTask;
+            }
+
+            return uploadedBytes == length;
         }
 
         /// <summary>
