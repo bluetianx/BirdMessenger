@@ -49,14 +49,20 @@ namespace demo
             //define additional file metadata 
             MetadataCollection metadata = new MetadataCollection();
             metadata["filename"] = fileInfo.FullName;
+            
             TusRequestOption requestOption = new TusRequestOption();
-            requestOption.HttpHeader["token"] = "hello";
-
+            requestOption.HttpHeader["hello"] = "hello";
+            
             //create upload url
             var fileUrl = await tusClient.Create(fileInfo,null,requestOption);
 
+            var uploadOpt = new TusRequestOption()
+            {
+                UploadWithStreaming = true //enable streaming Upload
+            };
+
             //upload file
-            var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null,requestOption);
+            var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null,uploadOpt);
         }
 
         public static void printUploadProcess(ITusClient src, ITusUploadContext context)
