@@ -25,6 +25,8 @@ namespace BirdMessenger.Test
             dir["filename"] = fileInfo.FullName;
 
             var result = await tusClient.Create(fileInfo, dir);
+            
+            Assert.False(string.IsNullOrWhiteSpace(result.ToString()));
         }
 
         [Fact]
@@ -36,6 +38,26 @@ namespace BirdMessenger.Test
 
             var fileUrl = await tusClient.Create(fileInfo, dir);
             var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null);
+            
+            Assert.True(uploadResult);
+        }
+
+        [Fact]
+        public async Task UploadFileWithStreamingAsync()
+        {
+            var tusClient = this.BuildClient();
+            var fileInfo = new FileInfo(@"TestFile/bigFile");
+            MetadataCollection dir = new MetadataCollection();
+
+            var fileUrl = await tusClient.Create(fileInfo, dir);
+
+            var uploadOption = new TusRequestOption()
+            {
+                UploadWithStreaming = true
+            };
+            var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null,uploadOption);
+            
+            Assert.True(uploadResult);
         }
 
         [Fact]
