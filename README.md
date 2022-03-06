@@ -19,11 +19,11 @@ BirdMessnger 是一个基于.NET Standard 的 Tus协议的实现客户端。
 
 Package manager
 
-``Install-Package BirdMessenger -Version 2.0.1``
+``Install-Package BirdMessenger -Version 2.2.0``
 
 .NET CLI
 
-``dotnet add package BirdMessenger --version 2.0.1``
+``dotnet add package BirdMessenger --version 2.2.0``
 
 ## Getting Started
 
@@ -35,21 +35,44 @@ FileInfo fileInfo = new FileInfo("test.txt");
 var hostUri = new Uri(@"http://localhost:5000/files");
 
 // build a standalone tus client instance
-var tusClient = TusBuild.DefaultTusClientBuild(hostUri).Build();
+var tusClient = TusBuild.DefaultTusClientBuild(hostUri)
+                .Configure((options, httpClientBuilder) =>
+                {
+                    //customize http client
+                    httpClientBuilder.ConfigureHttpClient(httpClient =>
+                    {
+                        httpClient.DefaultRequestHeaders.Authorization =
+                            new AuthenticationHeaderValue("Bearer", "ACCESS_TOKEN");
+
+                    });
+                   /* httpClientBuilder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
+                    {
+                        UseCookies = false,
+                    });*/
+                })
+                .Build();
 
 //hook up events
 tusClient.UploadProgress += printUploadProcess;
 tusClient.UploadFinish += uploadFinish;
 
-//define additional file metadata 
-MetadataCollection metadata = new MetadataCollection();
+ //define additional file metadata 
+ MetadataCollection metadata = new MetadataCollection();
 metadata["filename"] = fileInfo.FullName;
+            
+TusRequestOption requestOption = new TusRequestOption();
+requestOption.HttpHeader["myHttpheader"] = "hello";
+            
+ //create upload url
+ var fileUrl = await tusClient.Create(fileInfo,null,requestOption);
 
-//create upload url
-var fileUrl = await tusClient.Create(fileInfo, metadata);
+ var uploadOpt = new TusRequestOption()
+ {
+      UploadWithStreaming = true //enable streaming Upload
+ };
 
-//upload file
-var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
+ //upload file
+ var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null,uploadOpt);
 ```
 
 * You can see more examples in unit tests
