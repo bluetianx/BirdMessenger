@@ -21,8 +21,12 @@ metadata["filename"] = fileInfo.FullName;
 //create upload url
 var fileUrl = await tusClient.Create(fileInfo, metadata);
 
-//upload file
-var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
+ var uploadOpt = new TusRequestOption()
+ {
+     UploadWithStreaming = true //enable streaming Upload
+ };
+ //upload file
+var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null,uploadOpt);
 ```
 ## Subscribe upload events
 ### Delegate prototype
@@ -56,6 +60,13 @@ The field definition for ITusUploadContext is as follows：
 * public long UploadedSize { get; set; }   : Total uploaded size
 * public FileInfo UploadFileInfo { get; }  : Upload file info
 * public Uri UploadFileUrl { get;}         : URl of upload file
+
+### TusRequestOption specification
+
+**Note：Need client  version to 2.2.0**
+
+* HttpHeader ： Send Http request with a custom request header
+* UploadWithStreaming ： Gets or sets a value that indicates whether upload file with streaming,upload file with streaming is efficient, default value is false
 
 ## Building an ITusClient instance
 ### Build standalone ITusClient by TusBuild.DefaultTusClientBuild

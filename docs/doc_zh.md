@@ -20,8 +20,14 @@ metadata["filename"] = fileInfo.FullName;
 //create upload url
 var fileUrl = await tusClient.Create(fileInfo, metadata);
 
-//upload file
-var uploadResult = await tusClient.Upload(fileUrl, fileInfo);
+
+ var uploadOpt = new TusRequestOption()
+ {
+     UploadWithStreaming = true //enable streaming Upload
+ };
+
+ //upload file
+var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null,uploadOpt);
 
 ```
 ### 订阅上传事件
@@ -57,6 +63,15 @@ ITusUploadContext中的字段定义如下：
 * public   long UploadedSize { get; set; }  :文件每次传输大小
 * public  FileInfo UploadFileInfo { get; }  : 上传文件的信息
 * public  Uri UploadFileUrl { get;}         :上传文件对应的URl
+
+
+
+### TusRequestOption 说明 
+
+**注意：需要升级nuget版本到 V2.2.0**
+
+* HttpHeader ： 请求服务端时携带自定义的请求头
+* UploadWithStreaming ： 上传文件内容时是否采用Http stream 方式上传，建议开启
 
 ### 利用TusBuild构建Tusclient
 
