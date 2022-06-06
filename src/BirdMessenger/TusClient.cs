@@ -154,7 +154,15 @@ namespace BirdMessenger
                 return Task.CompletedTask;
             }
 
-            return uploadedBytes == length;
+            if (uploadedBytes == length)
+            {
+                UploadFinish?.Invoke(this, tusUploadFileContext);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         /// <summary>
