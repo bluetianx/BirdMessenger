@@ -19,10 +19,10 @@ namespace demo
         {
             var location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             // file to be uploaded
-            FileInfo fileInfo = new FileInfo(Path.Combine(location, @"TestFile/bigFile"));
+            FileInfo fileInfo = new FileInfo(Path.Combine(location, @"TestFile/test.txt"));
 
             // remote tus service
-            var hostUri = new Uri(@"http://localhost:5000/files");
+            var hostUri = new Uri(@"http://localhost:6000/files");
             
             // build a standalone tus client instance
             var tusClient = TusBuild.DefaultTusClientBuild(hostUri)
