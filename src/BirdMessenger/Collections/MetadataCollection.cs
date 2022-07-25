@@ -56,6 +56,15 @@ namespace BirdMessenger.Collections
             Add(item.Key, item.Value);
         }
 
+        /// <summary>
+        /// add fileName to metadata
+        /// </summary>
+        /// <param name="fileName"></param>
+        public void AddFileName(string fileName)
+        {
+            Add(FileNameMetadataName,fileName);
+        }
+
         public void Clear()
         {
             _container.Clear();
@@ -114,5 +123,10 @@ namespace BirdMessenger.Collections
 
             return string.Join(",", meta);
         }
+
+        /// <summary>
+        /// metadata key for uploaded file name
+        /// </summary>
+        public static readonly string FileNameMetadataName = "fileName";
     }
 }
