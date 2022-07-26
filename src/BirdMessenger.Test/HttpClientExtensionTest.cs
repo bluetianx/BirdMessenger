@@ -12,13 +12,43 @@ public class HttpClientExtensionTest
     [Fact]
     public async Task TestTusCreateAsync()
     {
+        bool isInovkeOnPreSendRequestAsync = false;
         using var httpClient = new HttpClient();
         TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
         {
             Endpoint = TusEndpoint,
-            UploadLength = 1000
+            UploadLength = 1000,
+            OnPreSendRequestAsync = x =>
+            {
+                Console.WriteLine("OnPreSendRequestAsync is invoked");
+                isInovkeOnPreSendRequestAsync = true;
+                return Task.CompletedTask;
+            }
         };
         var resp =await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
         Assert.Equal(TusVersion.V1_0_0,resp.TusVersion);
+        Assert.True(isInovkeOnPreSendRequestAsync);
+    }
+
+    [Fact]
+    public async Task TestTusCreateArgumentExceptionAsync()
+    {
+        bool isArgumentException = false;
+        try
+        {
+            using var httpClient = new HttpClient();
+            TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
+            {
+                Endpoint = TusEndpoint,
+                UploadLength = 1000,
+                IsUploadDeferLength = true
+            };
+            var resp =await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
+        }
+        catch (ArgumentException e)
+        {
+            isArgumentException = true;
+        }
+        Assert.True(isArgumentException);
     }
 }
