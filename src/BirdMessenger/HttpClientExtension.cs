@@ -20,7 +20,7 @@ public static class HttpClientExtension
     /// <param name="tusCreateRequestOption"></param>
     /// <param name="ct"></param>
     /// <returns></returns>
-    public static async Task<TusCreateResponse> CreateAsync(this HttpClient httpClient,TusCreateRequestOption tusCreateRequestOption,
+    public static async Task<TusCreateResponse> TusCreateAsync(this HttpClient httpClient,TusCreateRequestOption tusCreateRequestOption,
         CancellationToken ct = default)
     {
         if (tusCreateRequestOption is null)
@@ -32,6 +32,7 @@ public static class HttpClientExtension
         {
             throw new ArgumentException("Endpoint is null");
         }
+        tusCreateRequestOption.ValidateHttpHeaders();
 
         var endpoint = tusCreateRequestOption.Endpoint;
         
@@ -63,7 +64,7 @@ public static class HttpClientExtension
         }
 
         
-        if (tusCreateRequestOption.OnPreSendRequestAsync is null)
+        if (tusCreateRequestOption.OnPreSendRequestAsync is not null)
         {
             PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent
             {
@@ -78,7 +79,7 @@ public static class HttpClientExtension
             throw new TusException($"creation response statusCode is {response.StatusCode}",httpReqMsg,response);
         }
 
-        string fileUrlStr = response.GetValueOfHeader("Location");
+        string fileUrlStr = response.GetValueOfHeader(TusHeaders.Location);
         Uri fileUrl = null;
         if (Uri.TryCreate(fileUrlStr, UriKind.RelativeOrAbsolute, out fileUrl))
         {
@@ -92,10 +93,13 @@ public static class HttpClientExtension
             throw new TusException("Invalid location header",httpReqMsg,response);
         }
 
+        var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
+
         var tusCreateResponse = new TusCreateResponse()
         {
             FileLocation = fileUrl,
-            OriginResponseMessage = response
+            OriginResponseMessage = response,
+            TusVersion = tusVersion
         };
 
         return tusCreateResponse;

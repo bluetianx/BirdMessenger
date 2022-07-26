@@ -24,4 +24,6 @@ internal static class TusHeaders
     internal const string UploadMetadata = "Upload-Metadata";
     
     internal const string TusResumable = "Tus-Resumable";
+
+    internal const string Location = "Location";
 }

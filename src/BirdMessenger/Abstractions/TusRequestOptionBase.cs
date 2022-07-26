@@ -23,18 +23,13 @@ public abstract class TusRequestOptionBase
     /// add additional http headers
     /// </summary>
     public Dictionary<string,string> HttpHeaders { get; }
-
-    /// <summary>
-    /// Gets or sets a value that indicates whether upload file with streaming,upload file with streaming is efficient, default value is false,
-    /// </summary>
-    public bool UploadWithStreaming { get; set; }
-        
+    
 
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
-    internal void Validate()
+    internal void ValidateHttpHeaders()
     {
         if (HttpHeaders is not null)
         {
