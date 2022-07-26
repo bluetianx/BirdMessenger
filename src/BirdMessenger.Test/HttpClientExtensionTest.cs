@@ -3,12 +3,20 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace BirdMessenger.Test;
 
 public class HttpClientExtensionTest
 {
+    private readonly ITestOutputHelper _testOutputHelper;
     public static Uri TusEndpoint = new Uri("http://localhost:5094/files");
+
+    public HttpClientExtensionTest(ITestOutputHelper testOutputHelper)
+    {
+        _testOutputHelper = testOutputHelper;
+    }
+
     [Fact]
     public async Task TestTusCreateAsync()
     {
@@ -20,7 +28,7 @@ public class HttpClientExtensionTest
             UploadLength = 1000,
             OnPreSendRequestAsync = x =>
             {
-                Console.WriteLine("OnPreSendRequestAsync is invoked");
+                _testOutputHelper.WriteLine("OnPreSendRequestAsync is invoked");
                 isInovkeOnPreSendRequestAsync = true;
                 return Task.CompletedTask;
             }
