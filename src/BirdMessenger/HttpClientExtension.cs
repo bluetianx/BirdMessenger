@@ -42,7 +42,7 @@ public static class HttpClientExtension
         }
         var httpReqMsg = new HttpRequestMessage(HttpMethod.Post, endpoint);
         
-        httpReqMsg.Headers.Add(TusHeaders.TusResumable,TusVersion.V1_0_0.GetEnumDescription());
+        httpReqMsg.Headers.Add(TusHeaders.TusResumable,reqOption.TusVersion.GetEnumDescription());
         
         if (reqOption.UploadLength >= 0)
         {
