@@ -19,7 +19,6 @@ builder.Services.AddSingleton(CreateTusConfiguration);
 var app = builder.Build();
 
 
-app.UseAuthentication();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 app.UseHttpsRedirection();
