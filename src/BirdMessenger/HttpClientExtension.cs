@@ -106,7 +106,7 @@ public static class HttpClientExtension
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     public static async Task<TusHeadResponse> TusHeadAsync(this HttpClient httpClient,
-        TusHeadRequestOption reqOption, CancellationToken ct)
+        TusHeadRequestOption reqOption, CancellationToken ct = default)
     {
         if (reqOption is null)
         {
