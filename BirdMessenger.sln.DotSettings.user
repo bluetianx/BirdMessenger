@@ -1,9 +1,0 @@
-﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:Int64 x:Key="/Default/CodeStyle/Naming/CSharpAutoNaming/AutoNamingCompletedVersion/@EntryValue">2</s:Int64>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=57351d07_002Dbf88_002D47c3_002Da190_002De7a76e24aa25/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="UploadFileWithStreamingAsync" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
-  &lt;TestAncestor&gt;
-    &lt;TestId&gt;xUnit::99AE3DD1-F2C0-4A04-A3CD-FAB05C68F070::net6.0::BirdMessenger.Test.HttpClientExtensionTest.TestTusCreateAsync&lt;/TestId&gt;
-    &lt;TestId&gt;xUnit::99AE3DD1-F2C0-4A04-A3CD-FAB05C68F070::net6.0::BirdMessenger.Test.HttpClientExtensionTest.TestTusCreateArgumentExceptionAsync&lt;/TestId&gt;
-  &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String>
-	</wpf:ResourceDictionary>
