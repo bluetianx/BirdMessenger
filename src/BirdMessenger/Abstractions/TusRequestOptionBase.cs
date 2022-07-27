@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using BirdMessenger.Constants;
 using BirdMessenger.Delegates;
@@ -25,13 +27,26 @@ public abstract class TusRequestOptionBase
     public Dictionary<string,string> HttpHeaders { get; }
 
     internal readonly TusVersion TusVersion = TusVersion.V1_0_0;
+
+    internal void AddCustomHttpHeaders(HttpRequestMessage httpRequestMessage)
+    {
+        ValidateHttpHeaders();
+        
+        if (HttpHeaders is not null && HttpHeaders.Any())
+        {
+            foreach (var key in HttpHeaders.Keys)
+            {
+                httpRequestMessage.Headers.Add(key,HttpHeaders[key]);
+            }
+        }
+    }
     
 
     /// <summary>
     /// 
     /// </summary>
     /// <returns></returns>
-    internal void ValidateHttpHeaders()
+    private void ValidateHttpHeaders()
     {
         if (HttpHeaders is not null)
         {

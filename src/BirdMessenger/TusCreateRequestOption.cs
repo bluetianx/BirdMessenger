@@ -13,7 +13,7 @@ public class TusCreateRequestOption:TusRequestOptionBase
     /// <summary>
     /// indicates the size of the entire upload in bytes
     /// </summary>
-    public ulong UploadLength { get; set; }
+    public long UploadLength { get; set; }
     
     /// <summary>
     /// indicates that the size of the upload is not known currently and will be transferred later

@@ -25,3 +25,4 @@ samples/testDotNetSite/tusfiles
 /src/BirdMessenger.BenchMark/TestFile
 .DS_Store
 /samples/demo/TestFile/
+BirdMessenger.sln.DotSettings.user

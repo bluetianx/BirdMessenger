@@ -16,5 +16,16 @@ namespace BirdMessenger.Infrastructure
                 throw new TusException($"no found header of {key}");
             }
         }
+        public static string GetValueOfHeaderWithoutException(this HttpResponseMessage response, string key)
+        {
+            if (response.Headers.TryGetValues(key, out var values))
+            {
+                return values.First();
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
     }
 }

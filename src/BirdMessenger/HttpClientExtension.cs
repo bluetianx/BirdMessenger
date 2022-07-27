@@ -32,7 +32,6 @@ public static class HttpClientExtension
         {
             throw new ArgumentException("Endpoint is null");
         }
-        reqOption.ValidateHttpHeaders();
 
         var endpoint = reqOption.Endpoint;
         
@@ -55,14 +54,7 @@ public static class HttpClientExtension
             httpReqMsg.Headers.Add(TusHeaders.UploadMetadata, uploadMetadata);
         }
         
-        if (reqOption.HttpHeaders is not null && reqOption.HttpHeaders.Any())
-        {
-            foreach (var key in reqOption.HttpHeaders.Keys)
-            {
-                httpReqMsg.Headers.Add(key,reqOption.HttpHeaders[key]);
-            }
-        }
-
+        reqOption.AddCustomHttpHeaders(httpReqMsg);
         
         if (reqOption.OnPreSendRequestAsync is not null)
         {
@@ -103,5 +95,56 @@ public static class HttpClientExtension
         };
 
         return tusCreateResponse;
+    }
+
+    /// <summary>
+    /// tus Head request
+    /// </summary>
+    /// <param name="httpClient"></param>
+    /// <param name="reqOption"></param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
+    public static async Task<TusHeadResponse> TusHeadAsync(this HttpClient httpClient,
+        TusHeadRequestOption reqOption, CancellationToken ct)
+    {
+        if (reqOption is null)
+        {
+            throw new ArgumentException("TusHeadRequestOption is null");
+        }
+
+        if (reqOption.FileLocation is null)
+        {
+            throw new ArgumentException("FileLocation is null");
+        }
+        
+        var httpReqMsg = new HttpRequestMessage(HttpMethod.Head, reqOption.FileLocation);
+        httpReqMsg.Headers.Add(TusHeaders.TusResumable,reqOption.TusVersion.GetEnumDescription());
+        reqOption.AddCustomHttpHeaders(httpReqMsg);
+        
+        if (reqOption.OnPreSendRequestAsync is not null)
+        {
+            PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent
+            {
+                HttpRequestMsg = httpReqMsg
+            };
+            await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
+        }
+        var response = await httpClient.SendAsync(httpReqMsg, ct);
+        response.EnsureSuccessStatusCode();
+        
+        var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
+        long uploadOffset = long.Parse(response.GetValueOfHeader(TusHeaders.UploadOffset));
+        long.TryParse(response.GetValueOfHeader(TusHeaders.UploadLength), out var uploadLength);
+
+        var tusResp = new TusHeadResponse
+        {
+            OriginResponseMessage = response,
+            TusVersion = tusVersion,
+            UploadOffset = uploadOffset,
+            UploadLength = uploadLength
+        };
+
+        return tusResp;
     }
 }
