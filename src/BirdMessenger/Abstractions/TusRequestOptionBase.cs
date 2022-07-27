@@ -23,6 +23,8 @@ public abstract class TusRequestOptionBase
     /// add additional http headers
     /// </summary>
     public Dictionary<string,string> HttpHeaders { get; }
+
+    internal readonly TusVersion TusVersion = TusVersion.V1_0_0;
     
 
     /// <summary>
