@@ -138,7 +138,10 @@ public static class HttpClientExtension
         
         var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
         long uploadOffset = long.Parse(response.GetValueOfHeader(TusHeaders.UploadOffset));
-        long.TryParse(response.GetValueOfHeader(TusHeaders.UploadLength), out var uploadLength);
+        if (!long.TryParse(response.GetValueOfHeaderWithoutException(TusHeaders.UploadLength), out var uploadLength))
+        {
+            uploadLength = -1;
+        }
 
         var tusResp = new TusHeadResponse
         {

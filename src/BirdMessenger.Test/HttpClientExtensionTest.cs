@@ -64,6 +64,8 @@ public class HttpClientExtensionTest
     [Theory]
     [InlineData(1000)]
     [InlineData(50)]
+    [InlineData(-1)]
+    [InlineData(0)]
     public async Task TestTusHeadAsync(long uploadLength)
     {
         using var httpClient = new HttpClient();
@@ -71,6 +73,7 @@ public class HttpClientExtensionTest
         {
             Endpoint = TusEndpoint,
             UploadLength = uploadLength,
+            IsUploadDeferLength = uploadLength <= 0,
             OnPreSendRequestAsync = x =>
             {
                 _testOutputHelper.WriteLine("OnPreSendRequestAsync is invoked");
@@ -95,7 +98,14 @@ public class HttpClientExtensionTest
 
         Assert.True(isInovkeOnPreSendRequestAsync);
         Assert.Equal(0, tusHeadResp.UploadOffset);
-        Assert.Equal(uploadLength, tusHeadResp.UploadLength);
+        if (uploadLength > 0)
+        {
+            Assert.Equal(uploadLength, tusHeadResp.UploadLength);
+        }
+        else
+        {
+            Assert.True(tusHeadResp.UploadLength < 0);
+        }
         Assert.Equal(TusVersion.V1_0_0, tusHeadResp.TusVersion);
     }
 }
