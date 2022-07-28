@@ -9,11 +9,11 @@ internal static class TusHeaders
         TusReservedWords.Add(UploadLength.ToLower());
         TusReservedWords.Add(UploadOffset.ToLower());
         TusReservedWords.Add(UploadMetadata.ToLower());
-        TusReservedWords.Add("Upload-Defer-Length".ToLower());
-        TusReservedWords.Add("Content-Type".ToLower());
-        TusReservedWords.Add("Upload-Checksum".ToLower());
+        TusReservedWords.Add(UploadDeferLength.ToLower());
+        TusReservedWords.Add(ContentType.ToLower());
+        TusReservedWords.Add(UploadChecksum.ToLower());
         TusReservedWords.Add(TusResumable.ToLower());
-        TusReservedWords.Add("Upload-Concat".ToLower());
+        TusReservedWords.Add(UploadConcat.ToLower());
     }
     internal static readonly HashSet<string> TusReservedWords = new();
     
@@ -26,6 +26,14 @@ internal static class TusHeaders
     internal const string TusResumable = "Tus-Resumable";
 
     internal const string Location = "Location";
+    
+    internal const string UploadDeferLength = "Upload-Defer-Length";
+    
+    internal const string ContentType = "Content-Type";
+    
+    internal const string UploadChecksum = "Upload-Checksum";
+    
+    internal const string UploadConcat = "Upload-Concat";
     
     
 }

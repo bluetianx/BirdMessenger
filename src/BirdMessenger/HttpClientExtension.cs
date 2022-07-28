@@ -39,6 +39,11 @@ public static class HttpClientExtension
         {
             throw new ArgumentException($"IsUploadDeferLength:[{reqOption.IsUploadDeferLength}] can not set true if UploadLength:[{reqOption.UploadLength}] is greater than zero");
         }
+        if (!reqOption.IsUploadDeferLength && reqOption.UploadLength <= 0)
+        {
+            throw new ArgumentException($"IsUploadDeferLength:[{reqOption.IsUploadDeferLength}] can not set false if UploadLength:[{reqOption.UploadLength}] is less than zero");
+        }
+        
         var httpReqMsg = new HttpRequestMessage(HttpMethod.Post, endpoint);
         
         httpReqMsg.Headers.Add(TusHeaders.TusResumable,reqOption.TusVersion.GetEnumDescription());
@@ -46,6 +51,10 @@ public static class HttpClientExtension
         if (reqOption.UploadLength >= 0)
         {
             httpReqMsg.Headers.Add(TusHeaders.UploadLength, reqOption.UploadLength.ToString());
+        }
+        else if(reqOption.IsUploadDeferLength)
+        {
+            httpReqMsg.Headers.Add(TusHeaders.UploadDeferLength,"1");
         }
 
         string uploadMetadata = reqOption.Metadata?.Serialize();
@@ -58,10 +67,7 @@ public static class HttpClientExtension
         
         if (reqOption.OnPreSendRequestAsync is not null)
         {
-            PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent
-            {
-                HttpRequestMsg = httpReqMsg
-            };
+            PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent(reqOption, httpReqMsg);
             await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
         }
         
@@ -98,7 +104,7 @@ public static class HttpClientExtension
     }
 
     /// <summary>
-    /// tus Head request
+    /// tus Head request For getting upload-offset
     /// </summary>
     /// <param name="httpClient"></param>
     /// <param name="reqOption"></param>
@@ -124,10 +130,7 @@ public static class HttpClientExtension
         
         if (reqOption.OnPreSendRequestAsync is not null)
         {
-            PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent
-            {
-                HttpRequestMsg = httpReqMsg
-            };
+            PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent(reqOption, httpReqMsg);
             await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
         }
         var response = await httpClient.SendAsync(httpReqMsg, ct);
