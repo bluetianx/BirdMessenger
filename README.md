@@ -1,6 +1,12 @@
+<div style="text-align: left"><img src="docs/img/logo.png" height="120px">
+
+
+
 # BirdMessenger
+
 [![NuGet](https://img.shields.io/nuget/v/BirdMessenger.svg?color=blue&style=popout-square)](https://www.nuget.org/packages/BirdMessenger)[![NuGet](https://img.shields.io/nuget/dt/BirdMessenger.svg)](https://www.nuget.org/packages/BirdMessenger)
 >"Our aim is to solve the problem of unreliable file uploads once and for all. tus is a new open protocol for resumable uploads built on HTTP. It offers simple, cheap and reusable stacks for clients and servers. It supports any language, any platform and any network." - https://tus.io
+
 
 BirdMessenger 中文名为：青鸟——相传为西王母的信使。
 BirdMessnger 是一个基于.NET Standard 的 Tus协议的实现客户端。
