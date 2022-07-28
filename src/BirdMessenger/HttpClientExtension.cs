@@ -48,7 +48,7 @@ public static class HttpClientExtension
         
         httpReqMsg.Headers.Add(TusHeaders.TusResumable,reqOption.TusVersion.GetEnumDescription());
         
-        if (reqOption.UploadLength >= 0)
+        if (reqOption.UploadLength > 0)
         {
             httpReqMsg.Headers.Add(TusHeaders.UploadLength, reqOption.UploadLength.ToString());
         }
