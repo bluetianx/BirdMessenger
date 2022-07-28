@@ -7,6 +7,8 @@
         <PackageTags>tus;resumable file uploads</PackageTags>
         <PackageProjectUrl>https://github.com/bluetianx/BirdMessenger</PackageProjectUrl>
         <Description>DotNET client implementation of the Tus protocol for resumable file uploads</Description>
+        <PackageIcon>logo.png</PackageIcon>
+        <PackageIconUrl>https://github.com/bluetianx/BirdMessenger/blob/master/docs/img/logo.png</PackageIconUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <TargetFrameworks>net5.0;net6.0;netstandard2.0</TargetFrameworks>
     </PropertyGroup>
@@ -23,20 +25,26 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-      <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Remove="Configuration\**" />
+        <Compile Remove="Configuration\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Remove="Configuration\**" />
+        <EmbeddedResource Remove="Configuration\**" />
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Configuration\**" />
+        <None Remove="Configuration\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\docs\img\logo.png" Pack="true" PackagePath="\">
+        <Link>logo.png</Link>
+      </Content>
     </ItemGroup>
 
 </Project>
