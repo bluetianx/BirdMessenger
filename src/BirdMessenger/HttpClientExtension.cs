@@ -219,6 +219,7 @@ public static class HttpClientExtension
                 PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent(reqOption, httpReqMsg);
                 await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
             }
+            
             var response = await httpClient.SendAsync(httpReqMsg, ct);
             response.EnsureSuccessStatusCode();
             
