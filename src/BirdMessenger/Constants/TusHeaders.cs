@@ -35,5 +35,7 @@ internal static class TusHeaders
     
     internal const string UploadConcat = "Upload-Concat";
     
+    internal const string UploadContentTypeValue= "application/offset+octet-stream";
+    
     
 }
