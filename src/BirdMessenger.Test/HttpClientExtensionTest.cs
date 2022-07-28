@@ -53,7 +53,7 @@ public class HttpClientExtensionTest
             };
             var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
         }
-        catch (ArgumentException e)
+        catch (ArgumentException)
         {
             isArgumentException = true;
         }
