@@ -169,5 +169,99 @@ public class HttpClientExtensionTest
         Assert.Equal(fileStream.Length,tusPatchResp.UploadedSize);
     }
 
+    [Fact]
+    public async Task TestResumeUploadAsync()
+    {
+        using var httpClient = new HttpClient();
+        var fileInfo = new FileInfo(@"TestFile/test1");
+        var fileStream = new FileStream(fileInfo.FullName,FileMode.Open,FileAccess.Read);
+        MetadataCollection metadata = new MetadataCollection();
+        metadata["filename"] = fileInfo.Name;
+        TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
+        {
+            Endpoint = TusEndpoint,
+            Metadata = metadata,
+            UploadLength = fileStream.Length
+        };
+        var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
+        
+        bool isInvokeOnProgressAsync = false;
+        bool isInvokeOnCompletedAsync = false;
+        bool isInokeOnFailedAsync = false;
+        long uploadedSize = 0;
+
+        TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
+        {
+            FileLocation = resp.FileLocation,
+            Stream = fileStream,
+            OnProgressAsync = x =>
+            {
+                isInvokeOnProgressAsync = true;
+                uploadedSize = x.UploadedSize;
+                var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
+                //_testOutputHelper.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
+                if (uploadedProgress > 50)
+                {
+                    throw new Exception("test Error");
+                }
+                return Task.CompletedTask;
+            },
+            OnCompletedAsync = x =>
+            {
+                isInvokeOnCompletedAsync = true;
+                var reqOption = x.TusRequestOption as TusPatchRequestOption;
+                //_testOutputHelper.WriteLine($"File:{reqOption.FileLocation} Completed ");
+                return Task.CompletedTask;
+            },
+            OnFailedAsync = x =>
+            {
+                _testOutputHelper.WriteLine($"error： {x.Exception.Message}");
+                isInokeOnFailedAsync = true;
+                return Task.CompletedTask;
+            }
+        };
+
+        var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
+        
+        Assert.True(tusPatchResp.UploadedSize <= fileStream.Length);
+        Assert.Equal(tusPatchResp.UploadedSize,tusPatchResp.UploadedSize);
+        Assert.True(isInvokeOnProgressAsync);
+        Assert.False(isInvokeOnCompletedAsync);
+        Assert.True(isInokeOnFailedAsync);
+        
+        tusPatchRequestOption = new TusPatchRequestOption
+        {
+            FileLocation = resp.FileLocation,
+            Stream = fileStream,
+            OnProgressAsync = x =>
+            {
+                isInvokeOnProgressAsync = true;
+                uploadedSize = x.UploadedSize;
+                var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
+                _testOutputHelper.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
+                
+                return Task.CompletedTask;
+            },
+            
+            OnCompletedAsync = x =>
+            {
+                isInvokeOnCompletedAsync = true;
+                var reqOption = x.TusRequestOption as TusPatchRequestOption;
+                _testOutputHelper.WriteLine($"File:{reqOption.FileLocation} Completed ");
+                return Task.CompletedTask;
+            },
+            OnFailedAsync = x =>
+            {
+                _testOutputHelper.WriteLine($"error： {x.Exception.Message}");
+                return Task.CompletedTask;
+            }
+        };
+        
+        tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
+        
+        Assert.True(isInvokeOnCompletedAsync);
+        Assert.Equal(tusPatchResp.UploadedSize,fileStream.Length);
+    }
+
     #endregion
 }
