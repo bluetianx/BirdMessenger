@@ -21,7 +21,6 @@ var app = builder.Build();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
-app.UseHttpsRedirection();
 
 app.UseTus(httpContext => httpContext.RequestServices.GetRequiredService<DefaultTusConfiguration>());
 //app.MapGet("/files/{fileId}", DownloadFileEndpoint.HandleRoute);
