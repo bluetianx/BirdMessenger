@@ -211,6 +211,7 @@ public static class HttpClientExtension
             {
                 httpReqMsg.Headers.Add(TusHeaders.UploadLength, totalSize.ToString());
             }
+            httpReqMsg.Headers.Add(TusHeaders.UploadOffset, reqOption.Stream.Position.ToString());
             reqOption.AddCustomHttpHeaders(httpReqMsg);
             httpReqMsg.Content = new ProgressableStreamContent(reqOption.Stream,reqOption.UploadBufferSize, OnUploadProgress);
             httpReqMsg.Content.Headers.Add(TusHeaders.ContentType, TusHeaders.UploadContentTypeValue);
