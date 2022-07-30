@@ -33,7 +33,7 @@ namespace BirdMessenger.Test
         public async Task TestUploadFileAsync()
         {
             var tusClient = this.BuildClient();
-            var fileInfo = new FileInfo(@"TestFile/test.mp4");
+            var fileInfo = new FileInfo(@"TestFile/test1");
             MetadataCollection dir = new MetadataCollection();
 
             var fileUrl = await tusClient.Create(fileInfo, dir);
@@ -46,7 +46,7 @@ namespace BirdMessenger.Test
         public async Task UploadFileWithStreamingAsync()
         {
             var tusClient = this.BuildClient();
-            var fileInfo = new FileInfo(@"TestFile/bigFile");
+            var fileInfo = new FileInfo(@"TestFile/test1");
             MetadataCollection dir = new MetadataCollection();
 
             var fileUrl = await tusClient.Create(fileInfo, dir);
@@ -82,7 +82,7 @@ namespace BirdMessenger.Test
 
         private ITusClient BuildClient()
         {
-            Uri host = new Uri("http://localhost:6000/files");
+            Uri host = new Uri("http://localhost:5094/files");
 
             ITusClient tusClient = TusBuild.DefaultTusClientBuild(host)
                 .Build();
