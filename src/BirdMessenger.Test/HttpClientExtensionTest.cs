@@ -264,4 +264,18 @@ public class HttpClientExtensionTest
     }
 
     #endregion
+
+    [Fact]
+    public async Task TestTusOptionAsync()
+    {
+        using var httpClient = new HttpClient();
+        TusOptionRequestOption tusOptionRequestOption = new TusOptionRequestOption()
+        {
+            Endpoint = TusEndpoint
+        };
+        var resp = await httpClient.TusOptionAsync(tusOptionRequestOption, CancellationToken.None);
+        
+        Assert.Equal(TusVersion.V1_0_0, resp.TusVersion);
+        Assert.True(resp.TusVersions.Contains("1.0.0"));
+    }
 }

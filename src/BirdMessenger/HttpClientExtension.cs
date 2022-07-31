@@ -265,4 +265,53 @@ public static class HttpClientExtension
 
         return tusPatchResponse;
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="requestOption"></param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    public static async Task<TusOptionResponse> TusOptionAsync(this HttpClient httpClient,TusOptionRequestOption reqOption, CancellationToken ct)
+    {
+        if (reqOption is null)
+        {
+            throw new ArgumentNullException(nameof(reqOption));
+        }
+
+        if (reqOption.Endpoint is null)
+        {
+            throw new ArgumentNullException(nameof(reqOption.Endpoint));
+        }
+        var httpReqMsg = new HttpRequestMessage(HttpMethod.Options, reqOption.Endpoint);
+        reqOption.AddCustomHttpHeaders(httpReqMsg);
+        
+        if (reqOption.OnPreSendRequestAsync is not null)
+        {
+            PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent(reqOption, httpReqMsg);
+            await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
+        }
+        var response = await httpClient.SendAsync(httpReqMsg, ct);
+        response.EnsureSuccessStatusCode();
+        TusOptionResponse tusOptionResponse = new TusOptionResponse();
+        tusOptionResponse.OriginHttpRequestMessage = httpReqMsg;
+        tusOptionResponse.OriginResponseMessage = response;
+        
+        var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
+        tusOptionResponse.TusVersion = tusVersion;
+        
+        var tusVersionStr = response.GetValueOfHeader(TusHeaders.TusVersion);
+        if (!string.IsNullOrWhiteSpace(tusVersionStr))
+        {
+            tusOptionResponse.TusVersions = tusVersionStr.Split(',').ToList();
+        }
+
+        var tusExtensionStr = response.GetValueOfHeader(TusHeaders.TusExtension);
+        if (!string.IsNullOrWhiteSpace(tusExtensionStr))
+        {
+            tusOptionResponse.TusExtensions = tusExtensionStr.Split(',').ToList();
+        }
+
+        return tusOptionResponse;
+    }
 }

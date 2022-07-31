@@ -14,6 +14,9 @@ internal static class TusHeaders
         TusReservedWords.Add(UploadChecksum.ToLower());
         TusReservedWords.Add(TusResumable.ToLower());
         TusReservedWords.Add(UploadConcat.ToLower());
+        TusReservedWords.Add(TusVersion.ToLower());
+        TusReservedWords.Add(TusMaxSize.ToLower());
+        TusReservedWords.Add(TusExtension.ToLower());
     }
     internal static readonly HashSet<string> TusReservedWords = new();
     
@@ -36,6 +39,12 @@ internal static class TusHeaders
     internal const string UploadConcat = "Upload-Concat";
     
     internal const string UploadContentTypeValue= "application/offset+octet-stream";
+    
+    internal const string TusVersion = "Tus-Version";
+    
+    internal const string TusMaxSize = "Tus-Max-Size";
+    
+    internal const string TusExtension = "Tus-Extension";
     
     
 }
