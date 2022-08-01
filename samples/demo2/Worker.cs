@@ -11,9 +11,9 @@ namespace demo2
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        private readonly ITusClient<Worker> _tusClient;
+        private readonly ITusClient _tusClient;
 
-        public Worker(ILogger<Worker> logger, ITusClient<Worker> tusClient)
+        public Worker(ILogger<Worker> logger, ITusClient tusClient)
         {
             _logger = logger;
             _tusClient = tusClient;
@@ -24,8 +24,8 @@ namespace demo2
             try
             {
                 FileInfo fileInfo = new FileInfo("test.txt");
-                var url = await _tusClient.Create(fileInfo);
-                await _tusClient.Upload(url, fileInfo, null);
+                //var url = await _tusClient.Create(fileInfo);
+                //await _tusClient.Upload(url, fileInfo, null);
             }
             catch (Exception ex)
             {

@@ -25,23 +25,7 @@ namespace demo
             var hostUri = new Uri(@"http://localhost:6000/files");
             
             // build a standalone tus client instance
-            var tusClient = TusBuild.DefaultTusClientBuild(hostUri)
-                .Configure((options, httpClientBuilder) =>
-                {
-                    //customize http client
-                    httpClientBuilder.ConfigureHttpClient(httpClient =>
-                    {
-                        httpClient.DefaultRequestHeaders.Authorization =
-                            new AuthenticationHeaderValue("Bearer", "ACCESS_TOKEN");
-
-                    });
-                   /* httpClientBuilder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
-                    {
-                        UseCookies = false,
-                    });*/
-                })
-                .Build();
-
+           /* var tusClient = null;
             //hook up events
             tusClient.UploadProgress += printUploadProcess;
             tusClient.UploadFinish += uploadFinish;
@@ -62,7 +46,7 @@ namespace demo
             };
 
             //upload file
-            var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null,uploadOpt);
+            var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null,uploadOpt);*/
         }
 
         public static void printUploadProcess(ITusClient src, ITusUploadContext context)

@@ -28,32 +28,9 @@ namespace demo3
             var hostUri = new Uri(@"http://localhost:5000/files");
             
             // build a standalone tus client instance
-            var tusClient = TusBuild.DefaultTusClientBuild(hostUri)
-                .Build();
-
-            //hook up events
-            tusClient.UploadProgress += printUploadProcess;
-            tusClient.UploadFinish += uploadFinish;
-
-            //define additional file metadata 
-            MetadataCollection metadata = new MetadataCollection();
-
-            //create upload url
-            var uploadUrl = await tusClient.Create(stream.Length, metadata);
-
-            //upload file
-            var uploadResult = await tusClient.Upload(uploadUrl, stream, null);
+            
         }
 
-        public static void printUploadProcess(ITusClient src, ITusUploadContext context)
-        {
-
-            Console.WriteLine($"finished:fileUri:{context.UploadUrl}-{context.UploadedSize},total:{context.TotalSize} ");
-        }
-
-        public static void uploadFinish(ITusClient src, ITusUploadContext context)
-        {
-            Console.WriteLine($"uploadfinish :{context.UploadUrl.ToString()}");
-        }
+        
     }
 }

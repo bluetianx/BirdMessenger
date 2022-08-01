@@ -16,12 +16,9 @@ namespace demo2
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    var hostUri = new Uri(@"http://localhost:5000/files");
-                    services.AddTusClient<Worker>(hostUri);
+                    services.AddHttpClient<ITusClient, TusClient>();
                     services.AddHostedService<Worker>();
 
-                    var hostUri2 = new Uri(@"http://localhost:5001/files");
-                    services.AddTusClient<Worker2>(hostUri2);
                     services.AddHostedService<Worker2>();
                 });
     }

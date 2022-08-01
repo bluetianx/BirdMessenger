@@ -18,8 +18,7 @@ namespace BirdMessenger.BenchMark
             MetadataCollection dir = new MetadataCollection();
             dir["filename"] = fileInfo.FullName;
 
-            var fileUrl = await Program.tusClient.Create(fileInfo, dir);
-            var uploadResult = await Program.tusClient.Upload(fileUrl, fileInfo, null);
+            
         }
 
         [Benchmark]
@@ -29,8 +28,7 @@ namespace BirdMessenger.BenchMark
             MetadataCollection dir = new MetadataCollection();
             dir["filename"] = fileInfo.FullName;
 
-            var fileUrl = await Program.tusClient.Create(fileInfo, dir);
-            var uploadResult = await Program.tusClient.Upload(fileUrl, fileInfo, null);
+            
         }
     }
 }
