@@ -184,7 +184,8 @@ public static class HttpClientExtension
         long totalSize = reqOption.Stream.Length;
         long uploadedSize = 0;
         TusPatchResponse tusPatchResponse = new TusPatchResponse();
-        
+        HttpRequestMessage httpReqMsg = null;
+        HttpResponseMessage response = null;
         try
         {
             var tusHeadRequestOption = new TusHeadRequestOption
@@ -205,7 +206,7 @@ public static class HttpClientExtension
                 UploadedSize = uploadedSize
             };
             
-            var httpReqMsg = new HttpRequestMessage(new HttpMethod("PATCH"), reqOption.FileLocation);
+            httpReqMsg = new HttpRequestMessage(new HttpMethod("PATCH"), reqOption.FileLocation);
             httpReqMsg.Headers.Add(TusHeaders.TusResumable,reqOption.TusVersion.GetEnumDescription());
             if (tusHeadResp.UploadLength < 0)
             {
@@ -221,16 +222,15 @@ public static class HttpClientExtension
                 await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
             }
             
-            var response = await httpClient.SendAsync(httpReqMsg, ct);
+            tusPatchResponse.OriginHttpRequestMessage = httpReqMsg;
+            
+            response = await httpClient.SendAsync(httpReqMsg, ct);
             response.EnsureSuccessStatusCode();
             
             var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
             uploadedSize = long.Parse(response.GetValueOfHeader(TusHeaders.UploadOffset));
             
-            tusPatchResponse.OriginHttpRequestMessage = httpReqMsg;
-            tusPatchResponse.OriginResponseMessage = response;
             tusPatchResponse.TusResumableVersion = tusVersion;
-            tusPatchResponse.UploadedSize = uploadedSize;
             
             async Task OnUploadProgress(long offset)
             {
@@ -256,11 +256,16 @@ public static class HttpClientExtension
         {
             if (reqOption.OnFailedAsync is not null)
             {
-                UploadExceptionEvent uploadExceptionEvent = new UploadExceptionEvent(reqOption, e);
+                UploadExceptionEvent uploadExceptionEvent = new UploadExceptionEvent(reqOption, e)
+                {
+                    OriginHttpRequestMessage = httpReqMsg,
+                    OriginResponseMessage = response
+                };
                 await reqOption.OnFailedAsync(uploadExceptionEvent);
             }
         }
-
+        tusPatchResponse.OriginHttpRequestMessage = httpReqMsg;
+        tusPatchResponse.OriginResponseMessage = response;
         tusPatchResponse.UploadedSize = uploadedSize;
 
         return tusPatchResponse;
