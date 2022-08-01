@@ -157,7 +157,7 @@ public static class HttpClientExtension
     }
 
     /// <summary>
-    /// 
+    /// resume upload file
     /// </summary>
     /// <param name="httpClient"></param>
     /// <param name="reqOption"></param>
@@ -267,7 +267,7 @@ public static class HttpClientExtension
     }
 
     /// <summary>
-    /// 
+    /// getting tusServer Info
     /// </summary>
     /// <param name="requestOption"></param>
     /// <param name="ct"></param>
@@ -316,6 +316,14 @@ public static class HttpClientExtension
     }
 
 
+    /// <summary>
+    /// delete  file
+    /// </summary>
+    /// <param name="httpClient"></param>
+    /// <param name="reqOption"></param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public static async Task<TusDeleteResponse> TusDeleteAsync(this HttpClient httpClient, TusDeleteRequestOption reqOption, CancellationToken ct)
     {
         if (reqOption is null)
