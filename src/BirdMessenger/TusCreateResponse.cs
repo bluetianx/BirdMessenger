@@ -12,9 +12,4 @@ public sealed class TusCreateResponse:TusResponseBase
     /// file url
     /// </summary>
     public Uri FileLocation { get; set; }
-    
-    /// <summary>
-    /// tus version from server
-    /// </summary>
-    public TusVersion TusVersion { get; set; }
 }

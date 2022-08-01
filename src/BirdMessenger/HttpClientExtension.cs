@@ -117,12 +117,12 @@ public static class HttpClientExtension
     {
         if (reqOption is null)
         {
-            throw new ArgumentException("TusHeadRequestOption is null");
+            throw new ArgumentNullException(nameof(reqOption));
         }
 
         if (reqOption.FileLocation is null)
         {
-            throw new ArgumentException("FileLocation is null");
+            throw new ArgumentNullException(nameof(reqOption.FileLocation));
         }
         
         var httpReqMsg = new HttpRequestMessage(HttpMethod.Head, reqOption.FileLocation);
@@ -313,5 +313,43 @@ public static class HttpClientExtension
         }
 
         return tusOptionResponse;
+    }
+
+
+    public static async Task<TusDeleteResponse> TusDeleteAsync(this HttpClient httpClient, TusDeleteRequestOption reqOption, CancellationToken ct)
+    {
+        if (reqOption is null)
+        {
+            throw new ArgumentNullException(nameof(reqOption));
+        }
+
+        if (reqOption.FileLocation is null)
+        {
+            throw new ArgumentNullException(nameof(reqOption.FileLocation));
+        }
+        
+        var httpReqMsg = new HttpRequestMessage(HttpMethod.Delete, reqOption.FileLocation);
+        httpReqMsg.Headers.Add(TusHeaders.TusResumable,reqOption.TusVersion.GetEnumDescription());
+        reqOption.AddCustomHttpHeaders(httpReqMsg);
+        
+        if (reqOption.OnPreSendRequestAsync is not null)
+        {
+            PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent(reqOption, httpReqMsg);
+            await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
+        }
+        var response = await httpClient.SendAsync(httpReqMsg, ct);
+        response.EnsureSuccessStatusCode();
+        
+        var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
+        
+
+        var tusResp = new TusDeleteResponse
+        {
+            OriginHttpRequestMessage = httpReqMsg,
+            OriginResponseMessage = response,
+            TusVersion = tusVersion
+        };
+
+        return tusResp;
     }
 }

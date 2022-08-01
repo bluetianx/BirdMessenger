@@ -13,9 +13,4 @@ public class TusHeadResponse:TusResponseBase
     /// if Upload-Length unknown, value is less than zero
     /// </summary>
     public long UploadLength { get; set; }
-    
-    /// <summary>
-    /// tus version from server
-    /// </summary>
-    public TusVersion TusVersion { get; set; }
 }

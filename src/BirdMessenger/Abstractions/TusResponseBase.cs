@@ -14,4 +14,9 @@ public abstract class TusResponseBase
     /// origin HttpRequestMessage
     /// </summary>
     public HttpRequestMessage OriginHttpRequestMessage { get; set; }
+    
+    /// <summary>
+    /// tus version from server
+    /// </summary>
+    public TusVersion TusVersion { get; set; }
 }

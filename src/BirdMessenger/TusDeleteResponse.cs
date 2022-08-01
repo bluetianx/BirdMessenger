@@ -1,6 +1,8 @@
+using BirdMessenger.Abstractions;
+
 namespace BirdMessenger;
 
-public class TusDeleteResponse
+public class TusDeleteResponse:TusResponseBase
 {
     
 }
