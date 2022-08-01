@@ -20,7 +20,7 @@ public class HttpClientExtensionTest
     }
 
     [Fact]
-    public async Task TestTusCreateAsync()
+    public async Task TestTusCreateAndDelAsync()
     {
         bool isInovkeOnPreSendRequestAsync = false;
         using var httpClient = new HttpClient();
@@ -42,6 +42,14 @@ public class HttpClientExtensionTest
         var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
         Assert.Equal(TusVersion.V1_0_0, resp.TusResumableVersion);
         Assert.True(isInovkeOnPreSendRequestAsync);
+
+        TusDeleteRequestOption tusDeleteRequestOption = new TusDeleteRequestOption()
+        {
+            FileLocation = resp.FileLocation
+        };
+
+        var delResp = await httpClient.TusDeleteAsync(tusDeleteRequestOption, CancellationToken.None);
+        Assert.Equal(TusVersion.V1_0_0, delResp.TusResumableVersion);
     }
 
     [Fact]
