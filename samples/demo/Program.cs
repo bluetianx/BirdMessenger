@@ -48,16 +48,6 @@ namespace demo
             //upload file
             var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null,uploadOpt);*/
         }
-
-        public static void printUploadProcess(ITusClient src, ITusUploadContext context)
-        {
-
-            Console.WriteLine($"finished:fileUri:{context.UploadUrl}-{context.UploadedSize},total:{context.TotalSize} ");
-        }
-
-        public static void uploadFinish(ITusClient src, ITusUploadContext context)
-        {
-            Console.WriteLine($"uploadfinish :{context.UploadUrl.ToString()}");
-        }
+        
     }
 }
