@@ -40,7 +40,7 @@ public class HttpClientExtensionTest
             }
         };
         var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
-        Assert.Equal(TusVersion.V1_0_0, resp.TusVersion);
+        Assert.Equal(TusVersion.V1_0_0, resp.TusResumableVersion);
         Assert.True(isInovkeOnPreSendRequestAsync);
     }
 
@@ -112,7 +112,7 @@ public class HttpClientExtensionTest
         {
             Assert.True(tusHeadResp.UploadLength < 0);
         }
-        Assert.Equal(TusVersion.V1_0_0, tusHeadResp.TusVersion);
+        Assert.Equal(TusVersion.V1_0_0, tusHeadResp.TusResumableVersion);
     }
 
     #region TestPatch
@@ -275,7 +275,7 @@ public class HttpClientExtensionTest
         };
         var resp = await httpClient.TusOptionAsync(tusOptionRequestOption, CancellationToken.None);
         
-        Assert.Equal(TusVersion.V1_0_0, resp.TusVersion);
+        Assert.Equal(TusVersion.V1_0_0, resp.TusResumableVersion);
         Assert.True(resp.TusVersions.Contains("1.0.0"));
     }
 }

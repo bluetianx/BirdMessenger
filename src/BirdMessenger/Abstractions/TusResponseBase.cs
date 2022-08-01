@@ -18,5 +18,5 @@ public abstract class TusResponseBase
     /// <summary>
     /// tus version from server
     /// </summary>
-    public TusVersion TusVersion { get; set; }
+    public TusVersion TusResumableVersion { get; set; }
 }

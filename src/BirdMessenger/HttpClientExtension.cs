@@ -98,7 +98,7 @@ public static class HttpClientExtension
             FileLocation = fileUrl,
             OriginHttpRequestMessage = httpReqMsg,
             OriginResponseMessage = response,
-            TusVersion = tusVersion
+            TusResumableVersion = tusVersion
         };
 
         return tusCreateResponse;
@@ -148,7 +148,7 @@ public static class HttpClientExtension
         {
             OriginHttpRequestMessage = httpReqMsg,
             OriginResponseMessage = response,
-            TusVersion = tusVersion,
+            TusResumableVersion = tusVersion,
             UploadOffset = uploadOffset,
             UploadLength = uploadLength
         };
@@ -229,7 +229,7 @@ public static class HttpClientExtension
             
             tusPatchResponse.OriginHttpRequestMessage = httpReqMsg;
             tusPatchResponse.OriginResponseMessage = response;
-            tusPatchResponse.TusVersion = tusVersion;
+            tusPatchResponse.TusResumableVersion = tusVersion;
             tusPatchResponse.UploadedSize = uploadedSize;
             
             async Task OnUploadProgress(long offset)
@@ -298,7 +298,7 @@ public static class HttpClientExtension
         tusOptionResponse.OriginResponseMessage = response;
         
         var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
-        tusOptionResponse.TusVersion = tusVersion;
+        tusOptionResponse.TusResumableVersion = tusVersion;
         
         var tusVersionStr = response.GetValueOfHeader(TusHeaders.TusVersion);
         if (!string.IsNullOrWhiteSpace(tusVersionStr))
@@ -347,7 +347,7 @@ public static class HttpClientExtension
         {
             OriginHttpRequestMessage = httpReqMsg,
             OriginResponseMessage = response,
-            TusVersion = tusVersion
+            TusResumableVersion = tusVersion
         };
 
         return tusResp;
