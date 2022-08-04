@@ -38,7 +38,7 @@ namespace demo
             var location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             // file to be uploaded
             FileInfo fileInfo = new FileInfo(Path.Combine(location, @"TestFile/test.txt"));
-            var fileStream = new FileStream(fileInfo.FullName,FileMode.Open,FileAccess.Read);
+            using var fileStream = new FileStream(fileInfo.FullName,FileMode.Open,FileAccess.Read);
             MetadataCollection metadata = new MetadataCollection();
             metadata["filename"] = fileInfo.Name;
             TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()

@@ -35,7 +35,7 @@ namespace demo2
                     UploadLength = fileInfo.Length
                 };
                 var tusCreateResp = await _tusClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
-                var fileStream = new FileStream(fileInfo.FullName,FileMode.Open,FileAccess.Read);
+                using var fileStream = new FileStream(fileInfo.FullName,FileMode.Open,FileAccess.Read);
                 TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption()
                 {
                     FileLocation = tusCreateResp.FileLocation,

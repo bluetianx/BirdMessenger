@@ -17,7 +17,7 @@ namespace demo3
     {
         static async Task Main(string[] args)
         {
-            var stream = new MemoryStream(1024 * 1024 * 32);
+            using var stream = new MemoryStream(1024 * 1024 * 32);
 
             for (var i = 0; i < 1024 * 1024 * 32; i++)
             {
