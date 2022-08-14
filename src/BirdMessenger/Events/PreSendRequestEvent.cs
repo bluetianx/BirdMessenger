@@ -1,6 +1,7 @@
 using System.Net.Http;
+using BirdMessenger.Delegates;
 
-namespace BirdMessenger.Delegates;
+namespace BirdMessenger.Events;
 
 public sealed class PreSendRequestEvent:UploadEvent
 {

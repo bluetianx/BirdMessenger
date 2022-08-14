@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BirdMessenger.Constants;
 using BirdMessenger.Delegates;
+using BirdMessenger.Events;
 using BirdMessenger.Infrastructure;
 using BirdMessenger.Internal;
 

@@ -48,9 +48,6 @@ namespace demo
                 UploadLength = fileStream.Length
             };
             var resp = await tusClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
-            bool isInvokeOnProgressAsync = false;
-            bool isInvokeOnCompletedAsync = false;
-            long uploadedSize = 0;
 
             TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
             {
@@ -58,15 +55,12 @@ namespace demo
                 Stream = fileStream,
                 OnProgressAsync = x =>
                 {
-                    isInvokeOnProgressAsync = true;
-                    uploadedSize = x.UploadedSize;
                     var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
                     Console.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
                     return Task.CompletedTask;
                 },
                 OnCompletedAsync = x =>
                 {
-                    isInvokeOnCompletedAsync = true;
                     var reqOption = x.TusRequestOption as TusPatchRequestOption;
                     Console.WriteLine($"File:{reqOption.FileLocation} Completed ");
                     return Task.CompletedTask;
