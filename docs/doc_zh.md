@@ -120,7 +120,13 @@
               // tusPatchResp.OriginHttpRequestMessage
   ```
 
-  
+### API文档
+
+参考 samples 文件夹下面的demo 实例 以及 单元测试项目的 测试用例，其中 ITusClient 调用方法与 Httpclient 扩展方法一致
+
+
+
+
 
 ### 事件
 
