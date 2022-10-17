@@ -25,60 +25,144 @@ BirdMessnger 是一个基于.NET Standard 的 Tus协议的实现客户端。
 
 Package manager
 
-``Install-Package BirdMessenger -Version 2.2.1``
+``Install-Package BirdMessenger -Version 3.0.0``
 
 .NET CLI
 
-``dotnet add package BirdMessenger --version 2.2.1``
+``dotnet add package BirdMessenger --version 3.0.0``
 
 ## Getting Started
 
 ```C#
-// file to be uploaded
-FileInfo fileInfo = new FileInfo("test.txt");
+public static Uri TusEndpoint = new Uri("http://localhost:5094/files");
 
-// remote tus service
-var hostUri = new Uri(@"http://localhost:5000/files");
+        static async Task Main(string[] args)
+        {
+            await DemoUseTusClientByDependencyInjection();
+            
+            await DemoUseHttpClient();
 
-// build a standalone tus client instance
-var tusClient = TusBuild.DefaultTusClientBuild(hostUri)
-                .Configure((options, httpClientBuilder) =>
+        }
+        /// <summary>
+        /// recommend using DependencyInjection 
+        /// </summary>
+        private static async Task DemoUseTusClientByDependencyInjection()
+        {
+            var services = new ServiceCollection();
+            services.AddHttpClient<ITusClient, TusClient>(); // configure httpClient ,refer to https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests
+            var serviceProvider = services.BuildServiceProvider();
+            var tusClient = serviceProvider.GetService<ITusClient>();
+            
+            var location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            // file to be uploaded
+            FileInfo fileInfo = new FileInfo(Path.Combine(location, @"TestFile/test.txt"));
+            using var fileStream = new FileStream(fileInfo.FullName,FileMode.Open,FileAccess.Read);
+            MetadataCollection metadata = new MetadataCollection();
+            metadata["filename"] = fileInfo.Name;
+            TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
+            {
+                Endpoint = TusEndpoint,
+                Metadata = metadata,
+                UploadLength = fileStream.Length
+            };
+            var resp = await tusClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
+
+            TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
+            {
+                FileLocation = resp.FileLocation,
+                Stream = fileStream,
+                OnProgressAsync = x =>
                 {
-                    //customize http client
-                    httpClientBuilder.ConfigureHttpClient(httpClient =>
+                    var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
+                    Console.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
+                    return Task.CompletedTask;
+                },
+                OnCompletedAsync = x =>
+                {
+                    var reqOption = x.TusRequestOption as TusPatchRequestOption;
+                    Console.WriteLine($"File:{reqOption.FileLocation} Completed ");
+                    return Task.CompletedTask;
+                },
+                OnFailedAsync = x =>
+                {
+                    Console.WriteLine($"error： {x.Exception.Message}");
+                    if (x.OriginHttpRequestMessage is not null)
                     {
-                        httpClient.DefaultRequestHeaders.Authorization =
-                            new AuthenticationHeaderValue("Bearer", "ACCESS_TOKEN");
+                        //log httpRequest
+                    }
 
-                    });
-                   /* httpClientBuilder.ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler()
+                    if (x.OriginResponseMessage is not null)
                     {
-                        UseCookies = false,
-                    });*/
-                })
-                .Build();
+                        //log response
+                    }
+                    return Task.CompletedTask;
+                }
+            };
 
-//hook up events
-tusClient.UploadProgress += printUploadProcess;
-tusClient.UploadFinish += uploadFinish;
+            var tusPatchResp = await tusClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
+        }
 
- //define additional file metadata 
- MetadataCollection metadata = new MetadataCollection();
-metadata["filename"] = fileInfo.FullName;
+        /// <summary>
+        /// using httpclient directly
+        /// </summary>
+        private static async Task DemoUseHttpClient()
+        {
+            using var httpClient = new HttpClient();
+            var location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            // file to be uploaded
+            FileInfo fileInfo = new FileInfo(Path.Combine(location, @"TestFile/test.txt"));
             
-TusRequestOption requestOption = new TusRequestOption();
-requestOption.HttpHeader["myHttpheader"] = "hello";
-            
- //create upload url
- var fileUrl = await tusClient.Create(fileInfo,null,requestOption);
+            var fileStream = new FileStream(fileInfo.FullName,FileMode.Open,FileAccess.Read);
+            MetadataCollection metadata = new MetadataCollection();
+            metadata["filename"] = fileInfo.Name;
+            TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
+            {
+                Endpoint = TusEndpoint,
+                Metadata = metadata,
+                UploadLength = fileStream.Length
+            };
+            var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
+            bool isInvokeOnProgressAsync = false;
+            bool isInvokeOnCompletedAsync = false;
+            long uploadedSize = 0;
 
- var uploadOpt = new TusRequestOption()
- {
-      UploadWithStreaming = true //enable streaming Upload
- };
+            TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
+            {
+                FileLocation = resp.FileLocation,
+                Stream = fileStream,
+                OnProgressAsync = x =>
+                {
+                    isInvokeOnProgressAsync = true;
+                    uploadedSize = x.UploadedSize;
+                    var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
+                    Console.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
+                    return Task.CompletedTask;
+                },
+                OnCompletedAsync = x =>
+                {
+                    isInvokeOnCompletedAsync = true;
+                    var reqOption = x.TusRequestOption as TusPatchRequestOption;
+                    Console.WriteLine($"File:{reqOption.FileLocation} Completed ");
+                    return Task.CompletedTask;
+                },
+                OnFailedAsync = x =>
+                {
+                    Console.WriteLine($"error： {x.Exception.Message}");
+                    if (x.OriginHttpRequestMessage is not null)
+                    {
+                        //log httpRequest
+                    }
 
- //upload file
- var uploadResult = await tusClient.Upload(fileUrl, fileInfo, null,uploadOpt);
+                    if (x.OriginResponseMessage is not null)
+                    {
+                        //log response
+                    }
+                    return Task.CompletedTask;
+                }
+            };
+
+            var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
+        }
 ```
 
 * You can see more examples in unit tests

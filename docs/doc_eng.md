@@ -120,6 +120,10 @@
               // tusPatchResp.OriginResponseMessage
               // tusPatchResp.OriginHttpRequestMessage
 
+### API Doc
+
+Reference demo in sample and test case in Unit test
+
 
 
 ### Polly Integration 
