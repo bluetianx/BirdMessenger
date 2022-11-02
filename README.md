@@ -4,7 +4,7 @@
 
 # BirdMessenger
 
-[![NuGet](https://img.shields.io/nuget/v/BirdMessenger.svg?color=blue&style=popout-square)](https://www.nuget.org/packages/BirdMessenger)[![NuGet](https://img.shields.io/nuget/dt/BirdMessenger.svg)](https://www.nuget.org/packages/BirdMessenger)
+[![GitHub](https://img.shields.io/github/license/bluetianx/BirdMessenger)](LICENSE) [![NuGet](https://img.shields.io/nuget/v/BirdMessenger.svg?color=blue&style=popout-square)](https://www.nuget.org/packages/BirdMessenger) [![NuGet](https://img.shields.io/nuget/dt/BirdMessenger.svg)](https://www.nuget.org/packages/BirdMessenger)
 >"Our aim is to solve the problem of unreliable file uploads once and for all. tus is a new open protocol for resumable uploads built on HTTP. It offers simple, cheap and reusable stacks for clients and servers. It supports any language, any platform and any network." - https://tus.io
 
 
