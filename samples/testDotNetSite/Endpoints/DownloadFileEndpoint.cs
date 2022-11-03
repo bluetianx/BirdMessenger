@@ -1,8 +1,12 @@
+using System.Text;
+using tusdotnet.Interfaces;
+using tusdotnet.Models;
+
 namespace TestDotNetSite.Endpoints;
 
 public static class DownloadFileEndpoint
 {
-    /*public static async Task HandleRoute(HttpContext context)
+    public static async Task HandleRoute(HttpContext context)
     {
         var config = context.RequestServices.GetRequiredService<DefaultTusConfiguration>();
 
@@ -47,5 +51,5 @@ public static class DownloadFileEndpoint
         }
 
         return "application/octet-stream";
-    }*/
+    }
 }

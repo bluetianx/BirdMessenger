@@ -1,13 +1,6 @@
-using System.Net;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Primitives;
 using TestDotNetSite.Endpoints;
 using tusdotnet;
-using tusdotnet.Interfaces;
 using tusdotnet.Models;
-using tusdotnet.Models.Concatenation;
-using tusdotnet.Models.Configuration;
 using tusdotnet.Models.Expiration;
 using tusdotnet.Stores;
 
@@ -23,7 +16,7 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseTus(httpContext => httpContext.RequestServices.GetRequiredService<DefaultTusConfiguration>());
-//app.MapGet("/files/{fileId}", DownloadFileEndpoint.HandleRoute);
+app.MapGet("/files/{fileId}", DownloadFileEndpoint.HandleRoute);
 
 app.Run();
 
