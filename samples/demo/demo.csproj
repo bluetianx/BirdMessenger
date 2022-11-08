@@ -1,8 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\src\BirdMessenger\BirdMessenger.csproj" />
-    </ItemGroup>
+    
 
     <ItemGroup>
       <None Update="test.txt">
@@ -22,6 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="BirdMessenger" Version="3.0.2" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     </ItemGroup>
 
