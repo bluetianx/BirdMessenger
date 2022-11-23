@@ -9,23 +9,18 @@ namespace BirdMessenger.Internal;
 
 internal sealed class ProgressableStreamContent : HttpContent
 {
-    private readonly Stream content;
-    private readonly int uploadBufferSize;
-    private readonly long uploadLength;
-    private readonly Func<long, Task> uploadProgress;
-
-    public ProgressableStreamContent(Stream content, Func<long, Task> uploadProgress)
-        : this(content, 4096, uploadProgress)
-    {
-    }
+    private readonly Stream _content;
+    private readonly int _uploadBufferSize;
+    private readonly long _uploadLength;
+    private readonly Func<long, Task> _uploadProgress;
 
     public ProgressableStreamContent(Stream content, int uploadBufferSize, Func<long, Task> uploadProgress)
     {
-        this.content = content;
-        this.uploadBufferSize = uploadBufferSize;
-        this.uploadProgress = uploadProgress;
+        _content = content;
+        _uploadBufferSize = uploadBufferSize;
+        _uploadProgress = uploadProgress;
 
-        uploadLength = content.Length - content.Position;
+        _uploadLength = content.Length - content.Position;
     }
 
     protected override Task SerializeToStreamAsync(Stream stream, TransportContext? context)
@@ -43,11 +38,11 @@ internal sealed class ProgressableStreamContent : HttpContent
         private async Task SerializeToStreamAsync(Stream stream,
             CancellationToken ct)
         {
-            var buffer = new byte[uploadBufferSize].AsMemory();
+            var buffer = new byte[_uploadBufferSize].AsMemory();
 
             while (true)
             {
-                var bytesRead = await content.ReadAsync(buffer, ct);
+                var bytesRead = await _content.ReadAsync(buffer, ct);
 
                 if (bytesRead <= 0)
                 {
@@ -56,7 +51,7 @@ internal sealed class ProgressableStreamContent : HttpContent
 
                 await stream.WriteAsync(buffer[..bytesRead], ct);
 
-                await uploadProgress(content.Position);
+                await _uploadProgress(_content.Position);
             }
         }
 #else
@@ -82,7 +77,7 @@ internal sealed class ProgressableStreamContent : HttpContent
 #endif
     protected override bool TryComputeLength(out long length)
     {
-        length = uploadLength;
+        length = _uploadLength;
 
         return true;
     }
@@ -91,7 +86,7 @@ internal sealed class ProgressableStreamContent : HttpContent
     {
         if (disposing)
         {
-            content.Dispose();
+            _content.Dispose();
         }
 
         base.Dispose(disposing);
