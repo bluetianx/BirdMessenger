@@ -125,8 +125,13 @@ public class HttpClientExtensionTest
 
     #region TestPatch
 
-    [Fact]
-    public async Task TestPatchAsync()
+    [Theory]
+    [InlineData(UploadOption.Stream,1*1024)]
+    [InlineData(UploadOption.Stream,1*1024*1024)]
+    [InlineData(UploadOption.Chunk,1*1024)]
+    [InlineData(UploadOption.Chunk,4*1024*1024)]
+    [InlineData(UploadOption.Chunk,1*1024*1024)]
+    public async Task TestPatchAsync(UploadOption uploadOption,uint bufferSize)
     {
         using var httpClient = new HttpClient();
         var fileInfo = new FileInfo(@"TestFile/test1");
@@ -137,7 +142,7 @@ public class HttpClientExtensionTest
         {
             Endpoint = TusEndpoint,
             Metadata = metadata,
-            UploadLength = fileStream.Length
+            UploadLength = fileStream.Length,
         };
         var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
         bool isInvokeOnProgressAsync = false;
@@ -148,6 +153,8 @@ public class HttpClientExtensionTest
         {
             FileLocation = resp.FileLocation,
             Stream = fileStream,
+            UploadOption = uploadOption,
+            UploadBufferSize = bufferSize,
             OnProgressAsync = x =>
             {
                 isInvokeOnProgressAsync = true;
@@ -177,8 +184,12 @@ public class HttpClientExtensionTest
         Assert.Equal(fileStream.Length,tusPatchResp.UploadedSize);
     }
 
-    [Fact]
-    public async Task TestResumeUploadAsync()
+    [Theory]
+    [InlineData(UploadOption.Stream,1*1024)]
+    [InlineData(UploadOption.Stream,1*1024*1024)]
+    [InlineData(UploadOption.Chunk,1*1024)]
+    [InlineData(UploadOption.Chunk,1*1024*1024)]
+    public async Task TestResumeUploadAsync(UploadOption uploadOption,uint bufferSize)
     {
         using var httpClient = new HttpClient();
         var fileInfo = new FileInfo(@"TestFile/test1");
@@ -202,6 +213,8 @@ public class HttpClientExtensionTest
         {
             FileLocation = resp.FileLocation,
             Stream = fileStream,
+            UploadOption = uploadOption,
+            UploadBufferSize = bufferSize,
             OnProgressAsync = x =>
             {
                 isInvokeOnProgressAsync = true;

@@ -17,7 +17,15 @@ public class TusPatchRequestOption:TusRequestOptionBase
     /// </summary>
     public Uri FileLocation { get; set; }
 
-    internal int UploadBufferSize = 4096;
+    /// <summary>
+    /// uploadSize ,default value 1MB
+    /// </summary>
+    public uint UploadBufferSize = 1*1024*1024;
+
+    /// <summary>
+    /// setting upload file with chunk or stream, default value is Stream
+    /// </summary>
+    public UploadOption UploadOption = UploadOption.Stream;
     
     /// <summary>
     /// invoke when uploading file

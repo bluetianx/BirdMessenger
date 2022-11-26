@@ -158,6 +158,106 @@ public static class HttpClientExtension
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="httpClient"></param>
+    /// <param name="reqOption"></param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    private static async Task<TusPatchResponse> TusPatchWithChunkAsync(HttpClient httpClient,TusPatchRequestOption reqOption, CancellationToken ct = default)
+    {
+        long totalSize = reqOption.Stream.Length;
+        long uploadedSize = 0;
+        TusPatchResponse tusPatchResponse = new TusPatchResponse();
+        HttpRequestMessage httpReqMsg = null;
+        HttpResponseMessage response = null;
+        try
+        {
+            var tusHeadRequestOption = new TusHeadRequestOption
+            {
+                FileLocation = reqOption.FileLocation,
+                OnPreSendRequestAsync = reqOption.OnPreSendRequestAsync
+            };
+            var tusHeadResp =await httpClient.TusHeadAsync(tusHeadRequestOption, ct);
+            uploadedSize = tusHeadResp.UploadOffset;
+            if (uploadedSize != reqOption.Stream.Position)
+            {
+                reqOption.Stream.Seek(uploadedSize, SeekOrigin.Begin);
+            }
+            var buffer = new byte[reqOption.UploadBufferSize];
+            while (!ct.IsCancellationRequested)
+            {
+                if (totalSize == uploadedSize)
+                {
+                    break;
+                }
+
+                var bytesReadCount =await reqOption.Stream.ReadAsync(buffer, 0, buffer.Length, ct);
+                httpReqMsg = new HttpRequestMessage(new HttpMethod("PATCH"), reqOption.FileLocation);
+                httpReqMsg.Headers.Add(TusHeaders.TusResumable,reqOption.TusVersion.GetEnumDescription());
+                if (tusHeadResp.UploadLength < 0)
+                {
+                    httpReqMsg.Headers.Add(TusHeaders.UploadLength, totalSize.ToString());
+                }
+                httpReqMsg.Headers.Add(TusHeaders.UploadOffset, uploadedSize.ToString());
+                reqOption.AddCustomHttpHeaders(httpReqMsg);
+                httpReqMsg.Content = new ByteArrayContent(buffer,0,bytesReadCount);
+                httpReqMsg.Content.Headers.Add(TusHeaders.ContentType, TusHeaders.UploadContentTypeValue);
+                
+                if (reqOption.OnPreSendRequestAsync is not null)
+                {
+                    PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent(reqOption, httpReqMsg);
+                    await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
+                }
+            
+                tusPatchResponse.OriginHttpRequestMessage = httpReqMsg;
+            
+                response = await httpClient.SendAsync(httpReqMsg, ct);
+                response.EnsureSuccessStatusCode();
+            
+                var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
+                uploadedSize = long.Parse(response.GetValueOfHeader(TusHeaders.UploadOffset));
+            
+                tusPatchResponse.TusResumableVersion = tusVersion;
+                
+                if (reqOption.OnProgressAsync is not null)
+                {
+                    UploadProgressEvent uploadProgressEvent = new UploadProgressEvent(reqOption, totalSize)
+                    {
+                        UploadedSize = uploadedSize
+                    };
+                    await reqOption.OnProgressAsync(uploadProgressEvent);
+                }
+            }
+            if (totalSize == uploadedSize)
+            {
+                if (reqOption.OnCompletedAsync is not null)
+                {
+                    UploadCompletedEvent uploadCompletedEvent = new UploadCompletedEvent(reqOption, response);
+                    await reqOption.OnCompletedAsync(uploadCompletedEvent);
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            if (reqOption.OnFailedAsync is not null)
+            {
+                UploadExceptionEvent uploadExceptionEvent = new UploadExceptionEvent(reqOption, e)
+                {
+                    OriginHttpRequestMessage = httpReqMsg,
+                    OriginResponseMessage = response
+                };
+                await reqOption.OnFailedAsync(uploadExceptionEvent);
+            }
+        }
+        tusPatchResponse.OriginHttpRequestMessage = httpReqMsg;
+        tusPatchResponse.OriginResponseMessage = response;
+        tusPatchResponse.UploadedSize = uploadedSize;
+
+        return tusPatchResponse;
+    }
+
+    /// <summary>
     /// resume upload file
     /// </summary>
     /// <param name="httpClient"></param>
@@ -182,6 +282,39 @@ public static class HttpClientExtension
             throw new ArgumentNullException(nameof(reqOption.Stream));
         }
 
+        if (reqOption.UploadBufferSize <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(reqOption.UploadBufferSize),
+                "UploadBufferSize equal or less than zero");
+        }
+
+        TusPatchResponse tusPatchResponse;
+        if (reqOption.UploadOption == UploadOption.Chunk)
+        {
+            tusPatchResponse = await TusPatchWithChunkAsync(httpClient, reqOption, ct);
+        }
+        else if (reqOption.UploadOption == UploadOption.Stream)
+        {
+            tusPatchResponse = await TusPatchWithStreamingAsync(httpClient, reqOption, ct);
+        }
+        else
+        {
+            throw new ArgumentOutOfRangeException(nameof(reqOption.UploadOption));
+        }
+
+        return tusPatchResponse;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="httpClient"></param>
+    /// <param name="reqOption"></param>
+    /// <param name="ct"></param>
+    /// <returns></returns>
+    private static async Task<TusPatchResponse> TusPatchWithStreamingAsync(HttpClient httpClient, TusPatchRequestOption reqOption,
+        CancellationToken ct)
+    {
         long totalSize = reqOption.Stream.Length;
         long uploadedSize = 0;
         TusPatchResponse tusPatchResponse = new TusPatchResponse();
@@ -194,45 +327,47 @@ public static class HttpClientExtension
                 FileLocation = reqOption.FileLocation,
                 OnPreSendRequestAsync = reqOption.OnPreSendRequestAsync
             };
-            var tusHeadResp =await httpClient.TusHeadAsync(tusHeadRequestOption, ct);
+            var tusHeadResp = await httpClient.TusHeadAsync(tusHeadRequestOption, ct);
             uploadedSize = tusHeadResp.UploadOffset;
 
             if (uploadedSize != reqOption.Stream.Position)
             {
                 reqOption.Stream.Seek(uploadedSize, SeekOrigin.Begin);
             }
-            
+
             UploadProgressEvent uploadProgressEvent = new UploadProgressEvent(reqOption, totalSize)
             {
                 UploadedSize = uploadedSize
             };
-            
+
             httpReqMsg = new HttpRequestMessage(new HttpMethod("PATCH"), reqOption.FileLocation);
-            httpReqMsg.Headers.Add(TusHeaders.TusResumable,reqOption.TusVersion.GetEnumDescription());
+            httpReqMsg.Headers.Add(TusHeaders.TusResumable, reqOption.TusVersion.GetEnumDescription());
             if (tusHeadResp.UploadLength < 0)
             {
                 httpReqMsg.Headers.Add(TusHeaders.UploadLength, totalSize.ToString());
             }
+
             httpReqMsg.Headers.Add(TusHeaders.UploadOffset, reqOption.Stream.Position.ToString());
             reqOption.AddCustomHttpHeaders(httpReqMsg);
-            httpReqMsg.Content = new ProgressableStreamContent(reqOption.Stream,reqOption.UploadBufferSize, OnUploadProgress);
+            httpReqMsg.Content =
+                new ProgressableStreamContent(reqOption.Stream, reqOption.UploadBufferSize, OnUploadProgress);
             httpReqMsg.Content.Headers.Add(TusHeaders.ContentType, TusHeaders.UploadContentTypeValue);
             if (reqOption.OnPreSendRequestAsync is not null)
             {
                 PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent(reqOption, httpReqMsg);
                 await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
             }
-            
+
             tusPatchResponse.OriginHttpRequestMessage = httpReqMsg;
-            
+
             response = await httpClient.SendAsync(httpReqMsg, ct);
             response.EnsureSuccessStatusCode();
-            
+
             var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
             uploadedSize = long.Parse(response.GetValueOfHeader(TusHeaders.UploadOffset));
-            
+
             tusPatchResponse.TusResumableVersion = tusVersion;
-            
+
             async Task OnUploadProgress(long offset)
             {
                 uploadedSize = offset;
@@ -251,7 +386,6 @@ public static class HttpClientExtension
                     await reqOption.OnCompletedAsync(uploadCompletedEvent);
                 }
             }
-
         }
         catch (Exception e)
         {
@@ -265,10 +399,10 @@ public static class HttpClientExtension
                 await reqOption.OnFailedAsync(uploadExceptionEvent);
             }
         }
+
         tusPatchResponse.OriginHttpRequestMessage = httpReqMsg;
         tusPatchResponse.OriginResponseMessage = response;
         tusPatchResponse.UploadedSize = uploadedSize;
-
         return tusPatchResponse;
     }
 

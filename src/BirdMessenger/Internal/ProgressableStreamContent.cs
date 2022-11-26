@@ -10,11 +10,11 @@ namespace BirdMessenger.Internal;
 internal sealed class ProgressableStreamContent : HttpContent
 {
     private readonly Stream _content;
-    private readonly int _uploadBufferSize;
+    private readonly uint _uploadBufferSize;
     private readonly long _uploadLength;
     private readonly Func<long, Task> _uploadProgress;
 
-    public ProgressableStreamContent(Stream content, int uploadBufferSize, Func<long, Task> uploadProgress)
+    public ProgressableStreamContent(Stream content, uint uploadBufferSize, Func<long, Task> uploadProgress)
     {
         _content = content;
         _uploadBufferSize = uploadBufferSize;
