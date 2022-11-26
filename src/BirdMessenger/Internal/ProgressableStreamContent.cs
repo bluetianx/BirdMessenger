@@ -58,11 +58,11 @@ internal sealed class ProgressableStreamContent : HttpContent
     private async Task SerializeToStreamAsync(Stream stream,
         CancellationToken ct)
     {
-        var buffer = new byte[uploadBufferSize];
+        var buffer = new byte[_uploadBufferSize];
 
         while (true)
         {
-            var bytesRead = await content.ReadAsync(buffer, 0, buffer.Length, ct);
+            var bytesRead = await _content.ReadAsync(buffer, 0, buffer.Length, ct);
 
             if (bytesRead <= 0)
             {
@@ -71,7 +71,7 @@ internal sealed class ProgressableStreamContent : HttpContent
 
             await stream.WriteAsync(buffer, 0, bytesRead, ct);
 
-            await uploadProgress(content.Position);
+            await _uploadProgress(_content.Position);
         }
     }
 #endif
