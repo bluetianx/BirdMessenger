@@ -41,6 +41,6 @@ static DefaultTusConfiguration CreateTusConfiguration(IServiceProvider servicePr
         // This value can either be absolute or sliding.
         // Absolute expiration will be saved per file on create
         // Sliding expiration will be saved per file on create and updated on each patch/update.
-        Expiration = new AbsoluteExpiration(TimeSpan.FromMinutes(5))
+        Expiration = new AbsoluteExpiration(TimeSpan.FromMinutes(60))
     };
 }
