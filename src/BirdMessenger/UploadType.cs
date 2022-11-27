@@ -5,7 +5,7 @@ namespace BirdMessenger;
 /// <summary>
 /// tus upload file option
 /// </summary>
-public enum UploadOption
+public enum UploadType
 {
     Unknown = 0,
     

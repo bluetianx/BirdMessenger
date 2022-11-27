@@ -25,7 +25,7 @@ public class TusPatchRequestOption:TusRequestOptionBase
     /// <summary>
     /// setting upload file with chunk or stream, default value is Stream
     /// </summary>
-    public UploadOption UploadOption = UploadOption.Stream;
+    public UploadType UploadOption = UploadType.Stream;
     
     /// <summary>
     /// invoke when uploading file

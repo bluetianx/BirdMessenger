@@ -289,11 +289,11 @@ public static class HttpClientExtension
         }
 
         TusPatchResponse tusPatchResponse;
-        if (reqOption.UploadOption == UploadOption.Chunk)
+        if (reqOption.UploadOption == UploadType.Chunk)
         {
             tusPatchResponse = await TusPatchWithChunkAsync(httpClient, reqOption, ct);
         }
-        else if (reqOption.UploadOption == UploadOption.Stream)
+        else if (reqOption.UploadOption == UploadType.Stream)
         {
             tusPatchResponse = await TusPatchWithStreamingAsync(httpClient, reqOption, ct);
         }

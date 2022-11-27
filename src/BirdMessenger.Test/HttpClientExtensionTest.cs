@@ -126,12 +126,12 @@ public class HttpClientExtensionTest
     #region TestPatch
 
     [Theory]
-    [InlineData(UploadOption.Stream,1*1024)]
-    [InlineData(UploadOption.Stream,1*1024*1024)]
-    [InlineData(UploadOption.Chunk,1*1024)]
-    [InlineData(UploadOption.Chunk,4*1024*1024)]
-    [InlineData(UploadOption.Chunk,1*1024*1024)]
-    public async Task TestPatchAsync(UploadOption uploadOption,uint bufferSize)
+    [InlineData(UploadType.Stream,1*1024)]
+    [InlineData(UploadType.Stream,1*1024*1024)]
+    [InlineData(UploadType.Chunk,1*1024)]
+    [InlineData(UploadType.Chunk,4*1024*1024)]
+    [InlineData(UploadType.Chunk,1*1024*1024)]
+    public async Task TestPatchAsync(UploadType uploadOption,uint bufferSize)
     {
         using var httpClient = new HttpClient();
         var fileInfo = new FileInfo(@"TestFile/test1");
@@ -185,11 +185,11 @@ public class HttpClientExtensionTest
     }
 
     [Theory]
-    [InlineData(UploadOption.Stream,1*1024)]
-    [InlineData(UploadOption.Stream,1*1024*1024)]
-    [InlineData(UploadOption.Chunk,1*1024)]
-    [InlineData(UploadOption.Chunk,1*1024*1024)]
-    public async Task TestResumeUploadAsync(UploadOption uploadOption,uint bufferSize)
+    [InlineData(UploadType.Stream,1*1024)]
+    [InlineData(UploadType.Stream,1*1024*1024)]
+    [InlineData(UploadType.Chunk,1*1024)]
+    [InlineData(UploadType.Chunk,1*1024*1024)]
+    public async Task TestResumeUploadAsync(UploadType uploadOption,uint bufferSize)
     {
         using var httpClient = new HttpClient();
         var fileInfo = new FileInfo(@"TestFile/test1");
