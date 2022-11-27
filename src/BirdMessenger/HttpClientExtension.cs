@@ -289,17 +289,17 @@ public static class HttpClientExtension
         }
 
         TusPatchResponse tusPatchResponse;
-        if (reqOption.UploadOption == UploadType.Chunk)
+        if (reqOption.UploadType == UploadType.Chunk)
         {
             tusPatchResponse = await TusPatchWithChunkAsync(httpClient, reqOption, ct);
         }
-        else if (reqOption.UploadOption == UploadType.Stream)
+        else if (reqOption.UploadType == UploadType.Stream)
         {
             tusPatchResponse = await TusPatchWithStreamingAsync(httpClient, reqOption, ct);
         }
         else
         {
-            throw new ArgumentOutOfRangeException(nameof(reqOption.UploadOption));
+            throw new ArgumentOutOfRangeException(nameof(reqOption.UploadType));
         }
 
         return tusPatchResponse;

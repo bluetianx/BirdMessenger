@@ -153,7 +153,7 @@ public class HttpClientExtensionTest
         {
             FileLocation = resp.FileLocation,
             Stream = fileStream,
-            UploadOption = uploadOption,
+            UploadType = uploadOption,
             UploadBufferSize = bufferSize,
             OnProgressAsync = x =>
             {
@@ -213,7 +213,7 @@ public class HttpClientExtensionTest
         {
             FileLocation = resp.FileLocation,
             Stream = fileStream,
-            UploadOption = uploadOption,
+            UploadType = uploadOption,
             UploadBufferSize = bufferSize,
             OnProgressAsync = x =>
             {
