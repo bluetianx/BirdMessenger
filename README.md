@@ -25,11 +25,11 @@ BirdMessnger 是一个基于.NET Standard 的 Tus协议的实现客户端。
 
 Package manager
 
-``Install-Package BirdMessenger -Version 3.0.2``
+``Install-Package BirdMessenger -Version 3.1.0``
 
 .NET CLI
 
-``dotnet add package BirdMessenger --version 3.0.2``
+``dotnet add package BirdMessenger --version 3.1.0``
 
 ## Getting Started
 
@@ -71,6 +71,8 @@ public static Uri TusEndpoint = new Uri("http://localhost:5094/files");
             {
                 FileLocation = resp.FileLocation,
                 Stream = fileStream,
+                //UploadBufferSize = 2*1024*1024, // upload size ,default value is 1MB
+                //UploadType = UploadType.Chunk,  // setting upload file with Stream or chunk ,default value is Stream
                 OnProgressAsync = x =>
                 {
                     var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
@@ -130,6 +132,8 @@ public static Uri TusEndpoint = new Uri("http://localhost:5094/files");
             {
                 FileLocation = resp.FileLocation,
                 Stream = fileStream,
+                //UploadBufferSize = 2*1024*1024, // upload size ,default value is 1MB
+                //UploadType = UploadType.Chunk,  // setting upload file with Stream or chunk ,default value is Stream
                 OnProgressAsync = x =>
                 {
                     isInvokeOnProgressAsync = true;
