@@ -53,6 +53,8 @@ namespace demo
             {
                 FileLocation = resp.FileLocation,
                 Stream = fileStream,
+                //UploadBufferSize = 2*1024*1024, // upload size ,default value is 1MB
+                //UploadType = UploadType.Chunk,  // setting upload file with Stream or chunk ,default value is Stream
                 OnProgressAsync = x =>
                 {
                     var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
@@ -114,6 +116,8 @@ namespace demo
             {
                 FileLocation = resp.FileLocation,
                 Stream = fileStream,
+                //UploadBufferSize = 2*1024*1024, // upload size ,default value is 1MB
+                //UploadType = UploadType.Chunk,  // setting upload file with Stream or chunk ,default value is Stream
                 OnProgressAsync = x =>
                 {
                     isInvokeOnProgressAsync = true;
