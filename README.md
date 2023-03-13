@@ -177,12 +177,7 @@ public static Uri TusEndpoint = new Uri("http://localhost:5094/files");
 
 ## Development
 
-Development is done on the 'master' branch. 
-
-## Who is using the library
-
-* [China National Petroleum Corporation](https://www.cnpc.com.cn/cnpc/index.shtml)
-* [BSS-ONE](https://www.bss-one.ro)
+Development is done on the 'master' branch.
 
 ## Support and Sponsorship
 
