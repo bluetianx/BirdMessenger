@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -148,6 +149,10 @@ public class HttpClientExtensionTest
         bool isInvokeOnProgressAsync = false;
         bool isInvokeOnCompletedAsync = false;
         long uploadedSize = 0;
+        bool isIncludedCustomHeader = true;
+        string customHeader = "customHeader";
+        string customHeaderValue = "customHeaderValue";
+        bool isInvokeHeadMethod = false;
 
         TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
         {
@@ -155,6 +160,23 @@ public class HttpClientExtensionTest
             Stream = fileStream,
             UploadType = uploadOption,
             UploadBufferSize = bufferSize,
+            OnPreSendRequestAsync = x =>
+            {
+                x.HttpRequestMsg.Headers.TryGetValues(customHeader, out var values);
+                if (values != null && values.Contains(customHeaderValue))
+                {
+                }
+                else
+                {
+                    isIncludedCustomHeader = false;
+                }
+
+                if (!isInvokeHeadMethod)
+                {
+                    isInvokeHeadMethod = x.HttpRequestMsg.Method == HttpMethod.Head;
+                }
+                return Task.CompletedTask;
+            },
             OnProgressAsync = x =>
             {
                 isInvokeOnProgressAsync = true;
@@ -176,12 +198,15 @@ public class HttpClientExtensionTest
                 return Task.CompletedTask;
             }
         };
+        tusCreateRequestOption.HttpHeaders[customHeader] = customHeaderValue;
 
         var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
         
         Assert.True(isInvokeOnProgressAsync);
         Assert.True(isInvokeOnCompletedAsync);
         Assert.Equal(fileStream.Length,tusPatchResp.UploadedSize);
+        Assert.True(isIncludedCustomHeader);
+        Assert.True(isInvokeHeadMethod);
     }
 
     [Theory]
@@ -208,6 +233,10 @@ public class HttpClientExtensionTest
         bool isInvokeOnCompletedAsync = false;
         bool isInokeOnFailedAsync = false;
         long uploadedSize = 0;
+        bool isIncludedCustomHeader = true;
+        string customHeader = "customHeader";
+        string customHeaderValue = "customHeaderValue";
+        bool isInvokeHeadMethod = false;
 
         TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
         {
@@ -215,6 +244,23 @@ public class HttpClientExtensionTest
             Stream = fileStream,
             UploadType = uploadOption,
             UploadBufferSize = bufferSize,
+            OnPreSendRequestAsync = x =>
+            {
+                x.HttpRequestMsg.Headers.TryGetValues(customHeader, out var values);
+                if (values != null && values.Contains(customHeaderValue))
+                {
+                }
+                else
+                {
+                    isIncludedCustomHeader = false;
+                }
+
+                if (!isInvokeHeadMethod)
+                {
+                    isInvokeHeadMethod = x.HttpRequestMsg.Method == HttpMethod.Head;
+                }
+                return Task.CompletedTask;
+            },
             OnProgressAsync = x =>
             {
                 isInvokeOnProgressAsync = true;
@@ -241,6 +287,8 @@ public class HttpClientExtensionTest
                 return Task.CompletedTask;
             }
         };
+        tusCreateRequestOption.HttpHeaders[customHeader] = customHeaderValue;
+
 
         var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
         
@@ -249,11 +297,32 @@ public class HttpClientExtensionTest
         Assert.True(isInvokeOnProgressAsync);
         Assert.False(isInvokeOnCompletedAsync);
         Assert.True(isInokeOnFailedAsync);
+        Assert.True(isIncludedCustomHeader);
+        Assert.True(isInvokeHeadMethod);
         
+        isIncludedCustomHeader = true;
+        isInvokeHeadMethod = false;
         tusPatchRequestOption = new TusPatchRequestOption
         {
             FileLocation = resp.FileLocation,
             Stream = fileStream,
+            OnPreSendRequestAsync = x =>
+            {
+                x.HttpRequestMsg.Headers.TryGetValues(customHeader, out var values);
+                if (values != null && values.Contains(customHeaderValue))
+                {
+                }
+                else
+                {
+                    isIncludedCustomHeader = false;
+                }
+
+                if (!isInvokeHeadMethod)
+                {
+                    isInvokeHeadMethod = x.HttpRequestMsg.Method == HttpMethod.Head;
+                }
+                return Task.CompletedTask;
+            },
             OnProgressAsync = x =>
             {
                 isInvokeOnProgressAsync = true;
@@ -277,11 +346,14 @@ public class HttpClientExtensionTest
                 return Task.CompletedTask;
             }
         };
-        
+        tusCreateRequestOption.HttpHeaders[customHeader] = customHeaderValue;
+
         tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
         
         Assert.True(isInvokeOnCompletedAsync);
         Assert.Equal(tusPatchResp.UploadedSize,fileStream.Length);
+        Assert.True(isIncludedCustomHeader);
+        Assert.True(isInvokeHeadMethod);
     }
 
     #endregion

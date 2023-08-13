@@ -176,8 +176,12 @@ public static class HttpClientExtension
             var tusHeadRequestOption = new TusHeadRequestOption
             {
                 FileLocation = reqOption.FileLocation,
-                OnPreSendRequestAsync = reqOption.OnPreSendRequestAsync
+                OnPreSendRequestAsync = reqOption.OnPreSendRequestAsync,
             };
+            foreach (var header in reqOption.HttpHeaders)
+            {
+                tusHeadRequestOption.HttpHeaders.Add(header.Key, header.Value);
+            }
             var tusHeadResp =await httpClient.TusHeadAsync(tusHeadRequestOption, ct);
             uploadedSize = tusHeadResp.UploadOffset;
             if (uploadedSize != reqOption.Stream.Position)
@@ -327,6 +331,10 @@ public static class HttpClientExtension
                 FileLocation = reqOption.FileLocation,
                 OnPreSendRequestAsync = reqOption.OnPreSendRequestAsync
             };
+            foreach (var header in reqOption.HttpHeaders)
+            {
+                tusHeadRequestOption.HttpHeaders.Add(header.Key, header.Value);
+            }
             var tusHeadResp = await httpClient.TusHeadAsync(tusHeadRequestOption, ct);
             uploadedSize = tusHeadResp.UploadOffset;
 
