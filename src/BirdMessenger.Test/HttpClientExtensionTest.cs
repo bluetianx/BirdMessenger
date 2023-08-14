@@ -198,7 +198,7 @@ public class HttpClientExtensionTest
                 return Task.CompletedTask;
             }
         };
-        tusCreateRequestOption.HttpHeaders[customHeader] = customHeaderValue;
+        tusPatchRequestOption.HttpHeaders[customHeader] = customHeaderValue;
 
         var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
         
@@ -287,7 +287,7 @@ public class HttpClientExtensionTest
                 return Task.CompletedTask;
             }
         };
-        tusCreateRequestOption.HttpHeaders[customHeader] = customHeaderValue;
+        tusPatchRequestOption.HttpHeaders[customHeader] = customHeaderValue;
 
 
         var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
@@ -346,7 +346,7 @@ public class HttpClientExtensionTest
                 return Task.CompletedTask;
             }
         };
-        tusCreateRequestOption.HttpHeaders[customHeader] = customHeaderValue;
+        tusPatchRequestOption.HttpHeaders[customHeader] = customHeaderValue;
 
         tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
         
