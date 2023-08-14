@@ -8,10 +8,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="TestFile\bigFile">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <AdditionalFiles Include="TestFile\testf" />
       <None Remove="TestFile\test.txt" />
       <AdditionalFiles Include="TestFile\test.txt">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -19,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="BirdMessenger" Version="3.1.0" />
+      <PackageReference Include="BirdMessenger" Version="3.1.1" />
       <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     </ItemGroup>
 

@@ -55,6 +55,14 @@ namespace demo
                 Stream = fileStream,
                 //UploadBufferSize = 2*1024*1024, // upload size ,default value is 1MB
                 //UploadType = UploadType.Chunk,  // setting upload file with Stream or chunk ,default value is Stream
+                OnPreSendRequestAsync = x =>
+                {
+                    foreach ( var kv in x.HttpRequestMsg.Headers)
+                    {
+                        Console.WriteLine($"key:{kv.Key}-value:{string.Join(",",kv.Value)}");
+                    }
+                    return Task.CompletedTask;
+                },
                 OnProgressAsync = x =>
                 {
                     var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
@@ -82,6 +90,7 @@ namespace demo
                     return Task.CompletedTask;
                 }
             };
+            tusPatchRequestOption.HttpHeaders["testHeader"] ="testValue";
 
             var tusPatchResp = await tusClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
             // tusPatchResp.OriginResponseMessage
