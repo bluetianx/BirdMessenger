@@ -57,6 +57,7 @@ namespace demo
                 //UploadType = UploadType.Chunk,  // setting upload file with Stream or chunk ,default value is Stream
                 OnPreSendRequestAsync = x =>
                 {
+                    Console.WriteLine($"x.HttpRequestMsg.Method:{x.HttpRequestMsg.Method}");
                     foreach ( var kv in x.HttpRequestMsg.Headers)
                     {
                         Console.WriteLine($"key:{kv.Key}-value:{string.Join(",",kv.Value)}");
