@@ -139,7 +139,7 @@ public static class HttpClientExtension
         
         if (response.StatusCode != HttpStatusCode.OK)
         {
-            throw new TusException("head response statusCode is not 200",httpReqMsg,response);
+            throw new TusException($"head response statusCode is  {response.StatusCode}",httpReqMsg,response);
         }
         
         var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
