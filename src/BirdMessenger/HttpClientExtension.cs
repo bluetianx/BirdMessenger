@@ -193,6 +193,7 @@ public static class HttpClientExtension
             {
                 reqOption.Stream.Seek(uploadedSize, SeekOrigin.Begin);
             }
+
             var buffer = new byte[reqOption.UploadBufferSize];
             while (!ct.IsCancellationRequested)
             {
@@ -476,7 +477,10 @@ public static class HttpClientExtension
             await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
         }
         var response = await httpClient.SendAsync(httpReqMsg, ct);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new TusException($"options response statusCode is {response.StatusCode}",httpReqMsg,response);
+        }
         TusOptionResponse tusOptionResponse = new TusOptionResponse();
         tusOptionResponse.OriginHttpRequestMessage = httpReqMsg;
         tusOptionResponse.OriginResponseMessage = response;
