@@ -12,8 +12,14 @@ namespace BirdMessenger.Infrastructure
             OriginHttpResponse = originHttpResponse;
         }
         
+        /// <summary>
+        ///  origin http request
+        /// </summary>
         public HttpRequestMessage OriginHttpRequest { get; private set; }
         
+        /// <summary>
+        ///  origin http response
+        /// </summary>
         public HttpResponseMessage OriginHttpResponse { get; private set; }
     }
 }

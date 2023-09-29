@@ -136,7 +136,11 @@ public static class HttpClientExtension
             await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
         }
         var response = await httpClient.SendAsync(httpReqMsg, ct);
-        response.EnsureSuccessStatusCode();
+        
+        if (response.StatusCode != HttpStatusCode.OK)
+        {
+            throw new TusException("head response statusCode is not 200",httpReqMsg,response);
+        }
         
         var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
         long uploadOffset = long.Parse(response.GetValueOfHeader(TusHeaders.UploadOffset));
