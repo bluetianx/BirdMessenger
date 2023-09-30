@@ -135,11 +135,12 @@ public static class HttpClientExtension
             PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent(reqOption, httpReqMsg);
             await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
         }
-        var response = await httpClient.SendAsync(httpReqMsg, ct);
-        
-        if (response.StatusCode != HttpStatusCode.OK)
+        var response = await httpClient.SendAsync(httpReqMsg, ct); 
+        if (response.StatusCode == HttpStatusCode.NotFound || 
+            response.StatusCode == HttpStatusCode.Gone     ||
+            response.StatusCode == HttpStatusCode.Forbidden)
         {
-            throw new TusException($"head response statusCode is  {response.StatusCode}",httpReqMsg,response);
+            throw new TusException($" head response statusCode is{response.StatusCode.ToString()} ");
         }
         
         var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
@@ -224,7 +225,11 @@ public static class HttpClientExtension
                 tusPatchResponse.OriginHttpRequestMessage = httpReqMsg;
 
                 response = await httpClient.SendAsync(httpReqMsg, ct);
-                response.EnsureSuccessStatusCode();
+                
+                if (response.StatusCode != HttpStatusCode.NoContent)
+                {
+                    throw new TusException($"patch response statusCode is {response.StatusCode.ToString()}",httpReqMsg,response);
+                }
 
                 var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
                 uploadedSize = long.Parse(response.GetValueOfHeader(TusHeaders.UploadOffset));
@@ -392,7 +397,11 @@ public static class HttpClientExtension
             tusPatchResponse.OriginHttpRequestMessage = httpReqMsg;
 
             response = await httpClient.SendAsync(httpReqMsg, ct);
-            response.EnsureSuccessStatusCode();
+            
+            if (response.StatusCode != HttpStatusCode.NoContent)
+            {
+                throw new TusException($"patch response statusCode is {response.StatusCode.ToString()}",httpReqMsg,response);
+            }
 
             var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
             uploadedSize = long.Parse(response.GetValueOfHeader(TusHeaders.UploadOffset));
@@ -477,7 +486,8 @@ public static class HttpClientExtension
             await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
         }
         var response = await httpClient.SendAsync(httpReqMsg, ct);
-        if (!response.IsSuccessStatusCode)
+        if (response.StatusCode != HttpStatusCode.OK && 
+            response.StatusCode != HttpStatusCode.NoContent)
         {
             throw new TusException($"options response statusCode is {response.StatusCode}",httpReqMsg,response);
         }
@@ -534,7 +544,10 @@ public static class HttpClientExtension
             await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
         }
         var response = await httpClient.SendAsync(httpReqMsg, ct);
-        response.EnsureSuccessStatusCode();
+        if (response.StatusCode != HttpStatusCode.NoContent)
+        {
+            throw new TusException($"delete response statusCode is {response.StatusCode}",httpReqMsg,response);
+        }
         
         var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
         
