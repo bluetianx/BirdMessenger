@@ -140,7 +140,7 @@ public static class HttpClientExtension
             response.StatusCode == HttpStatusCode.Gone     ||
             response.StatusCode == HttpStatusCode.Forbidden)
         {
-            throw new TusException($" head response statusCode is{response.StatusCode.ToString()} ");
+            throw new TusException($" head response statusCode is{response.StatusCode.ToString()} ",httpReqMsg,response);
         }
         
         var tusVersion = response.GetValueOfHeader(TusHeaders.TusResumable).ConvertToTusVersion();
