@@ -10,7 +10,7 @@
         <PackageIcon>logo.png</PackageIcon>
         <PackageIconUrl>https://github.com/bluetianx/BirdMessenger/blob/master/docs/img/logo.png</PackageIconUrl>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <TargetFrameworks>net5.0;net6.0;netstandard2.0</TargetFrameworks>
+        <TargetFrameworks>net5.0;net6.0;net7.0;net8.0;netstandard2.0</TargetFrameworks>
     </PropertyGroup>
 
     <PropertyGroup>
