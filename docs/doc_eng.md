@@ -120,11 +120,120 @@
               // tusPatchResp.OriginResponseMessage
               // tusPatchResp.OriginHttpRequestMessage
 
-### API Doc
-
-Reference demo in sample and test case in Unit test
-
+Reference demo in sample or unit test case in Unit test
 
 
 ### Polly Integration 
 [HttpClientFactory With Polly](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.0#use-polly-based-handlers)
+
+### API Doc
+
+
+
+#### TusCreateAsync
+
+
+
+##### Definition
+
+create a new upload resource
+
+``` c#
+Task<TusCreateResponse> TusCreateAsync(TusCreateRequestOption reqOption, CancellationToken ct = default)
+```
+
+
+
+##### Type Parameters
+
+###### TusCreateRequestOption
+
+[Derived TusRequestOptionBase](#TusRequestOptionBase)
+
+| Name                | Type                                                     | Definition                                                   |
+| ------------------- | -------------------------------------------------------- | ------------------------------------------------------------ |
+| Endpoint            | Uri                                                      | tus server address                                           |
+| UploadLength        | long                                                     | indicates the size of the entire upload in bytes             |
+| IsUploadDeferLength | bool                                                     | indicates that the size of the upload is not known currently and will be transferred later |
+| Metadata            | MetadataCollection,Implement IDictionary<string, string> | Upload-Metadata                                              |
+
+###### TusCreateResponse
+
+[Derived TusResponseBase](#TusResponseBase)
+
+| Name         | Type | Definition        |
+| ------------ | ---- | ----------------- |
+| FileLocation | Uri  | resource file URL |
+
+
+
+
+
+---
+
+
+
+#### TusRequestOptionBase
+
+##### Definition
+
+Responsible TusRequest Base Class
+
+
+
+##### Properties
+
+| Name                  | Type                                                     | Definition                                     |
+| --------------------- | -------------------------------------------------------- | ---------------------------------------------- |
+| OnPreSendRequestAsync | Func<[PreSendRequestEvent](#PreSendRequestEvent), Task>? | invoke before sending HTTP request to a server |
+| HttpHeaders           | Dictionary<string,string>                                | add additional HTTP headers while HTTP request |
+|                       |                                                          |                                                |
+
+
+
+#### TusResponseBase
+
+##### Definition
+
+Responsible TusResponse Base Class
+
+
+
+##### Properties
+
+| Name                     | Type                | Definition                |
+| ------------------------ | ------------------- | ------------------------- |
+| OriginResponseMessage    | HttpResponseMessage | origin http response      |
+| OriginHttpRequestMessage | HttpRequestMessage  | origin HttpRequestMessage |
+| TusResumableVersion      | TusVersion          | tus version from server   |
+
+
+
+#### UploadEvent
+
+##### Definition
+
+Tus Upload file Abstract Class event
+
+
+
+##### Properties
+
+| Name             | Type                                          | Definition |
+| ---------------- | --------------------------------------------- | ---------- |
+| TusRequestOption | [TusRequestOptionBase](#TusRequestOptionBase) |            |
+
+
+
+#### PreSendRequestEvent
+
+##### Definition
+
+Derived UploadEvent
+
+##### Properties
+
+| Name             | Type                                          | Definition                              |
+| ---------------- | --------------------------------------------- | --------------------------------------- |
+| TusRequestOption | [TusRequestOptionBase](#TusRequestOptionBase) |                                         |
+| HttpRequestMsg   | HttpRequestMessage                            | A HttpRequestMsg will be send to server |
