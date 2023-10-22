@@ -157,6 +157,10 @@ Task<TusCreateResponse> TusCreateAsync(TusCreateRequestOption reqOption, Cancell
 | IsUploadDeferLength | bool                                                     | indicates that the size of the upload is not known currently and will be transferred later |
 | Metadata            | MetadataCollection,Implement IDictionary<string, string> | Upload-Metadata                                              |
 
+
+
+##### Returns
+
 ###### TusCreateResponse
 
 [Derived TusResponseBase](#TusResponseBase)
@@ -166,6 +170,41 @@ Task<TusCreateResponse> TusCreateAsync(TusCreateRequestOption reqOption, Cancell
 | FileLocation | Uri  | resource file URL |
 
 
+
+#### TusHeadAsync
+
+##### Definition
+
+tus Head request For getting upload-offset
+
+```c#
+Task<TusHeadResponse> TusHeadAsync(TusHeadRequestOption reqOption, CancellationToken ct = default)
+```
+
+
+
+##### Type Parameters
+
+######  TusHeadRequestOption
+
+[Derived TusRequestOptionBase](#TusRequestOptionBase)
+
+| Name         | Type | Definition      |
+| ------------ | ---- | --------------- |
+| FileLocation | Uri  | Upload File Uri |
+
+
+
+##### Returns
+
+###### TusHeadResponse
+
+[Derived TusResponseBase](#TusResponseBase)
+
+| Name         | Type | Definition             |
+| ------------ | ---- | ---------------------- |
+| UploadOffset | long | Upload Offset          |
+| UploadLength | long | the size of the upload |
 
 
 
