@@ -291,6 +291,36 @@ Task<TusOptionResponse> TusOptionAsync( TusOptionRequestOption reqOption, Cancel
 
 
 
+#### TusDeleteAsync
+
+##### Definition
+
+delete  file
+
+```c#
+Task<TusDeleteResponse> TusDeleteAsync(TusDeleteRequestOption reqOption, CancellationToken ct)
+```
+
+
+
+##### Type Parameters
+
+###### TusDeleteRequestOption
+
+[Derived TusRequestOptionBase](#TusRequestOptionBase)
+
+| Name         | Type | Definition |
+| ------------ | ---- | ---------- |
+| FileLocation | Uri  | file uri   |
+
+
+
+##### Returns
+
+###### TusDeleteResponse
+
+[Derived TusRequestOptionBase](#TusRequestOptionBase)
+
 
 
 
