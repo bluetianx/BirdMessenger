@@ -237,3 +237,18 @@ Derived UploadEvent
 | ---------------- | --------------------------------------------- | --------------------------------------- |
 | TusRequestOption | [TusRequestOptionBase](#TusRequestOptionBase) |                                         |
 | HttpRequestMsg   | HttpRequestMessage                            | A HttpRequestMsg will be send to server |
+
+
+
+#### TusException
+
+##### Definition
+
+Derived Exception
+
+##### Properties
+
+| Name               | Type                | Definition           |
+| ------------------ | ------------------- | -------------------- |
+| OriginHttpRequest  | HttpRequestMessage  | origin http request  |
+| OriginHttpResponse | HttpResponseMessage | origin http response |
