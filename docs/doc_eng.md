@@ -208,6 +208,62 @@ Task<TusHeadResponse> TusHeadAsync(TusHeadRequestOption reqOption, CancellationT
 
 
 
+
+
+#### TusPatchAsync
+
+##### Definition
+
+resume upload file
+
+```c#
+Task<TusPatchResponse> TusPatchAsync(TusPatchRequestOption reqOption, CancellationToken ct = default)
+```
+
+
+
+##### Type Parameters
+
+
+
+###### TusPatchRequestOption
+
+[Derived TusRequestOptionBase](#TusRequestOptionBase)
+
+| Name             | Type                             | Definition                                                   |
+| ---------------- | -------------------------------- | ------------------------------------------------------------ |
+| Stream           | Stream                           | file stream                                                  |
+| FileLocation     | Uri                              | file uri                                                     |
+| UploadBufferSize | uint                             | uploadSize ,default value 1MB                                |
+| UploadType       | UploadType                       | setting upload file with chunk or stream, default value is Stream |
+| OnProgressAsync  | Func<UploadProgressEvent,Task>?  | invoke when uploading file                                   |
+| OnFailedAsync    | Func<UploadExceptionEvent,Task>? | invoke when appear a Exception                               |
+| OnCompletedAsync | Func<UploadCompletedEvent,Task>? | invoke when complete uploading                               |
+
+
+
+##### Returns
+
+###### TusPatchResponse
+
+[Derived TusResponseBase](#TusResponseBase)
+
+| Name         | Type | Definition                          |
+| ------------ | ---- | ----------------------------------- |
+| UploadedSize | Long | indicate the size of uploaded bytes |
+
+
+
+
+
+
+
+
+
+
+
+
+
 ---
 
 
