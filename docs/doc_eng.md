@@ -256,7 +256,38 @@ Task<TusPatchResponse> TusPatchAsync(TusPatchRequestOption reqOption, Cancellati
 
 
 
+#### TusOptionAsync
 
+##### Definition
+
+getting tusServer Info
+
+```c#
+Task<TusOptionResponse> TusOptionAsync( TusOptionRequestOption reqOption, CancellationToken ct)
+```
+
+##### Type Parameters
+
+###### TusOptionRequestOption
+
+[Derived TusRequestOptionBase](#TusRequestOptionBase)
+
+| Name     | Type | Definition         |
+| -------- | ---- | ------------------ |
+| Endpoint | Uri  | tus server address |
+
+
+
+##### Returns
+
+###### TusOptionResponse
+
+[Derived TusResponseBase](#TusResponseBase)
+
+| Name          | Type         | Definition                 |
+| ------------- | ------------ | -------------------------- |
+| TusVersions   | List<string> | server supports versions   |
+| TusExtensions | List<string> | server supports extensions |
 
 
 
