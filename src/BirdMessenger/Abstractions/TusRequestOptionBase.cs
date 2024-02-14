@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BirdMessenger.Constants;
-using BirdMessenger.Delegates;
 using BirdMessenger.Events;
 using BirdMessenger.Infrastructure;
 
@@ -16,12 +15,12 @@ public abstract class TusRequestOptionBase
     {
         HttpHeaders = new Dictionary<string, string>();
     }
-    
+
     /// <summary>
     /// invoke before sending http request to server
     /// </summary>
     public Func<PreSendRequestEvent,Task>? OnPreSendRequestAsync { get; set; }
-    
+
     /// <summary>
     /// add additional http headers
     /// </summary>
@@ -32,7 +31,7 @@ public abstract class TusRequestOptionBase
     internal void AddCustomHttpHeaders(HttpRequestMessage httpRequestMessage)
     {
         ValidateHttpHeaders();
-        
+
         if (HttpHeaders is not null && HttpHeaders.Any())
         {
             foreach (var key in HttpHeaders.Keys)
@@ -41,10 +40,10 @@ public abstract class TusRequestOptionBase
             }
         }
     }
-    
+
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <returns></returns>
     private void ValidateHttpHeaders()
@@ -53,9 +52,9 @@ public abstract class TusRequestOptionBase
         {
             foreach (var headerKey in HttpHeaders.Keys)
             {
-                if (TusHeaders.TusReservedWords.Contains(headerKey.ToLower()))
+                if (TusHeaders.IsReserved(headerKey))
                 {
-                    throw new TusException($"HttpHeader can not contain tus Reserved word:{headerKey}");
+                    throw new TusException($"HttpHeader can not contain tus Reserved word: {headerKey}");
                 }
             }
         }
