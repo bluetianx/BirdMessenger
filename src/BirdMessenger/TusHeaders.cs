@@ -12,11 +12,13 @@ public static class TusHeaders
         TusReservedWords.Add(UploadLength);
         TusReservedWords.Add(UploadOffset);
         TusReservedWords.Add(UploadMetadata);
+        TusReservedWords.Add(TusResumable);
+        TusReservedWords.Add(Location);
         TusReservedWords.Add(UploadDeferLength);
         TusReservedWords.Add(ContentType);
         TusReservedWords.Add(UploadChecksum);
-        TusReservedWords.Add(TusResumable);
         TusReservedWords.Add(UploadConcat);
+        TusReservedWords.Add(UploadContentTypeValue);
         TusReservedWords.Add(TusVersion);
         TusReservedWords.Add(TusMaxSize);
         TusReservedWords.Add(TusExtension);
