@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace BirdMessenger.Constants;
+namespace BirdMessenger;
 
 public static class TusHeaders
 {

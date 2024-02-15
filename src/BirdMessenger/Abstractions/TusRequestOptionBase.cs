@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using BirdMessenger.Constants;
 using BirdMessenger.Events;
 using BirdMessenger.Infrastructure;
 
