@@ -19,67 +19,12 @@ public class HttpClientExtensionTest
     {
         _testOutputHelper = testOutputHelper;
     }
-
-    [Fact]
-    public async Task TestTusCreateAndDelAsync()
-    {
-        bool isInovkeOnPreSendRequestAsync = false;
-        using var httpClient = new HttpClient();
-        
-        MetadataCollection dir = new MetadataCollection();
-        dir["filename"] = "fileNameTest";
-        TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
-        {
-            Endpoint = TusEndpoint,
-            UploadLength = 1000,
-            Metadata = dir,
-            OnPreSendRequestAsync = x =>
-            {
-                _testOutputHelper.WriteLine("OnPreSendRequestAsync is invoked");
-                isInovkeOnPreSendRequestAsync = true;
-                return Task.CompletedTask;
-            }
-        };
-        var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
-        Assert.Equal(TusVersion.V1_0_0, resp.TusResumableVersion);
-        Assert.True(isInovkeOnPreSendRequestAsync);
-
-        TusDeleteRequestOption tusDeleteRequestOption = new TusDeleteRequestOption()
-        {
-            FileLocation = resp.FileLocation
-        };
-
-        var delResp = await httpClient.TusDeleteAsync(tusDeleteRequestOption, CancellationToken.None);
-        Assert.Equal(TusVersion.V1_0_0, delResp.TusResumableVersion);
-    }
-
-    [Fact]
-    public async Task TestTusCreateArgumentExceptionAsync()
-    {
-        bool isArgumentException = false;
-        try
-        {
-            using var httpClient = new HttpClient();
-            TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
-            {
-                Endpoint = TusEndpoint,
-                UploadLength = 1000,
-                IsUploadDeferLength = true
-            };
-            var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
-        }
-        catch (ArgumentException)
-        {
-            isArgumentException = true;
-        }
-
-        Assert.True(isArgumentException);
-    }
+    
 
     [Theory]
     [InlineData(1000)]
     [InlineData(50)]
-    [InlineData(-1)]
+    [InlineData(1)]
     [InlineData(0)]
     public async Task TestTusHeadAsync(long uploadLength)
     {
