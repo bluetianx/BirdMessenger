@@ -39,22 +39,27 @@ public static class HttpClientExtension
         {
             throw new ArgumentException($"IsUploadDeferLength:[{reqOption.IsUploadDeferLength}] can not set true if UploadLength:[{reqOption.UploadLength}] is greater than zero");
         }
-        if (!reqOption.IsUploadDeferLength && reqOption.UploadLength <= 0)
+        if (!reqOption.IsUploadDeferLength && reqOption.UploadLength < 0)
         {
             throw new ArgumentException($"IsUploadDeferLength:[{reqOption.IsUploadDeferLength}] can not set false if UploadLength:[{reqOption.UploadLength}] is less than zero");
+        }
+
+        if (reqOption.UploadLength < 0)
+        {
+            throw new ArgumentException($"UploadLength:[{reqOption.UploadLength}] MUST be a non-negative integer");
         }
         
         var httpReqMsg = new HttpRequestMessage(HttpMethod.Post, endpoint);
         
         httpReqMsg.Headers.Add(TusHeaders.TusResumable,reqOption.TusVersion.GetEnumDescription());
-        
-        if (reqOption.UploadLength > 0)
-        {
-            httpReqMsg.Headers.Add(TusHeaders.UploadLength, reqOption.UploadLength.ToString());
-        }
-        else if(reqOption.IsUploadDeferLength)
+
+        if(reqOption.IsUploadDeferLength)
         {
             httpReqMsg.Headers.Add(TusHeaders.UploadDeferLength,"1");
+        }
+        else
+        {
+            httpReqMsg.Headers.Add(TusHeaders.UploadLength, reqOption.UploadLength.ToString());
         }
 
         string uploadMetadata = reqOption.Metadata?.Serialize();
