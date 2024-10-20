@@ -139,10 +139,9 @@ public static class HttpClientExtension
             PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent(reqOption, httpReqMsg);
             await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
         }
-        var response = await httpClient.SendAsync(httpReqMsg, ct); 
-        if (response.StatusCode == HttpStatusCode.NotFound || 
-            response.StatusCode == HttpStatusCode.Gone     ||
-            response.StatusCode == HttpStatusCode.Forbidden)
+        var response = await httpClient.SendAsync(httpReqMsg, ct);
+        if (response.StatusCode != HttpStatusCode.OK &&
+            response.StatusCode != HttpStatusCode.NoContent)
         {
             throw new TusException($" head response statusCode is{response.StatusCode.ToString()} ",httpReqMsg,response);
         }
