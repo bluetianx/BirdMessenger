@@ -6,10 +6,12 @@
         <Authors>BruceTian</Authors>
         <PackageTags>tus;resumable file uploads</PackageTags>
         <PackageProjectUrl>https://github.com/bluetianx/BirdMessenger</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/bluetianx/BirdMessenger</RepositoryUrl>
         <Description>DotNET client implementation of the Tus protocol for resumable file uploads</Description>
         <PackageIcon>logo.png</PackageIcon>
         <PackageIconUrl>https://github.com/bluetianx/BirdMessenger/blob/master/docs/img/logo.png</PackageIconUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <TargetFrameworks>net5.0;net6.0;net7.0;net8.0;netstandard2.0</TargetFrameworks>
     </PropertyGroup>
