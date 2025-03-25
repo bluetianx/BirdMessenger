@@ -1,0 +1,18 @@
+﻿<Solution>
+  <Folder Name="/docs/">
+    <File Path="docs\doc_eng.md" />
+    <File Path="docs\doc_zh.md" />
+    <File Path="docs\READMEEN.md" />
+  </Folder>
+  <Folder Name="/samples/">
+    <Project Path="samples\demo2\demo2.csproj" />
+    <Project Path="samples\demo3\demo3.csproj" Type="Classic C#" />
+    <Project Path="samples\demo\demo.csproj" />
+    <Project Path="samples\TestDotNetSite\TestDotNetSite.csproj" Type="Classic C#" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src\BirdMessenger.BenchMark\BirdMessenger.BenchMark.csproj" />
+    <Project Path="src\BirdMessenger.Test\BirdMessenger.Test.csproj" />
+    <Project Path="src\BirdMessenger\BirdMessenger.csproj" />
+  </Folder>
+</Solution>
