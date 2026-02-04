@@ -1,4 +1,4 @@
-namespace BirdMessenger.Delegates;
+namespace BirdMessenger.Events;
 
 public abstract class UploadEvent
 {

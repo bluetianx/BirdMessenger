@@ -1,5 +1,4 @@
 using System.Net.Http;
-using BirdMessenger.Delegates;
 
 namespace BirdMessenger.Events;
 

@@ -1,6 +1,6 @@
 using System.Net.Http;
 
-namespace BirdMessenger.Delegates;
+namespace BirdMessenger.Events;
 
 public class UploadCompletedEvent:UploadEvent
 {

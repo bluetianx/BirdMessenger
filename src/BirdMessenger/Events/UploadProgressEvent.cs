@@ -1,15 +1,15 @@
-namespace BirdMessenger.Delegates;
+namespace BirdMessenger.Events;
 
 public sealed class UploadProgressEvent:UploadEvent
 {
-    public UploadProgressEvent(TusRequestOptionBase tusRequestOption,long totalSize) : base(tusRequestOption)
+    public UploadProgressEvent(TusRequestOptionBase tusRequestOption,long? totalSize) : base(tusRequestOption)
     {
         TotalSize = totalSize;
     }
     /// <summary>
     /// indicate the size of an entire upload in bytes.
     /// </summary>
-    public long TotalSize { get; }
+    public long? TotalSize { get; }
 
     /// <summary>
     /// indicate the size of uploaded bytes

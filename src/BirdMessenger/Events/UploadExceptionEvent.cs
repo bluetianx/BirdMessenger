@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 
-namespace BirdMessenger.Delegates;
+namespace BirdMessenger.Events;
 
 public class UploadExceptionEvent:UploadEvent
 {

@@ -52,7 +52,11 @@ namespace demo3
                 {
                     isInvokeOnProgressAsync = true;
                     uploadedSize = x.UploadedSize;
-                    var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
+                    var uploadedProgress = 0;
+                    if (x.TotalSize.HasValue)
+                    {
+                        uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize.Value);
+                    }
                     Console.WriteLine(
                         $"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
                     return Task.CompletedTask;

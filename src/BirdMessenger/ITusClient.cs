@@ -1,5 +1,4 @@
 using BirdMessenger.Collections;
-using BirdMessenger.Delegates;
 using System;
 using System.IO;
 using System.Threading;

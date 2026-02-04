@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using BirdMessenger.Delegates;
+using BirdMessenger.Events;
 
 namespace BirdMessenger;
 
@@ -26,6 +26,12 @@ public class TusPatchRequestOption:TusRequestOptionBase
     /// setting upload file with chunk or stream, default value is Stream
     /// </summary>
     public UploadType UploadType = UploadType.Stream;
+    
+    /// <summary>
+    /// Indicates that the size of the upload is not known currently and will be transferred later
+    /// 
+    /// </summary>
+    public bool IsUploadDeferLength { get; set; }
     
     /// <summary>
     /// invoke when uploading file
