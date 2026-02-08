@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <PackageId>BirdMessenger</PackageId>
-        <Version>3.1.4</Version>
+        <Version>4.0.0-preview.1</Version>
         <Authors>BruceTian</Authors>
         <PackageTags>tus;resumable file uploads</PackageTags>
         <PackageProjectUrl>https://github.com/bluetianx/BirdMessenger</PackageProjectUrl>
@@ -13,7 +13,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <TargetFrameworks>net5.0;net6.0;net7.0;net8.0;netstandard2.0</TargetFrameworks>
+        <TargetFrameworks>net5.0;net6.0;net7.0;net8.0;net10.0;netstandard2.0</TargetFrameworks>
     </PropertyGroup>
 
     <PropertyGroup>
