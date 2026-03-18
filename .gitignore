@@ -27,3 +27,6 @@ samples/testDotNetSite/tusfiles
 /samples/demo/TestFile/
 BirdMessenger.sln.DotSettings.user
 packages
+.claude
+.github
+openspec
