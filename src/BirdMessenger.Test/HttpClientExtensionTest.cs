@@ -313,6 +313,142 @@ public class HttpClientExtensionTest
         Assert.True(isInvokeHeadMethod);
     }
 
+    [Theory]
+    [InlineData(UploadType.Chunk, 1 * 1024)]
+    [InlineData(UploadType.Chunk, 4 * 1024 * 1024)]
+    public async Task TestPatchAsyncWithDeferLength_Chunk(UploadType uploadOption, uint bufferSize)
+    {
+        using var httpClient = new HttpClient();
+        var fileInfo = new FileInfo(@"TestFile/test1");
+        var fileStream = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read);
+        MetadataCollection metadata = new MetadataCollection();
+        metadata["filename"] = fileInfo.Name;
+
+        // Create with deferred length (UploadLength=0, IsUploadDeferLength=true)
+        TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
+        {
+            Endpoint = TusEndpoint,
+            Metadata = metadata,
+            UploadLength = 0,
+            IsUploadDeferLength = true
+        };
+        var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
+
+        bool isInvokeOnProgressAsync = false;
+        bool isInvokeOnCompletedAsync = false;
+        bool isInvokeHeadMethod = false;
+
+        TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
+        {
+            FileLocation = resp.FileLocation,
+            Stream = fileStream,
+            UploadType = uploadOption,
+            UploadBufferSize = bufferSize,
+            IsUploadDeferLength = true,
+            OnPreSendRequestAsync = x =>
+            {
+                if (!isInvokeHeadMethod)
+                {
+                    isInvokeHeadMethod = x.HttpRequestMsg.Method == HttpMethod.Head;
+                }
+                return Task.CompletedTask;
+            },
+            OnProgressAsync = x =>
+            {
+                isInvokeOnProgressAsync = true;
+                _testOutputHelper.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}");
+                return Task.CompletedTask;
+            },
+            OnCompletedAsync = x =>
+            {
+                isInvokeOnCompletedAsync = true;
+                var reqOption = x.TusRequestOption as TusPatchRequestOption;
+                _testOutputHelper.WriteLine($"File:{reqOption.FileLocation} Completed");
+                return Task.CompletedTask;
+            },
+            OnFailedAsync = x =>
+            {
+                _testOutputHelper.WriteLine($"error: {x.Exception.Message}");
+                return Task.CompletedTask;
+            }
+        };
+
+        var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
+
+        Assert.True(isInvokeOnProgressAsync);
+        Assert.True(isInvokeOnCompletedAsync);
+        Assert.Equal(fileStream.Length, tusPatchResp.UploadedSize);
+        Assert.True(isInvokeHeadMethod);
+    }
+
+    [Theory]
+    [InlineData(UploadType.Stream, 1 * 1024)]
+    [InlineData(UploadType.Stream, 1 * 1024 * 1024)]
+    public async Task TestPatchAsyncWithDeferLength_Stream(UploadType uploadOption, uint bufferSize)
+    {
+        using var httpClient = new HttpClient();
+        var fileInfo = new FileInfo(@"TestFile/test1");
+        var fileStream = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read);
+        MetadataCollection metadata = new MetadataCollection();
+        metadata["filename"] = fileInfo.Name;
+
+        // Create with deferred length (UploadLength=0, IsUploadDeferLength=true)
+        TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
+        {
+            Endpoint = TusEndpoint,
+            Metadata = metadata,
+            UploadLength = 0,
+            IsUploadDeferLength = true
+        };
+        var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
+
+        bool isInvokeOnProgressAsync = false;
+        bool isInvokeOnCompletedAsync = false;
+        bool isInvokeHeadMethod = false;
+
+        TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
+        {
+            FileLocation = resp.FileLocation,
+            Stream = fileStream,
+            UploadType = uploadOption,
+            UploadBufferSize = bufferSize,
+            IsUploadDeferLength = true,
+            OnPreSendRequestAsync = x =>
+            {
+                if (!isInvokeHeadMethod)
+                {
+                    isInvokeHeadMethod = x.HttpRequestMsg.Method == HttpMethod.Head;
+                }
+                return Task.CompletedTask;
+            },
+            OnProgressAsync = x =>
+            {
+                isInvokeOnProgressAsync = true;
+                _testOutputHelper.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}");
+                return Task.CompletedTask;
+            },
+            OnCompletedAsync = x =>
+            {
+                isInvokeOnCompletedAsync = true;
+                var reqOption = x.TusRequestOption as TusPatchRequestOption;
+                _testOutputHelper.WriteLine($"File:{reqOption.FileLocation} Completed");
+                return Task.CompletedTask;
+            },
+            OnFailedAsync = x =>
+            {
+                _testOutputHelper.WriteLine($"error: {x.Exception.Message}");
+                return Task.CompletedTask;
+            }
+        };
+
+        var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
+
+        Assert.True(isInvokeOnProgressAsync);
+        Assert.True(isInvokeOnCompletedAsync);
+        Assert.Equal(fileStream.Length, tusPatchResp.UploadedSize);
+        Assert.True(isInvokeHeadMethod);
+    }
+
     #endregion
 
     [Fact]
