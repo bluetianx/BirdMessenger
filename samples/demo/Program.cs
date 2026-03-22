@@ -21,8 +21,10 @@ namespace demo
         static async Task Main(string[] args)
         {
             await DemoUseTusClientByDependencyInjection();
-            
+
             //await DemoUseHttpClient();
+
+            await DemoUseDeferredLengthUpload();
 
         }
         /// <summary>
@@ -66,7 +68,8 @@ namespace demo
                 },
                 OnProgressAsync = x =>
                 {
-                    var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
+                    var totalSize = x.TotalSize ?? 0;
+                    var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / totalSize);
                     Console.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
                     return Task.CompletedTask;
                 },
@@ -132,7 +135,8 @@ namespace demo
                 {
                     isInvokeOnProgressAsync = true;
                     uploadedSize = x.UploadedSize;
-                    var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
+                    var totalSize = x.TotalSize ?? 0;
+                    var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / totalSize);
                     Console.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
                     return Task.CompletedTask;
                 },
@@ -163,7 +167,70 @@ namespace demo
             // tusPatchResp.OriginResponseMessage
             // tusPatchResp.OriginHttpRequestMessage
         }
-        
-        
+
+        /// <summary>
+        /// demonstrates deferred length upload when total size is not known in advance
+        /// </summary>
+        private static async Task DemoUseDeferredLengthUpload()
+        {
+            using var httpClient = new HttpClient();
+            var location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            // file to be uploaded
+            FileInfo fileInfo = new FileInfo(Path.Combine(location, @"TestFile/test.txt"));
+
+            using var fileStream = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read);
+            MetadataCollection metadata = new MetadataCollection();
+            metadata["filename"] = fileInfo.Name;
+
+            // Create upload with deferred length - server will determine final size
+            TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
+            {
+                Endpoint = TusEndpoint,
+                Metadata = metadata,
+                IsUploadDeferLength = true
+            };
+            var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
+
+            TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
+            {
+                FileLocation = resp.FileLocation,
+                Stream = fileStream,
+                IsUploadDeferLength = true, // Enable deferred length transfer
+                OnProgressAsync = x =>
+                {
+                    // TotalSize may be null or -1 when size is unknown during transfer
+                    var displayTotal = x.TotalSize.HasValue ? x.TotalSize.Value.ToString() : "unknown";
+                    var uploadedProgress = !x.TotalSize.HasValue || x.TotalSize.Value == -1
+                        ? (int)Math.Floor(100 * (double)x.UploadedSize / fileStream.Length)
+                        : (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize.Value);
+                    Console.WriteLine($"OnProgressAsync-TotalSize:{displayTotal}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
+                    return Task.CompletedTask;
+                },
+                OnCompletedAsync = x =>
+                {
+                    var reqOption = x.TusRequestOption as TusPatchRequestOption;
+                    Console.WriteLine($"File:{reqOption.FileLocation} Completed");
+                    return Task.CompletedTask;
+                },
+                OnFailedAsync = x =>
+                {
+                    Console.WriteLine($"error： {x.Exception.Message}");
+                    if (x.OriginHttpRequestMessage is not null)
+                    {
+                        //log httpRequest
+                    }
+
+                    if (x.OriginResponseMessage is not null)
+                    {
+                        //log response
+                    }
+                    return Task.CompletedTask;
+                }
+            };
+
+            var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
+        }
+
+
     }
 }
