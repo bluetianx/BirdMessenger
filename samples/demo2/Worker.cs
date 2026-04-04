@@ -1,52 +1,75 @@
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using BirdMessenger;
 using BirdMessenger.Collections;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace demo2
+namespace demo2;
+
+public sealed class Worker : BackgroundService
 {
-    public class Worker : BackgroundService
+    private static readonly Uri TusEndpoint = new("http://localhost:5094/files");
+
+    private readonly ILogger<Worker> _logger;
+    private readonly ITusClient _tusClient;
+
+    public Worker(ILogger<Worker> logger, ITusClient tusClient)
     {
-        private readonly ILogger<Worker> _logger;
-        private readonly ITusClient _tusClient;
-        public static Uri TusEndpoint = new Uri("http://localhost:5094/files");
+        _logger = logger;
+        _tusClient = tusClient;
+    }
 
-        public Worker(ILogger<Worker> logger, ITusClient tusClient)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    {
+        try
         {
-            _logger = logger;
-            _tusClient = tusClient;
-        }
+            var fileInfo = new FileInfo(Path.Combine(AppContext.BaseDirectory, "test.txt"));
+            using var fileStream = fileInfo.OpenRead();
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            try
-            {
-                FileInfo fileInfo = new FileInfo("test.txt");
-                MetadataCollection metadata = new MetadataCollection();
-                metadata["filename"] = fileInfo.Name;
-                TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
+            var createResponse = await _tusClient.TusCreateAsync(
+                new TusCreateRequestOption
                 {
                     Endpoint = TusEndpoint,
-                    Metadata = metadata,
-                    UploadLength = fileInfo.Length
-                };
-                var tusCreateResp = await _tusClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
-                using var fileStream = new FileStream(fileInfo.FullName,FileMode.Open,FileAccess.Read);
-                TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption()
+                    UploadLength = fileStream.Length,
+                    Metadata = CreateMetadata(fileInfo)
+                },
+                stoppingToken);
+
+            _logger.LogInformation("Standard upload created at {Location}", createResponse.FileLocation);
+
+            var patchResponse = await _tusClient.TusPatchAsync(
+                new TusPatchRequestOption
                 {
-                    FileLocation = tusCreateResp.FileLocation,
-                    Stream = fileStream
-                };
-                var tusPatchResp = await _tusClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Exec async");
-            }
+                    FileLocation = createResponse.FileLocation,
+                    Stream = fileStream,
+                    UploadType = UploadType.Stream,
+                    OnProgressAsync = evt =>
+                    {
+                        _logger.LogInformation("Worker upload progress: {Uploaded}/{Total}", evt.UploadedSize, evt.TotalSize);
+                        return Task.CompletedTask;
+                    }
+                },
+                stoppingToken);
+
+            _logger.LogInformation("Worker upload completed with {UploadedSize} bytes", patchResponse.UploadedSize);
         }
+        catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+        {
+            _logger.LogInformation("Worker upload cancelled");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Worker upload failed");
+        }
+    }
+
+    private static MetadataCollection CreateMetadata(FileInfo fileInfo)
+    {
+        var metadata = new MetadataCollection
+        {
+            ["filename"] = fileInfo.Name,
+            ["source"] = "worker"
+        };
+
+        return metadata;
     }
 }

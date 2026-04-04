@@ -1,236 +1,194 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
-using BirdMessenger;
+﻿using BirdMessenger;
 using BirdMessenger.Collections;
-using BirdMessenger.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace demo
+var sampleFile = new FileInfo(Path.Combine(AppContext.BaseDirectory, "test.txt"));
+var endpoint = new Uri("http://localhost:5094/files");
+
+Console.WriteLine($"Sample file: {sampleFile.FullName}");
+
+await ShowServerCapabilitiesAsync(endpoint);
+await UploadWithDependencyInjectionAsync(endpoint, sampleFile);
+await UploadWithHttpClientAsync(endpoint, sampleFile);
+await UploadWithDeferredLengthAsync(endpoint, sampleFile);
+
+static async Task ShowServerCapabilitiesAsync(Uri endpoint)
 {
-    class Program
+    using var httpClient = new HttpClient();
+    var optionResponse = await httpClient.TusOptionAsync(
+        new TusOptionRequestOption
+        {
+            Endpoint = endpoint
+        },
+        CancellationToken.None);
+
+    Console.WriteLine($"Server tus version: {optionResponse.TusResumableVersion}");
+    Console.WriteLine($"Supported versions: {string.Join(", ", optionResponse.TusVersions)}");
+    Console.WriteLine($"Supported extensions: {string.Join(", ", optionResponse.TusExtensions)}");
+}
+
+static async Task UploadWithDependencyInjectionAsync(Uri endpoint, FileInfo sampleFile)
+{
+    var services = new ServiceCollection();
+    services.AddHttpClient<ITusClient, TusClient>();
+
+    using var serviceProvider = services.BuildServiceProvider();
+    var tusClient = serviceProvider.GetRequiredService<ITusClient>();
+
+    using var stream = sampleFile.OpenRead();
+    var createResponse = await tusClient.TusCreateAsync(
+        new TusCreateRequestOption
+        {
+            Endpoint = endpoint,
+            UploadLength = stream.Length,
+            Metadata = BuildMetadata(sampleFile)
+        },
+        CancellationToken.None);
+
+    Console.WriteLine($"DI upload location: {createResponse.FileLocation}");
+
+    var patchResponse = await tusClient.TusPatchAsync(
+        new TusPatchRequestOption
+        {
+            FileLocation = createResponse.FileLocation,
+            Stream = stream,
+            UploadType = UploadType.Stream,
+            OnPreSendRequestAsync = evt =>
+            {
+                Console.WriteLine($"Sending {evt.HttpRequestMsg.Method} {evt.HttpRequestMsg.RequestUri}");
+                return Task.CompletedTask;
+            },
+            OnProgressAsync = evt =>
+            {
+                Console.WriteLine(FormatProgress("DI", evt.UploadedSize, evt.TotalSize));
+                return Task.CompletedTask;
+            },
+            OnCompletedAsync = evt =>
+            {
+                Console.WriteLine($"DI upload completed: {((TusPatchRequestOption)evt.TusRequestOption).FileLocation}");
+                return Task.CompletedTask;
+            },
+            OnFailedAsync = evt =>
+            {
+                Console.WriteLine($"DI upload failed: {evt.Exception.Message}");
+                return Task.CompletedTask;
+            }
+        },
+        CancellationToken.None);
+
+    Console.WriteLine($"DI uploaded bytes: {patchResponse.UploadedSize}");
+}
+
+static async Task UploadWithHttpClientAsync(Uri endpoint, FileInfo sampleFile)
+{
+    using var httpClient = new HttpClient();
+    using var stream = sampleFile.OpenRead();
+
+    var createResponse = await httpClient.TusCreateAsync(
+        new TusCreateRequestOption
+        {
+            Endpoint = endpoint,
+            UploadLength = stream.Length,
+            Metadata = BuildMetadata(sampleFile)
+        },
+        CancellationToken.None);
+
+    var headResponse = await httpClient.TusHeadAsync(
+        new TusHeadRequestOption
+        {
+            FileLocation = createResponse.FileLocation
+        },
+        CancellationToken.None);
+
+    Console.WriteLine($"Initial upload offset: {headResponse.UploadOffset}");
+
+    var patchResponse = await httpClient.TusPatchAsync(
+        new TusPatchRequestOption
+        {
+            FileLocation = createResponse.FileLocation,
+            Stream = stream,
+            UploadType = UploadType.Chunk,
+            UploadBufferSize = 256 * 1024,
+            OnProgressAsync = evt =>
+            {
+                Console.WriteLine(FormatProgress("HttpClient", evt.UploadedSize, evt.TotalSize));
+                return Task.CompletedTask;
+            },
+            OnCompletedAsync = evt =>
+            {
+                Console.WriteLine($"HttpClient upload completed: {((TusPatchRequestOption)evt.TusRequestOption).FileLocation}");
+                return Task.CompletedTask;
+            },
+            OnFailedAsync = evt =>
+            {
+                Console.WriteLine($"HttpClient upload failed: {evt.Exception.Message}");
+                return Task.CompletedTask;
+            }
+        },
+        CancellationToken.None);
+
+    Console.WriteLine($"HttpClient uploaded bytes: {patchResponse.UploadedSize}");
+
+    var deleteResponse = await httpClient.TusDeleteAsync(
+        new TusDeleteRequestOption
+        {
+            FileLocation = createResponse.FileLocation
+        },
+        CancellationToken.None);
+
+    Console.WriteLine($"Deleted upload with tus version: {deleteResponse.TusResumableVersion}");
+}
+
+static async Task UploadWithDeferredLengthAsync(Uri endpoint, FileInfo sampleFile)
+{
+    using var httpClient = new HttpClient();
+    using var stream = sampleFile.OpenRead();
+
+    var createResponse = await httpClient.TusCreateAsync(
+        new TusCreateRequestOption
+        {
+            Endpoint = endpoint,
+            IsUploadDeferLength = true,
+            Metadata = BuildMetadata(sampleFile)
+        },
+        CancellationToken.None);
+
+    var patchResponse = await httpClient.TusPatchAsync(
+        new TusPatchRequestOption
+        {
+            FileLocation = createResponse.FileLocation,
+            Stream = stream,
+            IsUploadDeferLength = true,
+            UploadType = UploadType.Stream,
+            OnProgressAsync = evt =>
+            {
+                Console.WriteLine(FormatProgress("Deferred", evt.UploadedSize, evt.TotalSize));
+                return Task.CompletedTask;
+            }
+        },
+        CancellationToken.None);
+
+    Console.WriteLine($"Deferred-length uploaded bytes: {patchResponse.UploadedSize}");
+}
+
+static MetadataCollection BuildMetadata(FileInfo fileInfo)
+{
+    var metadata = new MetadataCollection
     {
-        public static Uri TusEndpoint = new Uri("http://localhost:5094/files");
+        ["filename"] = fileInfo.Name,
+        ["contentType"] = "text/plain"
+    };
 
-        static async Task Main(string[] args)
-        {
-            await DemoUseTusClientByDependencyInjection();
+    return metadata;
+}
 
-            //await DemoUseHttpClient();
-
-            await DemoUseDeferredLengthUpload();
-
-        }
-        /// <summary>
-        /// recommend using DependencyInjection 
-        /// </summary>
-        private static async Task DemoUseTusClientByDependencyInjection()
-        {
-            var services = new ServiceCollection();
-            services.AddHttpClient<ITusClient, TusClient>(); // configure httpClient ,refer to https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests
-            var serviceProvider = services.BuildServiceProvider();
-            var tusClient = serviceProvider.GetService<ITusClient>();
-            
-            var location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            // file to be uploaded
-            FileInfo fileInfo = new FileInfo(Path.Combine(location, @"TestFile/test.txt"));
-            using var fileStream = new FileStream(fileInfo.FullName,FileMode.Open,FileAccess.Read);
-            MetadataCollection metadata = new MetadataCollection();
-            metadata["filename"] = fileInfo.Name;
-            TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
-            {
-                Endpoint = TusEndpoint,
-                Metadata = metadata,
-                UploadLength = fileStream.Length
-            };
-            var resp = await tusClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
-
-            TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
-            {
-                FileLocation = resp.FileLocation,
-                Stream = fileStream,
-                //UploadBufferSize = 2*1024*1024, // upload size ,default value is 1MB
-                //UploadType = UploadType.Chunk,  // setting upload file with Stream or chunk ,default value is Stream
-                OnPreSendRequestAsync = x =>
-                {
-                    Console.WriteLine($"x.HttpRequestMsg.Method:{x.HttpRequestMsg.Method}");
-                    foreach ( var kv in x.HttpRequestMsg.Headers)
-                    {
-                        Console.WriteLine($"key:{kv.Key}-value:{string.Join(",",kv.Value)}");
-                    }
-                    return Task.CompletedTask;
-                },
-                OnProgressAsync = x =>
-                {
-                    var totalSize = x.TotalSize ?? 0;
-                    var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / totalSize);
-                    Console.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
-                    return Task.CompletedTask;
-                },
-                OnCompletedAsync = x =>
-                {
-                    var reqOption = x.TusRequestOption as TusPatchRequestOption;
-                    Console.WriteLine($"File:{reqOption.FileLocation} Completed ");
-                    return Task.CompletedTask;
-                },
-                OnFailedAsync = x =>
-                {
-                    Console.WriteLine($"error： {x.Exception.Message}");
-                    if (x.OriginHttpRequestMessage is not null)
-                    {
-                        //log httpRequest
-                    }
-
-                    if (x.OriginResponseMessage is not null)
-                    {
-                        //log response
-                    }
-                    return Task.CompletedTask;
-                }
-            };
-            tusPatchRequestOption.HttpHeaders["testHeader"] ="testValue";
-
-            var tusPatchResp = await tusClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
-            // tusPatchResp.OriginResponseMessage
-            // tusPatchResp.OriginHttpRequestMessage
-        }
-
-        /// <summary>
-        /// using httpclient directly
-        /// </summary>
-        private static async Task DemoUseHttpClient()
-        {
-            using var httpClient = new HttpClient();
-            var location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            // file to be uploaded
-            FileInfo fileInfo = new FileInfo(Path.Combine(location, @"TestFile/test.txt"));
-            
-            var fileStream = new FileStream(fileInfo.FullName,FileMode.Open,FileAccess.Read);
-            MetadataCollection metadata = new MetadataCollection();
-            metadata["filename"] = fileInfo.Name;
-            TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
-            {
-                Endpoint = TusEndpoint,
-                Metadata = metadata,
-                UploadLength = fileStream.Length
-            };
-            var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
-            bool isInvokeOnProgressAsync = false;
-            bool isInvokeOnCompletedAsync = false;
-            long uploadedSize = 0;
-
-            TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
-            {
-                FileLocation = resp.FileLocation,
-                Stream = fileStream,
-                //UploadBufferSize = 2*1024*1024, // upload size ,default value is 1MB
-                //UploadType = UploadType.Chunk,  // setting upload file with Stream or chunk ,default value is Stream
-                OnProgressAsync = x =>
-                {
-                    isInvokeOnProgressAsync = true;
-                    uploadedSize = x.UploadedSize;
-                    var totalSize = x.TotalSize ?? 0;
-                    var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / totalSize);
-                    Console.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
-                    return Task.CompletedTask;
-                },
-                OnCompletedAsync = x =>
-                {
-                    isInvokeOnCompletedAsync = true;
-                    var reqOption = x.TusRequestOption as TusPatchRequestOption;
-                    Console.WriteLine($"File:{reqOption.FileLocation} Completed ");
-                    return Task.CompletedTask;
-                },
-                OnFailedAsync = x =>
-                {
-                    Console.WriteLine($"error： {x.Exception.Message}");
-                    if (x.OriginHttpRequestMessage is not null)
-                    {
-                        //log httpRequest
-                    }
-
-                    if (x.OriginResponseMessage is not null)
-                    {
-                        //log response
-                    }
-                    return Task.CompletedTask;
-                }
-            };
-
-            var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
-            // tusPatchResp.OriginResponseMessage
-            // tusPatchResp.OriginHttpRequestMessage
-        }
-
-        /// <summary>
-        /// demonstrates deferred length upload when total size is not known in advance
-        /// </summary>
-        private static async Task DemoUseDeferredLengthUpload()
-        {
-            using var httpClient = new HttpClient();
-            var location = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            // file to be uploaded
-            FileInfo fileInfo = new FileInfo(Path.Combine(location, @"TestFile/test.txt"));
-
-            using var fileStream = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read);
-            MetadataCollection metadata = new MetadataCollection();
-            metadata["filename"] = fileInfo.Name;
-
-            // Create upload with deferred length - server will determine final size
-            TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
-            {
-                Endpoint = TusEndpoint,
-                Metadata = metadata,
-                IsUploadDeferLength = true
-            };
-            var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
-
-            TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
-            {
-                FileLocation = resp.FileLocation,
-                Stream = fileStream,
-                IsUploadDeferLength = true, // Enable deferred length transfer
-                OnProgressAsync = x =>
-                {
-                    // TotalSize may be null or -1 when size is unknown during transfer
-                    var displayTotal = x.TotalSize.HasValue ? x.TotalSize.Value.ToString() : "unknown";
-                    var uploadedProgress = !x.TotalSize.HasValue || x.TotalSize.Value == -1
-                        ? (int)Math.Floor(100 * (double)x.UploadedSize / fileStream.Length)
-                        : (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize.Value);
-                    Console.WriteLine($"OnProgressAsync-TotalSize:{displayTotal}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
-                    return Task.CompletedTask;
-                },
-                OnCompletedAsync = x =>
-                {
-                    var reqOption = x.TusRequestOption as TusPatchRequestOption;
-                    Console.WriteLine($"File:{reqOption.FileLocation} Completed");
-                    return Task.CompletedTask;
-                },
-                OnFailedAsync = x =>
-                {
-                    Console.WriteLine($"error： {x.Exception.Message}");
-                    if (x.OriginHttpRequestMessage is not null)
-                    {
-                        //log httpRequest
-                    }
-
-                    if (x.OriginResponseMessage is not null)
-                    {
-                        //log response
-                    }
-                    return Task.CompletedTask;
-                }
-            };
-
-            var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
-        }
-
-
+static string FormatProgress(string label, long uploadedSize, long? totalSize)
+{
+    if (!totalSize.HasValue || totalSize.Value <= 0)
+    {
+        return $"{label} progress: {uploadedSize} bytes";
     }
+
+    var percent = (int)Math.Floor(100d * uploadedSize / totalSize.Value);
+    return $"{label} progress: {uploadedSize}/{totalSize.Value} ({percent}%)";
 }

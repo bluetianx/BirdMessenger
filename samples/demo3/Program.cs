@@ -1,93 +1,74 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Reflection;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Text;
 using BirdMessenger;
 using BirdMessenger.Collections;
-using BirdMessenger.Infrastructure;
 
-namespace demo3
-{
-    class Program
+var endpoint = new Uri("http://localhost:5094/files");
+using var httpClient = new HttpClient();
+using var stream = CreateSampleStream(4 * 1024 * 1024);
+
+var createResponse = await httpClient.TusCreateAsync(
+    new TusCreateRequestOption
     {
-        static async Task Main(string[] args)
+        Endpoint = endpoint,
+        UploadLength = stream.Length,
+        Metadata = new MetadataCollection
         {
-            using var stream = new MemoryStream(1024 * 1024 * 32);
-
-            for (var i = 0; i < 1024 * 1024 * 32; i++)
-            {
-                stream.Write(Encoding.UTF8.GetBytes(BitConverter.ToString(new byte[] { (byte)i }), 0, 2));
-            }
-
-            //reset position
-            stream.Position = 0;
-
-            // remote tus service
-            var tusEndPoint = new Uri(@"http://localhost:5094/files");
-
-            using var httpClient = new HttpClient();
-            MetadataCollection metadata = new MetadataCollection();
-            metadata["filename"] = "fileName";
-            TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
-            {
-                Endpoint = tusEndPoint,
-                Metadata = metadata,
-                UploadLength = stream.Length
-            };
-            var resp = await httpClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
-            bool isInvokeOnProgressAsync = false;
-            bool isInvokeOnCompletedAsync = false;
-            long uploadedSize = 0;
-
-            TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
-            {
-                FileLocation = resp.FileLocation,
-                Stream = stream,
-                OnProgressAsync = x =>
-                {
-                    isInvokeOnProgressAsync = true;
-                    uploadedSize = x.UploadedSize;
-                    var uploadedProgress = 0;
-                    if (x.TotalSize.HasValue)
-                    {
-                        uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize.Value);
-                    }
-                    Console.WriteLine(
-                        $"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
-                    return Task.CompletedTask;
-                },
-                OnCompletedAsync = x =>
-                {
-                    isInvokeOnCompletedAsync = true;
-                    var reqOption = x.TusRequestOption as TusPatchRequestOption;
-                    Console.WriteLine($"File:{reqOption.FileLocation} Completed ");
-                    return Task.CompletedTask;
-                },
-                OnFailedAsync = x =>
-                {
-                    Console.WriteLine($"error： {x.Exception.Message}");
-                    if (x.OriginHttpRequestMessage is not null)
-                    {
-                        //log httpRequest
-                    }
-
-                    if (x.OriginResponseMessage is not null)
-                    {
-                        //log response
-                    }
-                    return Task.CompletedTask;
-                }
-            };
-
-            var tusPatchResp = await httpClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
-            
-            // tusPatchResp.OriginResponseMessage
-            // tusPatchResp.OriginHttpRequestMessage
+            ["filename"] = "memory-stream.txt",
+            ["contentType"] = "text/plain"
         }
+    },
+    CancellationToken.None);
+
+var patchResponse = await httpClient.TusPatchAsync(
+    new TusPatchRequestOption
+    {
+        FileLocation = createResponse.FileLocation,
+        Stream = stream,
+        UploadType = UploadType.Stream,
+        OnProgressAsync = evt =>
+        {
+            Console.WriteLine($"Memory upload progress: {evt.UploadedSize}/{evt.TotalSize}");
+            return Task.CompletedTask;
+        },
+        OnCompletedAsync = evt =>
+        {
+            Console.WriteLine($"Memory upload completed: {((TusPatchRequestOption)evt.TusRequestOption).FileLocation}");
+            return Task.CompletedTask;
+        },
+        OnFailedAsync = evt =>
+        {
+            Console.WriteLine($"Memory upload failed: {evt.Exception.Message}");
+            return Task.CompletedTask;
+        }
+    },
+    CancellationToken.None);
+
+var headResponse = await httpClient.TusHeadAsync(
+    new TusHeadRequestOption
+    {
+        FileLocation = createResponse.FileLocation
+    },
+    CancellationToken.None);
+
+Console.WriteLine($"Uploaded {patchResponse.UploadedSize} bytes");
+Console.WriteLine($"Remote upload offset: {headResponse.UploadOffset}");
+
+static MemoryStream CreateSampleStream(int sizeInBytes)
+{
+    var stream = new MemoryStream(sizeInBytes);
+    var line = Encoding.UTF8.GetBytes("BirdMessenger sample payload\n");
+
+    while (stream.Length + line.Length <= sizeInBytes)
+    {
+        stream.Write(line, 0, line.Length);
     }
+
+    if (stream.Length < sizeInBytes)
+    {
+        var remaining = sizeInBytes - (int)stream.Length;
+        stream.Write(line, 0, remaining);
+    }
+
+    stream.Position = 0;
+    return stream;
 }
