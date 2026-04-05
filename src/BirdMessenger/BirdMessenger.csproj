@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <PackageId>BirdMessenger</PackageId>
-        <Version>4.0.0-preview.1</Version>
+        <Version>4.0.0-beta1</Version>
         <Authors>BruceTian</Authors>
         <PackageTags>tus;resumable file uploads</PackageTags>
         <PackageProjectUrl>https://github.com/bluetianx/BirdMessenger</PackageProjectUrl>
