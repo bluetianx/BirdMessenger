@@ -29,7 +29,7 @@
                 Stream = fileStream,
                 OnProgressAsync = x =>
                 {
-                    var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
+                    var uploadedProgress = x.TotalSize.HasValue ? (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize.Value) : 0;
                     Console.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
                     return Task.CompletedTask;
                 },
@@ -59,6 +59,32 @@
             // tusPatchResp.OriginResponseMessage
             // tusPatchResp.OriginHttpRequestMessage
 ```
+
+* Deferred Length Upload
+
+```c#
+            // Use Defer Length when the upload size is not known upfront
+            TusCreateRequestOption tusCreateRequestOption = new TusCreateRequestOption()
+            {
+                Endpoint = TusEndpoint,
+                IsUploadDeferLength = true
+            };
+            var resp = await tusClient.TusCreateAsync(tusCreateRequestOption, CancellationToken.None);
+
+            TusPatchRequestOption tusPatchRequestOption = new TusPatchRequestOption
+            {
+                FileLocation = resp.FileLocation,
+                Stream = fileStream,
+                IsUploadDeferLength = true,
+                OnProgressAsync = x =>
+                {
+                    var uploadedSize = x.UploadedSize;
+                    return Task.CompletedTask;
+                }
+            };
+            var tusPatchResp = await tusClient.TusPatchAsync(tusPatchRequestOption, CancellationToken.None);
+```
+
 * Using HttpClient Extension Methods directly
 
   ```c#
@@ -89,7 +115,7 @@
                   {
                       isInvokeOnProgressAsync = true;
                       uploadedSize = x.UploadedSize;
-                      var uploadedProgress = (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize);
+                      var uploadedProgress = x.TotalSize.HasValue ? (int)Math.Floor(100 * (double)x.UploadedSize / x.TotalSize.Value) : 0;
                       Console.WriteLine($"OnProgressAsync-TotalSize:{x.TotalSize}-UploadedSize:{x.UploadedSize}-uploadedProgress:{uploadedProgress}");
                       return Task.CompletedTask;
                   },
@@ -230,15 +256,16 @@ Task<TusPatchResponse> TusPatchAsync(TusPatchRequestOption reqOption, Cancellati
 
 [Derived TusRequestOptionBase](#TusRequestOptionBase)
 
-| Name             | Type                             | Definition                                                   |
-| ---------------- | -------------------------------- | ------------------------------------------------------------ |
-| Stream           | Stream                           | file stream                                                  |
-| FileLocation     | Uri                              | file uri                                                     |
-| UploadBufferSize | uint                             | uploadSize ,default value 1MB                                |
-| UploadType       | UploadType                       | setting upload file with chunk or stream, default value is Stream |
-| OnProgressAsync  | Func<UploadProgressEvent,Task>?  | invoke when uploading file                                   |
-| OnFailedAsync    | Func<UploadExceptionEvent,Task>? | invoke when appear a Exception                               |
-| OnCompletedAsync | Func<UploadCompletedEvent,Task>? | invoke when complete uploading                               |
+| Name                | Type                             | Definition                                                   |
+| ------------------- | -------------------------------- | ------------------------------------------------------------ |
+| Stream              | Stream                           | file stream                                                  |
+| FileLocation        | Uri                              | file uri                                                     |
+| UploadBufferSize    | uint                             | uploadSize ,default value 1MB                                |
+| UploadType          | UploadType                       | setting upload file with chunk or stream, default value is Stream |
+| IsUploadDeferLength | bool                             | indicates that the size of the upload is not known currently and will be transferred later |
+| OnProgressAsync     | Func<UploadProgressEvent,Task>?  | invoke when uploading file                                   |
+| OnFailedAsync       | Func<UploadExceptionEvent,Task>? | invoke when appear a Exception                               |
+| OnCompletedAsync    | Func<UploadCompletedEvent,Task>? | invoke when complete uploading                               |
 
 
 
@@ -408,3 +435,44 @@ Derived Exception
 | ------------------ | ------------------- | -------------------- |
 | OriginHttpRequest  | HttpRequestMessage  | origin http request  |
 | OriginHttpResponse | HttpResponseMessage | origin http response |
+
+#### UploadProgressEvent
+
+##### Definition
+
+Derived UploadEvent
+
+##### Properties
+
+| Name         | Type   | Definition                                              |
+| ------------ | ------ | ------------------------------------------------------- |
+| TotalSize    | long?  | total size of the upload in bytes, null if unknown      |
+| UploadedSize | long   | size of uploaded bytes                                  |
+
+#### UploadCompletedEvent
+
+##### Definition
+
+Derived UploadEvent
+
+##### Properties
+
+| Name                  | Type                | Definition               |
+| --------------------- | ------------------- | ------------------------ |
+| TusRequestOption      | TusRequestOptionBase |                          |
+| OriginResponseMessage | HttpResponseMessage | origin http response     |
+
+#### UploadExceptionEvent
+
+##### Definition
+
+Derived UploadEvent
+
+##### Properties
+
+| Name                     | Type                | Definition                       |
+| ------------------------ | ------------------- | -------------------------------- |
+| TusRequestOption         | TusRequestOptionBase |                                  |
+| Exception                | Exception           | exception during upload          |
+| OriginHttpResponse       | HttpResponseMessage | origin http response             |
+| OriginHttpRequestMessage | HttpRequestMessage  | origin http request              |
