@@ -89,5 +89,19 @@ namespace BirdMessenger
 
             return resp;
         }
+
+        /// <summary>
+        /// download file
+        /// </summary>
+        /// <param name="reqOption"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        public async Task<TusDownloadResponse> TusDownloadAsync(TusDownloadRequestOption reqOption,
+            CancellationToken ct = default)
+        {
+            var resp = await _httpClient.TusDownloadAsync(reqOption, ct);
+
+            return resp;
+        }
     }
 }

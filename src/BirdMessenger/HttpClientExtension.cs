@@ -938,4 +938,164 @@ public static class HttpClientExtension
 
         return tusResp;
     }
+
+    /// <summary>
+    /// download file from server
+    /// </summary>
+    public static async Task<TusDownloadResponse> TusDownloadAsync(this HttpClient httpClient,
+        TusDownloadRequestOption reqOption, CancellationToken ct = default)
+    {
+        if (reqOption is null)
+        {
+            throw new ArgumentNullException(nameof(reqOption));
+        }
+
+        if (reqOption.FileLocation is null)
+        {
+            throw new ArgumentNullException(nameof(reqOption));
+        }
+
+        if (reqOption.OutputStream is null)
+        {
+            throw new ArgumentNullException(nameof(reqOption));
+        }
+
+        if (reqOption.DownloadBufferSize == 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(reqOption.DownloadBufferSize),
+                "DownloadBufferSize must be greater than zero");
+        }
+
+        long downloadedSize = 0;
+        long? totalSize = null;
+        HttpRequestMessage httpReqMsg = null;
+        HttpResponseMessage response = null;
+        var tusDownloadResponse = new TusDownloadResponse();
+
+        try
+        {
+            httpReqMsg = new HttpRequestMessage(HttpMethod.Get, reqOption.FileLocation);
+            httpReqMsg.Headers.Add(TusHeaders.TusResumable, reqOption.TusVersion.GetEnumDescription());
+
+            if (reqOption.OutputStream.CanSeek && reqOption.OutputStream.Position > 0)
+            {
+                var offset = reqOption.OutputStream.Position;
+                httpReqMsg.Headers.Range = new System.Net.Http.Headers.RangeHeaderValue(offset, null);
+            }
+
+            reqOption.AddCustomHttpHeaders(httpReqMsg);
+
+            if (reqOption.OnPreSendRequestAsync is not null)
+            {
+                PreSendRequestEvent preSendRequestEvent = new PreSendRequestEvent(reqOption, httpReqMsg);
+                await reqOption.OnPreSendRequestAsync(preSendRequestEvent);
+            }
+
+            response = await httpClient.SendAsync(httpReqMsg, HttpCompletionOption.ResponseHeadersRead, ct);
+
+            if (response.StatusCode != HttpStatusCode.OK &&
+                response.StatusCode != HttpStatusCode.PartialContent)
+            {
+                throw new TusException($"download response statusCode is {response.StatusCode}", httpReqMsg,
+                    response);
+            }
+
+            var tusVersionStr = response.GetValueOfHeaderWithoutException(TusHeaders.TusResumable);
+            if (!string.IsNullOrWhiteSpace(tusVersionStr))
+            {
+                tusDownloadResponse.TusResumableVersion = tusVersionStr.ConvertToTusVersion();
+            }
+
+            if (response.StatusCode == HttpStatusCode.PartialContent)
+            {
+                if (response.Content.Headers.ContentRange != null)
+                {
+                    totalSize = response.Content.Headers.ContentRange.Length;
+                }
+
+                downloadedSize = reqOption.OutputStream.CanSeek ? reqOption.OutputStream.Position : 0;
+            }
+            else
+            {
+                downloadedSize = 0;
+            }
+
+            if (totalSize == null && response.Content.Headers.ContentLength.HasValue)
+            {
+                if (response.StatusCode == HttpStatusCode.PartialContent && reqOption.OutputStream.CanSeek)
+                {
+                    totalSize = response.Content.Headers.ContentLength + reqOption.OutputStream.Position;
+                }
+                else
+                {
+                    totalSize = response.Content.Headers.ContentLength;
+                }
+            }
+
+            var downloadProgressEvent = new DownloadProgressEvent(reqOption, totalSize)
+            {
+                DownloadedSize = downloadedSize
+            };
+
+            using (var responseStream = await response.Content.ReadAsStreamAsync())
+            {
+                var buffer = new byte[reqOption.DownloadBufferSize];
+                int bytesRead;
+
+                while ((bytesRead = await responseStream.ReadAsync(buffer, 0, buffer.Length, ct)) > 0)
+                {
+                    await reqOption.OutputStream.WriteAsync(buffer, 0, bytesRead, ct);
+                    downloadedSize += bytesRead;
+
+                    if (reqOption.OnProgressAsync is not null)
+                    {
+                        downloadProgressEvent.DownloadedSize = downloadedSize;
+                        await reqOption.OnProgressAsync(downloadProgressEvent);
+                    }
+                }
+            }
+
+            tusDownloadResponse.DownloadedSize = downloadedSize;
+            tusDownloadResponse.TotalSize = totalSize ?? downloadedSize;
+
+            if (reqOption.OnCompletedAsync is not null)
+            {
+                DownloadCompletedEvent downloadCompletedEvent = new DownloadCompletedEvent(reqOption, response);
+                await reqOption.OnCompletedAsync(downloadCompletedEvent);
+            }
+        }
+        catch (TusException tusException)
+        {
+            httpReqMsg = tusException.OriginHttpRequest;
+            response = tusException.OriginHttpResponse;
+            if (reqOption.OnFailedAsync is not null)
+            {
+                DownloadExceptionEvent downloadExceptionEvent =
+                    new DownloadExceptionEvent(reqOption, tusException)
+                    {
+                        OriginHttpRequestMessage = httpReqMsg,
+                        OriginResponseMessage = response
+                    };
+                await reqOption.OnFailedAsync(downloadExceptionEvent);
+            }
+        }
+        catch (Exception e)
+        {
+            if (reqOption.OnFailedAsync is not null)
+            {
+                DownloadExceptionEvent downloadExceptionEvent = new DownloadExceptionEvent(reqOption, e)
+                {
+                    OriginHttpRequestMessage = httpReqMsg,
+                    OriginResponseMessage = response
+                };
+                await reqOption.OnFailedAsync(downloadExceptionEvent);
+            }
+        }
+
+        tusDownloadResponse.OriginHttpRequestMessage = httpReqMsg;
+        tusDownloadResponse.OriginResponseMessage = response;
+        tusDownloadResponse.DownloadedSize = downloadedSize;
+
+        return tusDownloadResponse;
+    }
 }

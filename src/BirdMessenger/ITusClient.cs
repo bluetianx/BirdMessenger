@@ -48,5 +48,13 @@ namespace BirdMessenger
         /// <param name="ct"></param>
         /// <returns></returns>
         Task<TusDeleteResponse> TusDeleteAsync(TusDeleteRequestOption reqOption, CancellationToken ct);
+
+        /// <summary>
+        /// download file
+        /// </summary>
+        /// <param name="reqOption"></param>
+        /// <param name="ct"></param>
+        /// <returns></returns>
+        Task<TusDownloadResponse> TusDownloadAsync(TusDownloadRequestOption reqOption, CancellationToken ct = default);
     }
 }

@@ -8,7 +8,9 @@ var endpoint = new Uri("http://localhost:5094/files");
 Console.WriteLine($"Sample file: {sampleFile.FullName}");
 
 await ShowServerCapabilitiesAsync(endpoint);
-await UploadWithDependencyInjectionAsync(endpoint, sampleFile);
+var uploadedFileUrl = await UploadWithDependencyInjectionAsync(endpoint, sampleFile);
+await DownloadFileAsync(uploadedFileUrl);
+await DownloadFileWithResumeAsync(uploadedFileUrl, sampleFile);
 await UploadWithHttpClientAsync(endpoint, sampleFile);
 await UploadWithDeferredLengthAsync(endpoint, sampleFile);
 
@@ -27,7 +29,7 @@ static async Task ShowServerCapabilitiesAsync(Uri endpoint)
     Console.WriteLine($"Supported extensions: {string.Join(", ", optionResponse.TusExtensions)}");
 }
 
-static async Task UploadWithDependencyInjectionAsync(Uri endpoint, FileInfo sampleFile)
+static async Task<Uri> UploadWithDependencyInjectionAsync(Uri endpoint, FileInfo sampleFile)
 {
     var services = new ServiceCollection();
     services.AddHttpClient<ITusClient, TusClient>();
@@ -77,6 +79,79 @@ static async Task UploadWithDependencyInjectionAsync(Uri endpoint, FileInfo samp
         CancellationToken.None);
 
     Console.WriteLine($"DI uploaded bytes: {patchResponse.UploadedSize}");
+
+    return createResponse.FileLocation;
+}
+
+static async Task DownloadFileAsync(Uri fileLocation)
+{
+    using var httpClient = new HttpClient();
+    var downloadPath = Path.Combine(AppContext.BaseDirectory, "downloaded.txt");
+    await using var outputStream = new FileStream(downloadPath, FileMode.Create, FileAccess.Write);
+
+    var downloadResponse = await httpClient.TusDownloadAsync(
+        new TusDownloadRequestOption
+        {
+            FileLocation = fileLocation,
+            OutputStream = outputStream,
+            OnPreSendRequestAsync = evt =>
+            {
+                Console.WriteLine($"Download: Sending {evt.HttpRequestMsg.Method} {evt.HttpRequestMsg.RequestUri}");
+                return Task.CompletedTask;
+            },
+            OnProgressAsync = evt =>
+            {
+                Console.WriteLine($"Download progress: {evt.DownloadedSize}/{evt.TotalSize}");
+                return Task.CompletedTask;
+            },
+            OnCompletedAsync = evt =>
+            {
+                Console.WriteLine("Download completed!");
+                return Task.CompletedTask;
+            },
+            OnFailedAsync = evt =>
+            {
+                Console.WriteLine($"Download failed: {evt.Exception.Message}");
+                return Task.CompletedTask;
+            }
+        },
+        CancellationToken.None);
+
+    Console.WriteLine($"Downloaded bytes: {downloadResponse.DownloadedSize}, TotalSize: {downloadResponse.TotalSize}");
+}
+
+static async Task DownloadFileWithResumeAsync(Uri fileLocation, FileInfo originalFile)
+{
+    using var httpClient = new HttpClient();
+    var downloadPath = Path.Combine(AppContext.BaseDirectory, "downloaded_resume.txt");
+
+    await using (var partialStream = new FileStream(downloadPath, FileMode.Create, FileAccess.Write))
+    {
+        var downloadResponse = await httpClient.TusDownloadAsync(
+            new TusDownloadRequestOption
+            {
+                FileLocation = fileLocation,
+                OutputStream = partialStream,
+                DownloadBufferSize = 256 * 1024,
+                OnProgressAsync = evt =>
+                {
+                    Console.WriteLine($"Resume-download progress: {evt.DownloadedSize}/{evt.TotalSize}");
+                    return Task.CompletedTask;
+                },
+                OnCompletedAsync = evt =>
+                {
+                    Console.WriteLine("Resume-download completed!");
+                    return Task.CompletedTask;
+                }
+            },
+            CancellationToken.None);
+
+        Console.WriteLine($"Resume-download bytes: {downloadResponse.DownloadedSize}");
+    }
+
+    var downloadedContent = await File.ReadAllTextAsync(downloadPath);
+    var originalContent = await File.ReadAllTextAsync(originalFile.FullName);
+    Console.WriteLine($"Content match: {downloadedContent == originalContent}");
 }
 
 static async Task UploadWithHttpClientAsync(Uri endpoint, FileInfo sampleFile)

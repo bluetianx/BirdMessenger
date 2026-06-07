@@ -145,4 +145,49 @@ public class ParameterValidationTest
             httpClient.TusDeleteAsync(new TusDeleteRequestOption { FileLocation = null }, default));
         Assert.Equal("reqOption", exception.ParamName);
     }
+
+    [Fact]
+    public async Task TusDownloadAsync_ThrowsArgumentNullException_WhenReqOptionIsNull()
+    {
+        using var httpClient = new HttpClient();
+        var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
+            httpClient.TusDownloadAsync(null, default));
+        Assert.Equal("reqOption", exception.ParamName);
+    }
+
+    [Fact]
+    public async Task TusDownloadAsync_ThrowsArgumentNullException_WhenFileLocationIsNull()
+    {
+        using var httpClient = new HttpClient();
+        var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
+            httpClient.TusDownloadAsync(new TusDownloadRequestOption { FileLocation = null }, default));
+        Assert.Equal("reqOption", exception.ParamName);
+    }
+
+    [Fact]
+    public async Task TusDownloadAsync_ThrowsArgumentNullException_WhenOutputStreamIsNull()
+    {
+        using var httpClient = new HttpClient();
+        var exception = await Assert.ThrowsAsync<ArgumentNullException>(() =>
+            httpClient.TusDownloadAsync(new TusDownloadRequestOption
+            {
+                FileLocation = new Uri("http://localhost/files"),
+                OutputStream = null
+            }, default));
+        Assert.Equal("reqOption", exception.ParamName);
+    }
+
+    [Fact]
+    public async Task TusDownloadAsync_ThrowsArgumentOutOfRangeException_WhenDownloadBufferSizeIsZero()
+    {
+        using var httpClient = new HttpClient();
+        var exception = await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
+            httpClient.TusDownloadAsync(new TusDownloadRequestOption
+            {
+                FileLocation = new Uri("http://localhost/files"),
+                OutputStream = new System.IO.MemoryStream(),
+                DownloadBufferSize = 0
+            }, default));
+        Assert.Equal("DownloadBufferSize", exception.ParamName);
+    }
 }
